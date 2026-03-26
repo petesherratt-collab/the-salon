@@ -9,20 +9,38 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── THEMES ── */
     [data-theme="parchment"] {
-      --ink: #1a1510; --parchment: #f7f2e8; --card: #f2ece0;
-      --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
-      --rule: #d6c9a8; --shadow: rgba(26,21,16,0.08); --muted: #9a8870;
-      --header-bg: #1a1510;
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+      --muted:      #9a8870;
+      --card:       #f2ece0;
     }
 
     [data-theme="medici"] {
-      --ink: #f0e6d0; --parchment: #1a0a06; --card: #2a1208;
-      --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
-      --rule: #5a2a18; --shadow: rgba(0,0,0,0.4); --muted: #c8a870;
-      --header-bg: #0e0502;
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+      --muted:      #c8a870;
+      --card:       #2a1208;
     }
 
+    /* ── TEXTURE OVERLAY ── */
     [data-theme="medici"][data-textures="on"] body::before {
       content: '';
       position: fixed;
@@ -43,6 +61,7 @@
       transition: background 0.4s, color 0.4s;
     }
 
+    /* ── SITE HEADER ── */
     .site-header {
       background: var(--header-bg);
       color: var(--ink);
@@ -61,8 +80,10 @@
     }
 
     .theme-btn {
-      width: 22px; height: 22px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3); cursor: pointer;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
     }
     .theme-btn:hover { transform: scale(1.2); }
@@ -71,10 +92,13 @@
     .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
 
     .texture-btn {
-      width: 22px; height: 22px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3); cursor: pointer;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.65rem; color: rgba(255,255,255,0.5);
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
       background: rgba(255,255,255,0.08);
       transition: transform 0.2s, border-color 0.2s, color 0.2s;
       user-select: none;
@@ -85,88 +109,193 @@
     .masthead-dateline {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.65rem; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
     }
     .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
 
-    .masthead-rule { border: none; border-top: 1px solid var(--gold); opacity: 0.4; margin: 0 auto 1rem; width: 60%; }
+    .masthead-rule {
+      border: none; border-top: 1px solid var(--gold);
+      opacity: 0.4; margin: 0 auto 1rem; width: 60%;
+    }
 
     .masthead-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 400; letter-spacing: 0.02em;
-      line-height: 1; color: var(--gold-light); margin-bottom: 0.4rem;
+      line-height: 1; color: var(--gold-light);
+      margin-bottom: 0.4rem;
     }
     .masthead-title em { font-style: italic; color: var(--crimson); }
 
     .masthead-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.95rem; font-style: italic;
-      font-weight: 300; color: var(--gold);
-      opacity: 0.6; letter-spacing: 0.04em; margin-bottom: 0;
+      font-weight: 300; color: var(--muted);
+      letter-spacing: 0.04em; margin-bottom: 0;
     }
 
     .masthead-archive-label {
       font-family: 'Cinzel', serif;
       font-size: 0.6rem; letter-spacing: 0.3em;
       color: var(--gold); opacity: 0.6;
-      text-transform: uppercase;
-      padding-bottom: 0.75rem; display: block;
+      text-transform: uppercase; margin-top: 0.5rem;
+      padding-bottom: 0.75rem;
+      display: block;
     }
 
+    /* ── SITE NAV ── */
     .site-nav {
       display: flex; justify-content: center; align-items: center;
       gap: 0; background: var(--header-bg);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       position: relative; z-index: 10;
     }
+
     .site-nav a {
-      font-family: 'Cinzel', serif; font-size: 0.58rem;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      text-decoration: none; color: var(--gold); opacity: 0.65;
-      padding: 0.75rem 1.6rem; border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--muted); padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
       white-space: nowrap;
     }
-    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
-    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav a:hover      { color: var(--gold-light); border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { color: var(--gold-light); border-bottom-color: var(--gold); }
     .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
 
     main {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 3rem 2rem 5rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem; position: relative; z-index: 1;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .idx-card {
-      display: block; text-decoration: none;
-      background: var(--card); border: 1px solid var(--rule);
-      border-top: 3px solid var(--crimson); padding: 1.5rem;
-      color: var(--ink); transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block;
+      text-decoration: none;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--crimson);
+      padding: 1.5rem;
+      color: var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .idx-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); border-top-color: var(--gold); }
 
-    .idx-issue { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    /* Texture on cards when texture mode is on */
+    [data-theme="medici"][data-textures="on"] .idx-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .idx-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px var(--shadow);
+      border-top-color: var(--gold);
+    }
+
+    .idx-issue {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
     .idx-questions { margin-bottom: 0.9rem; }
-    .idx-question { font-size: 0.95rem; font-style: italic; color: var(--ink); line-height: 1.45; margin-bottom: 0.3rem; }
+
+    .idx-question {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.45;
+      margin-bottom: 0.3rem;
+    }
+
     .idx-question::before { content: '"'; }
     .idx-question::after  { content: '"'; }
-    .idx-maxim-block { border-top: 1px solid var(--rule); padding-top: 0.75rem; margin-bottom: 0.9rem; }
-    .idx-maxim { font-size: 0.82rem; font-style: italic; color: var(--muted); line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 0.65rem; margin-bottom: 0.3rem; }
-    .idx-attr { font-size: 0.68rem; color: var(--gold); padding-left: 0.65rem; }
-    .idx-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); padding-top: 0.75rem; margin-top: 0.25rem; }
+
+    .idx-maxim-block {
+      border-top: 1px solid var(--rule);
+      padding-top: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .idx-maxim {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.55;
+      border-left: 2px solid var(--gold);
+      padding-left: 0.65rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .idx-attr {
+      font-size: 0.68rem;
+      color: var(--gold);
+      padding-left: 0.65rem;
+    }
+
+    .idx-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--rule);
+      padding-top: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
     .idx-dots { display: flex; align-items: center; gap: 4px; }
-    .idx-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); opacity: 0.5; display: inline-block; }
-    .idx-dot-more { font-size: 0.6rem; color: var(--gold); opacity: 0.5; margin-left: 2px; }
-    .idx-voice-count { font-size: 0.65rem; color: var(--muted); margin-left: 6px; font-style: italic; }
-    .idx-read { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.05em; }
+
+    .idx-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.5;
+      display: inline-block;
+    }
+
+    .idx-dot-more {
+      font-size: 0.6rem;
+      color: var(--gold);
+      opacity: 0.5;
+      margin-left: 2px;
+    }
+
+    .idx-voice-count {
+      font-size: 0.65rem;
+      color: var(--rule);
+      margin-left: 6px;
+      font-style: italic;
+    }
+
+    .idx-read {
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
 
     footer {
-      text-align: center; padding: 2rem; font-size: 0.75rem;
-      font-style: italic; color: var(--gold); opacity: 0.5;
-      border-top: 1px solid var(--rule); position: relative; z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--gold);
+      opacity: 0.5;
+      border-top: 1px solid var(--rule);
     }
   </style>
 </head>
@@ -183,27 +312,15 @@
     <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
     <span class="masthead-archive-label">Archive</span>
   </header>
+
   <nav class="site-nav">
-    <a href="salon.html">The Salon</a>
+    <a href="index.html">The Salon</a>
     <span class="nav-divider"></span>
     <a href="salon-index.html" class="active">The Judgement</a>
     <span class="nav-divider"></span>
     <a href="voices.html">The Voices</a>
   </nav>
   <main>
-    <a class="idx-card" href="judgements/salon-2026-03-26-1013.html">
-      <div class="idx-issue">Issue VIII · 26 March 2026</div>
-      <div class="idx-questions"><p class="idx-question">In the wake of the 2026 Middle East escalation and the subsequent global energy crunch, should Western nations pause their 'Net Zero' commitments to prioritize immediate economic survival and national security?</p></div>
-      
-      <div class="idx-maxim-block">
-        <div class="idx-maxim">"A state that cannot heat its own cities in winter has already lost its freedom, regardless of which master supplies the fuel."</div>
-        <div class="idx-attr">— Machiavelli</div>
-      </div>
-      <div class="idx-footer">
-        <div class="idx-dots"><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot-more">+2</span><span class="idx-voice-count">10 voices</span></div>
-        <span class="idx-read">Read →</span>
-      </div>
-    </a>
     <a class="idx-card" href="judgements/salon-2026-03-25-1627.html">
       <div class="idx-issue">Issue VII · 25 March 2026</div>
       <div class="idx-questions"><p class="idx-question">Does the shift toward 'Remote Work' improve economic efficiency through reduced overhead and better work-life balance, or does it diminish long-term growth by eroding 'Agglomeration Economies' and informal knowledge sharing?</p></div>
@@ -295,8 +412,10 @@
         <span class="idx-read">Read →</span>
       </div>
     </a></main>
-  <footer>The Salon · 8 issues in the archive</footer>
+  <footer>The Salon · 7 issues in the archive</footer>
+
   <script>
+    // ── THEME ──
     const themeBtns = document.querySelectorAll('.theme-btn');
     themeBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -306,10 +425,15 @@
         localStorage.setItem('salon-theme', btn.dataset.t);
       });
     });
-    const savedTheme = localStorage.getItem('salon-theme') || 'medici';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+    const savedTheme = localStorage.getItem('salon-theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+    } else {
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === 'medici'));
+    }
 
+    // ── TEXTURE ──
     const texBtn = document.querySelector('.texture-btn');
     const applyTexture = (on) => {
       document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');

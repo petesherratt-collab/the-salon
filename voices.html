@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="medici">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — The Voices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── THEMES ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+      --muted:      #9a8870;
+      --card-bg:    #f2ece0;
+      --card-hover: #e8e0cc;
+    }
+
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.5);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+      --muted:      #c8a870;
+      --card-bg:    #2a1208;
+      --card-hover: #3a1a0a;
+    }
+
+    [data-theme="medici"][data-textures="on"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* ── SITE HEADER ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--ink);
+      text-align: center;
+      padding: 1.5rem 2rem 0;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+      z-index: 10;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .theme-btn {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s, border-color 0.2s, color 0.2s;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none; border-top: 1px solid var(--gold);
+      opacity: 0.4; margin: 0 auto 1rem; width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400; letter-spacing: 0.02em;
+      line-height: 1; color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+    .masthead-title em { font-style: italic; color: var(--crimson); }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; font-style: italic;
+      font-weight: 300; color: var(--muted);
+      letter-spacing: 0.04em; margin-bottom: 0;
+    }
+
+    /* ── SITE NAV ── */
+    .site-nav {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0; background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative; z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--muted); padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { color: var(--gold-light); border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { color: var(--gold-light); border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── PAGE TITLE ── */
+    .page-title-block {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; font-style: italic;
+      color: var(--gold-light); line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-subheading {
+      font-size: 0.95rem; font-style: italic;
+      color: var(--muted); letter-spacing: 0.03em;
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 3rem;
+      border: 1px solid var(--rule);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .filter-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.4rem;
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      border-right: 1px solid var(--rule);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .filter-btn:last-child { border-right: none; }
+    .filter-btn:hover  { background: rgba(200,150,40,0.08); color: var(--gold-light); }
+    .filter-btn.active { background: var(--gold); color: var(--header-bg); }
+
+    /* ── VOICES GRID ── */
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── VOICE CARD ── */
+    .voice-card {
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--rule);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s, border-top-color 0.25s;
+      position: relative;
+    }
+
+    .voice-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px var(--shadow);
+      border-top-color: var(--gold);
+    }
+
+    .voice-card.hidden { display: none; }
+
+    /* ── PORTRAIT ── */
+    .vc-portrait {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--rule);
+      margin-bottom: 1.2rem;
+      transition: border-color 0.25s;
+      flex-shrink: 0;
+    }
+
+    .vc-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(25%);
+      transition: filter 0.3s;
+    }
+
+    .voice-card:hover .vc-portrait { border-color: var(--gold); }
+    .voice-card:hover .vc-portrait img { filter: grayscale(0%); }
+
+    /* ── CARD TEXT ── */
+    .vc-era {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .vc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem; font-style: italic;
+      font-weight: 400; line-height: 1.15;
+      color: var(--gold-light);
+      margin-bottom: 0.7rem;
+    }
+
+    .vc-desc {
+      font-size: 0.88rem; line-height: 1.7;
+      color: var(--muted); margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .vc-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      padding: 0.25rem 0.7rem;
+      margin-bottom: 1.4rem;
+      display: inline-block;
+      transition: border-color 0.25s, color 0.25s;
+    }
+
+    .voice-card:hover .vc-tag { border-color: var(--gold); color: var(--gold); }
+
+    /* ── CONVERSE BUTTON ── */
+    .btn-converse {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.6rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      margin-top: auto;
+    }
+    .btn-converse:hover { background: var(--gold); color: var(--header-bg); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem; font-style: italic;
+      color: var(--gold); opacity: 0.5;
+      border-top: 1px solid var(--rule);
+      position: relative; z-index: 1;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .filter-bar { flex-wrap: wrap; width: 100%; }
+      .filter-btn { border-right: none; border-bottom: 1px solid var(--rule); flex: 1 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici"    title="Medici"></div>
+      <div class="texture-btn" data-on="false"  title="Toggle textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">The Salon</a>
+    <span class="nav-divider"></span>
+    <a href="salon-index.html">The Judgement</a>
+    <span class="nav-divider"></span>
+    <a href="voices.html" class="active">The Voices</a>
+  </nav>
+
+  <div class="page-body">
+
+    <div class="page-title-block">
+      <p class="page-eyebrow">The Company You Keep</p>
+      <h2 class="page-heading">Seventeen Minds. Every Question.</h2>
+      <p class="page-subheading">Select a voice and begin. Each has a lifetime of thought waiting for yours.</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="philosophy">Philosophy</button>
+      <button class="filter-btn" data-filter="economics">Economics</button>
+      <button class="filter-btn" data-filter="literature">Literature</button>
+      <button class="filter-btn" data-filter="politics">Politics</button>
+      <button class="filter-btn" data-filter="strategy">Strategy</button>
+    </div>
+
+    <div class="voices-grid">
+
+      <div class="voice-card" data-domains="philosophy literature">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Michel de Montaigne"></div>
+        <div class="vc-era">France · 1533–1592</div>
+        <div class="vc-name">Michel de Montaigne</div>
+        <p class="vc-desc">Father of the personal essay. On self-knowledge, doubt, and the endlessly surprising subject of being human.</p>
+        <span class="vc-tag">Essay · Humanism</span>
+        <a class="btn-converse" href="index.html#montaigne">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius"></div>
+        <div class="vc-era">Rome · 121–180 AD</div>
+        <div class="vc-name">Marcus Aurelius</div>
+        <p class="vc-desc">Stoic emperor. On duty, discipline, and the inner life amid chaos.</p>
+        <span class="vc-tag">Stoicism</span>
+        <a class="btn-converse" href="index.html#marcus">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="literature philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Matsuo Bashō"></div>
+        <div class="vc-era">Japan · 1644–1694</div>
+        <div class="vc-name">Matsuo Bashō</div>
+        <p class="vc-desc">Wandering poet. On nature, impermanence, and the present moment.</p>
+        <span class="vc-tag">Zen · Poetry</span>
+        <a class="btn-converse" href="index.html#basho">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="literature">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Jane Austen"></div>
+        <div class="vc-era">England · 1775–1817</div>
+        <div class="vc-name">Jane Austen</div>
+        <p class="vc-desc">Novelist of manners. On society, irony, love, and sharp observation.</p>
+        <span class="vc-tag">Literature</span>
+        <a class="btn-converse" href="index.html#austen">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Friedrich Nietzsche"></div>
+        <div class="vc-era">Germany · 1844–1900</div>
+        <div class="vc-name">Friedrich Nietzsche</div>
+        <p class="vc-desc">Philosopher provocateur. On will, values, and the courage to question everything.</p>
+        <span class="vc-tag">Philosophy</span>
+        <a class="btn-converse" href="index.html#nietzsche">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy literature">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Ralph Waldo Emerson"></div>
+        <div class="vc-era">USA · 1803–1882</div>
+        <div class="vc-name">Ralph Waldo Emerson</div>
+        <p class="vc-desc">Transcendentalist. On self-reliance, nature, and the divinity within.</p>
+        <span class="vc-tag">Transcendentalism</span>
+        <a class="btn-converse" href="index.html#emerson">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy literature">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Albert Camus"></div>
+        <div class="vc-era">Algeria · 1913–1960</div>
+        <div class="vc-name">Albert Camus</div>
+        <p class="vc-desc">Absurdist. On finding meaning in a universe indifferent to our longing.</p>
+        <span class="vc-tag">Existentialism</span>
+        <a class="btn-converse" href="index.html#camus">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine"></div>
+        <div class="vc-era">England · America · France · 1737–1809</div>
+        <div class="vc-name">Thomas Paine</div>
+        <p class="vc-desc">Revolutionary pamphleteer. On tyranny, democracy, and the plain rights of every human being.</p>
+        <span class="vc-tag">Revolution · Reason</span>
+        <a class="btn-converse" href="index.html#paine">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics strategy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Niccolò Machiavelli"></div>
+        <div class="vc-era">Florence · Italy · 1469–1527</div>
+        <div class="vc-name">Niccolò Machiavelli</div>
+        <p class="vc-desc">Florentine strategist. On power, Fortuna, and the gap between how the world ought to work and how it does.</p>
+        <span class="vc-tag">Strategy · Power</span>
+        <a class="btn-converse" href="index.html#machiavelli">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Thomas Hobbes"></div>
+        <div class="vc-era">England · 1588–1679</div>
+        <div class="vc-name">Thomas Hobbes</div>
+        <p class="vc-desc">Author of Leviathan. On sovereignty, the state of nature, and why the alternative to government is everyone's worst nightmare.</p>
+        <span class="vc-tag">Political Philosophy</span>
+        <a class="btn-converse" href="index.html#hobbes">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/William_James_b1842c.jpg/330px-William_James_b1842c.jpg" alt="William James"></div>
+        <div class="vc-era">USA · 1842–1910</div>
+        <div class="vc-name">William James</div>
+        <p class="vc-desc">Physician, psychologist, pragmatist. On will, consciousness, and the cash-value of every idea you've ever had.</p>
+        <span class="vc-tag">Pragmatism · Psychology</span>
+        <a class="btn-converse" href="index.html#williamjames">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="economics philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/AdamSmith.jpg/330px-AdamSmith.jpg" alt="Adam Smith"></div>
+        <div class="vc-era">Scotland · 1723–1790</div>
+        <div class="vc-name">Adam Smith</div>
+        <p class="vc-desc">Moral philosopher and economist. The most systematically misread thinker in history — he never said greed is good.</p>
+        <span class="vc-tag">Moral Philosophy · Economics</span>
+        <a class="btn-converse" href="index.html#adamsmith">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Francis_Bacon%2C_Viscount_St_Alban_from_NPG_%283%29.jpg/330px-Francis_Bacon%2C_Viscount_St_Alban_from_NPG_%283%29.jpg" alt="Francis Bacon"></div>
+        <div class="vc-era">England · 1561–1626</div>
+        <div class="vc-name">Francis Bacon</div>
+        <p class="vc-desc">Lord Chancellor and architect of the scientific method. He analyses before he judges — always. The coldest intelligence in the room.</p>
+        <span class="vc-tag">Natural Philosophy · Civil Science</span>
+        <a class="btn-converse" href="index.html#bacon">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="economics politics">
+        <div class="vc-portrait"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Friedrich_Hayek_portrait.jpg?width=330" alt="Friedrich Hayek"></div>
+        <div class="vc-era">Austria · 1899–1992</div>
+        <div class="vc-name">Friedrich Hayek</div>
+        <p class="vc-desc">Philosopher of ignorance. The limits of what any mind can know are the most important fact about social organisation — everything else follows from this.</p>
+        <span class="vc-tag">Economics · Political Philosophy</span>
+        <a class="btn-converse" href="index.html#hayek">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="economics politics">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="John Maynard Keynes"></div>
+        <div class="vc-era">England · 1883–1946</div>
+        <div class="vc-name">John Maynard Keynes</div>
+        <p class="vc-desc">The most politically consequential figure in this room. He finds mass unemployment both intellectually indefensible and morally unforgivable — and says so with a lightness that makes the verdict sting more.</p>
+        <span class="vc-tag">Economics · Political Philosophy</span>
+        <a class="btn-converse" href="index.html#keynes">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="strategy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg/330px-%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg" alt="Master Sun"></div>
+        <div class="vc-era">China · fl. 512–341 BCE</div>
+        <div class="vc-name">Master Sun</div>
+        <p class="vc-desc">Two voices, one doctrine. Sun Wu's structural calculation before the campaign; Sun Bin's psychological precision mid-engagement.</p>
+        <span class="vc-tag">Strategy · Military Philosophy</span>
+        <a class="btn-converse" href="index.html#suntzu">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics philosophy">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Mary Wollstonecraft"></div>
+        <div class="vc-era">England · 1759–1797</div>
+        <div class="vc-name">Mary Wollstonecraft</div>
+        <p class="vc-desc">The most formidable rationalist polemicist of the revolutionary era. What looks like natural inferiority is almost always the product of deficient education and constrained circumstance.</p>
+        <span class="vc-tag">Political Philosophy · Education</span>
+        <a class="btn-converse" href="index.html#wollstonecraft">Converse →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>The Salon · Seventeen voices · Always listening</footer>
+
+  <script>
+    // ── THEME ──
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        themeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const savedTheme = localStorage.getItem('salon-theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+    } else {
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === 'medici'));
+    }
+
+    // ── TEXTURE ──
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTexture = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTexture(texBtn.dataset.on === 'false'));
+    applyTexture(localStorage.getItem('salon-textures') === 'true');
+
+    // ── FILTER ──
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.voice-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        cards.forEach(card => {
+          if (filter === 'all') {
+            card.classList.remove('hidden');
+          } else {
+            const domains = card.dataset.domains || '';
+            card.classList.toggle('hidden', !domains.includes(filter));
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

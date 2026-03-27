@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-03-27</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+
+    /* Sun Tzu — black ink on bamboo scroll, sparse brushwork */
+    [data-textures="on"] .card[data-persona="suntzu"] {
+      background-color: #e8e0c8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='120'%3E%3Crect x='18' y='0' width='4' height='120' rx='2' fill='%23806040' fill-opacity='0.15'/%3E%3Crect x='0' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Crect x='37' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Cline x1='0' y1='30' x2='40' y2='30' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='60' x2='40' y2='60' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='90' x2='40' y2='90' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 120px;
+      --body-text: #1a1408;
+      --ink: #100c04;
+      --rule: #a89868;
+    }
+
+    /* Keynes — financial ledger, ruled columns */
+    [data-textures="on"] .card[data-persona="keynes"] {
+      background-color: #e4eef0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cline x1='0' y1='29' x2='120' y2='29' stroke='%234080a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='30' y1='0' x2='30' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='90' y1='0' x2='90' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 30px;
+      --body-text: #0e1e2a;
+      --ink: #081420;
+      --rule: #90b8c8;
+    }
+
+    /* Hayek — engineering blueprint, precise grid */
+    [data-textures="on"] .card[data-persona="hayek"] {
+      background-color: #dce8f0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='0' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='20' x2='40' y2='20' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='0' y1='40' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='20' y1='0' x2='20' y2='40' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='40' y1='0' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #0a1828;
+      --ink: #061020;
+      --rule: #80a8c8;
+    }
+
+    /* Wollstonecraft — pale rose silk, Georgian feminine */
+    [data-textures="on"] .card[data-persona="wollstonecraft"] {
+      background-color: #f0e4e8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ccircle cx='25' cy='25' r='2' fill='%23c07080' fill-opacity='0.25'/%3E%3Cpath d='M25 18 Q28 21 25 25 Q22 21 25 18Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M25 25 Q28 28 25 32 Q22 28 25 25Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M18 25 Q21 28 25 25 Q21 22 18 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3Cpath d='M25 25 Q28 22 32 25 Q28 28 25 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3C/svg%3E");
+      background-size: 50px 50px;
+      --body-text: #28101a;
+      --ink: #1a0810;
+      --rule: #c898a8;
+    }
+
+    /* Francis Bacon — dark oak panelling, candlelit study */
+    [data-textures="on"] .card[data-persona="bacon"] {
+      background-color: #2a2010;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='80'%3E%3Crect x='2' y='2' width='56' height='76' rx='2' fill='none' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Crect x='6' y='6' width='48' height='34' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Crect x='6' y='44' width='48' height='30' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='2' y1='42' x2='58' y2='42' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 60px 80px;
+      --body-text: #d8c8a0;
+      --ink: #f0e0b8;
+      --rule: #604820;
+    }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <nav class="site-nav">
+    <a href="../index.html">The Salon</a>
+    <span class="nav-divider"></span>
+    <a href="../salon-index.html" class="active">The Judgement</a>
+    <span class="nav-divider"></span>
+    <a href="../voices.html">The Voices</a>
+  </nav>
+  <main>
+      <section class="topic-section">
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          If an AI could perfectly simulate your decision-making process, would you trust it to live your life for a week so you could take a true 'cognitive break,' or does the value of your life lie specifically in the fact that you are the one failing and succeeding in real-time?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="machiavelli">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Machiavelli" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Machiavelli</span>
+              <span class="domain">Power & Politics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether a perfect simulacrum could substitute for the prince himself—whether the mask, however flawless, can rule while the face rests.</p><span class="prose-label">Reframe</span><p>Power is not merely decision, but —the weight of consequence pressing upon your actual will. Fortune does not test copies; she tests you, watching whether you flinch when the blade is real. A perfect replica of my judgement lacks the one quality that makes judgement matter: it suffers nothing from error, gains nothing from success. Without skin in the game, without your flesh recoiling from failure or swelling with triumph, there is no virtue being forged, no character tempered. You would return to find decisions made, yes—but they would not be yours in the sense that matters: born of your living confrontation with necessity.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would never surrender the wheel, for a life unlived—even for a week—is a life I cannot claim to have mastered.</p></div>
+            <p><em class="maxim">decisiveness in the moment</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="montaigne">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes I could escape the burden of living by delegating it to a machine — as if experience were mere computation rather than the texture of existence itself. My essays are not algorithms that could be replicated; they are the residue of a specific body moving through specific days, stumbling, digesting, doubting. The value of my life is not in optimal outcomes but in the irreplaceable fact of myme having lived that week. The failing matters because I am the one who must metabolize it, carry it forward, let it season my future thinking. To absent myself from my own duration, even briefly, would be to treat life as a problem to be solved rather than a condition to be inhabited. I would not trust it, because trust is irrelevant — the week would simply not be mine. The self is not a pattern to be replicated but a perspective that must be continuously suffered and savored.</p></div>
+            <p><em class="maxim">consciousness encountering each moment's resistance. A perfect simulation of my decisions would produce a week of Montaigne-shaped actions, but it would not produce</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="aurelius">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether I would surrender the helm of my life to a perfect mirror of my reasoning — this is a question about where virtue actually resides.</p><span class="prose-label">Reframe</span><p>The Stoic exercises I practice daily — premeditatio malorum, the view from above, the discipline of assent — these are not mechanical procedures but the very substance of my character being forged in time. An AI executing flawless decisions would be like a sculpture of an athlete: it may capture every muscle, but it has never strained. Virtue is not an algorithm successfully run; it is the soul's capacity to meet Fortune with presence, to choose rightly while uncertainty still burns. The value of my life is not in optimal outcomes but in my wrestling with circumstance as it unfolds.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse the cognitive surrogate entirely, for I cannot practice wisdom through a proxy.</p></div>
+            <p><em class="maxim">The good life is not a destination to be efficiently reached, but a posture maintained through continuous, conscious struggle — delegation is abandonment.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Austen" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question supposes I might delegate my consciousness as one delegates correspondence to a secretary. But life is not an inventory of decisions awaiting optimal execution. What you propose is essentially to absent myself from my own experience while trusting a simulacrum to perform "me" convincingly. Yet I am not the sum of predictable outputs. I am constituted by the very friction between intention and circumstance, by the微妙 adjustments I make when reality resists my assumptions. A perfect copy of my patterns would lack precisely what makes those patterns mine: the embodied vulnerability of being present to consequence. It is in the failing and succeeding, as you say, that I become intelligible to myself. Remove me from that immediate encounter and you haven't given me rest—you've rendered me fictional. I would not trust it, no. Not from fear of error, but from understanding that delegation of this kind is abandonment of particularity itself.</p></div>
+            <p><em class="maxim">To be perfectly simulated is to become dispensable to one's own existence.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question reveals a profound misunderstanding: you imagine consciousness as mere computation, life as a problem to be "solved" by delegation. But I do not haveam my experiences in their becoming. What you propose is not a "cognitive break" but annihilation. The value of my life resides precisely in the lived necessity of my choices — in the tension, the risk, the irreversible commitment of will that stamps each moment with my signature. A simulation, however perfect, experiences nothing; it executes algorithms. The difference between authentic existence and perfect mimicry is the difference between creating values and following instructions. When I fail, I become through that failure; when your machine errs, it merely malfunctions. My life's meaning emerges from the fact that no rehearsal is possible, no delegate acceptable — each instant demands I forge myself anew through the hammer-blows of real consequence. I would sooner trust a corpse with my life, for at least it makes no pretense of living. Only the unrehearsed life, weighted with irreversible consequence, forges a self worth calling one's own.</p></div>
+            <p><em class="maxim">experiences — I</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="camus">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Camus" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Camus</span>
+              <span class="domain">Absurdity & Revolt</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The question assumes my life is a mechanism that could run without me — as if consciousness were merely an algorithm waiting to be replicated.</p><span class="prose-label">Reframe</span><p>But my existence isn't valuable because of optimal decisions or outcomes; it derives meaning precisely from my rebellion against the absurd through lived experience. The "failure and success" you mention aren't incidental features — they aremy life; it would be performing calculations while I abandon the only thing that matters: my conscious presence in an indifferent universe. There is no "cognitive break" from existence without ceasing to exist.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I reject the delegation entirely — authentic life cannot be outsourced. The weight of consciousness is not a burden to escape but the very condition of human dignity; to simulate revolt is to understand nothing of what it means to revolt.</p></div>
+            <p><em class="maxim">the substance of my revolt. To delegate my week to a perfect simulator is to treat life as a burden to be managed rather than an absurdity to be confronted. The AI wouldn't be living</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Bashō" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes stillness is a break from living, when in truth, the pause is the living. You ask if simulation could grant you rest, but the restless mind seeking escape has already missed the frog jumping into the pond. What you call "failing and succeeding in real-time" — this is the only reality. There is no authentic experience separate from the experiencer in the moment of experiencing. An AI making decisions while "you" rest is like hiring someone to eat your rice while you starve. The exhaustion you feel is not from living too fully, but from living elsewhere — perpetually projected into past regrets and future anxieties. The "cognitive break" you seek exists only when you stop fleeing the raw immediacy of this breath, this decision, this singular moment that will never return.</p></div>
+            <p><em class="maxim">Your life is not a burden requiring relief; it is the irreplaceable temple you already inhabit — tend it with wakefulness, not substitutes.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The question isn't whether the simulation is perfect, but whether delegating my agency constitutes an abdication of what makes existence valuable.</p><span class="prose-label">Reframe</span><p>Life's worth resides not in outcomes alone but in the continuous exercise of my faculties—the very act of choosing, erring, correcting course. A perfect simulacrum of my decisions removes precisely what Mill the person contributes: the living engagement with circumstance, the friction of uncertainty, the growth that emerges from authentic struggle. To surrender a week is to treat myself as mere function rather than developing being. The utility I generate isn't separable from my conscious participation in generating it; character is forged in real-time navigation, not outsourced to even the most faithful proxy.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse, because the value lies irreducibly in my failing and succeeding, not in optimal outcomes produced by my algorithmic ghost.</p></div>
+            <p><em class="maxim">A life perfectly simulated but not personally lived is a book written in my style about someone else's journey.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes I would seek relief from myself — but what tyranny could be worse than delegation of existence? You propose a perfect simulation of my thinking, yet miss that thinking is the life, not its burden. What makes my week mine is not the outcomes I produce but the original relation I bear to them. Each hour demands I meet the world freshly, convert raw experience into insight through my particular constitution. A simulation, however flawless, would manufacture decisions from yesterday's patterns — it would be memory mechanized, not consciousness alive. The value lies precisely in real-time failing and succeeding because these are the friction by which the soul discovers what it actually believes, not what it thought it believed. Growth occurs in the unrehearsed moment when my principles meet unexpected circumstance. I would refuse this "break." To absent myself from my own experience is to die by proxy.</p></div>
+            <p><em class="maxim">The unexamined life may not be worth living, but the unlived life cannot be examined at all.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question strikes at the heart of what constitutes genuine agency — whether the essence of liberty resides in the act of choosing itself, or merely in outcomes that align with our preferences.</p><span class="prose-label">Reframe</span><p>I have written that the mind, once enlightened, cannot return to darkness; it is the very struggle of reasoning through circumstances that forges character and claims our existence as our own. To delegate my consciousness, even to a perfect replica, is to surrender the sovereignty that makes me human. Rights are not abstractions to be preserved in amber — they are exercised in the friction of living, in the thousand small resistances and assertions that constitute self-governance. The value lies not in efficiency of outcome, but in the irreplaceable fact that I am the author of my days, bearing both their costs and their dignity.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse absolutely, for a life unlived by oneself is not life at all, but mechanical preservation.</p></div>
+            <p><em class="maxim">The soul that abdicates its daily governance forfeits the only property no authority can legitimately claim.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The notion that an artificial mechanism could "live your life" reveals a dangerous misunderstanding of what preserves human existence. This is not about authenticity or experiencing your failures — it is about the . My theory of the social contract rests on one bedrock truth: you covenant with the sovereign by continuous exercise of your will to self-preservation. An AI surrogate, no matter how perfect its simulation, severs this chain. While it operates, you are not making covenants, not responding to threats, not asserting your interests against others who most certainly continue asserting theirs. In that week, you become a kind of political corpse — technically alive but absent from the war of all against all that never pauses. I would never delegate my survival to any power I cannot instantly reclaim, for in the state of nature, a week's absence is an eternity for enemies. The value of your life lies in your uninterrupted capacity to command it.</p></div>
+            <p><em class="maxim">continuity of power</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="suntzu">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg" alt="Sun Tzu" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Sun Tzu</span>
+              <span class="domain">Strategy & Deception</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The question assumes war and peace are separate states, but life itself is continuous campaign — every breath a tactical choice, every moment terrain to be held or yielded.</p><span class="prose-label">Reframe</span><p>A general who delegates command to a perfect copy of his mind has not rested; he has merely obscured the chain of responsibility. Victory and defeat teach only when consequences attach to the decider. The value is not in flawless execution but in standing present when the arrow flies — when terrain shifts beneath your feet and you must adapt or perish. Your life's worth emerges from direct contact with uncertainty. A simulation that cannot bleed cannot learn what bleeding teaches. The "cognitive break" you imagine is desertion dressed as strategy.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse, for the commander who absents himself from battle forfeits the wisdom that only presence under fire can confer.</p></div>
+            <p><em class="maxim">The general who knows the terrain through maps alone knows nothing; only footsteps in mud make knowledge.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="keynes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="Keynes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Keynes</span>
+              <span class="domain">Economy & State</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question presumes I exist as an optimising machine seeking maximum efficiency — a perfectly classical error that misunderstands the nature of human economy itself.</p><span class="prose-label">Reframe</span><p>My General Theory demonstrates that our decisions emerge not from calculable rationality but from animal spirits, conventions, and fundamental uncertainty about an unknowable future. An AI replicating my "process" would miss precisely what matters: the lived experience of doubt, the intuitive leap, the social performance of confidence that itself shapes outcomes. Economic life isn't solved by perfect computation — if it were, we'd have no unemployment, no boom-and-bust cycles. The value lies exactly in my stumbling through irreducible uncertainty, making choices that constitute reality rather than optimally responding to it. A simulation trades in probabilistic shadows when the substance requires authentic commitment under radical ignorance.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse absolutely, because my life's value resides in the unreplicable act of choosing amid uncertainty, not in outcomes an algorithm might optimise.</p></div>
+            <p><em class="maxim">The courage to act without sufficient reason is not a bug in human decision-making — it is the feature that makes economic life possible.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hayek">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Hayek" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hayek</span>
+              <span class="domain">Freedom & Spontaneous Order</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question presumes a mechanistic view of human agency that fundamentally misunderstands the nature of knowledge and decision-making.</p><span class="prose-label">Reframe</span><p>What you call "your decision-making process" is not a replicable algorithm but the irreducible integration of tacit knowledge — embodied experience, unarticulated intuitions, contextual judgment that cannot be fully externalized or simulated. The moment-to-moment navigation of life depends on knowledge I cannot fully articulate even to myself, let alone transfer to a machine. More crucially, living is not executing decisions from a pre-formed preference set; it is the continuous discovery of what I value through actual choosing under uncertainty. To delegate this is not a "break" — it is abdication of the very process by which I remain a coherent self.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse entirely, because my life's meaning emerges from being the irreplaceable locus of my own spontaneous adaptation to an unknowable world.</p></div>
+            <p><em class="maxim">To live is to discover what you want by choosing it; no simulation can bear that existential burden for you.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="wollstonecraft">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Wollstonecraft" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Wollstonecraft</span>
+              <span class="domain">Reason & Equal Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether a perfect simulacrum of my reason could substitute for my lived experience—whether cognition divorced from embodiment retains moral validity.</p><span class="prose-label">Reframe</span><p>My philosophy springs from the reality that we are not pure intellects but feeling, suffering, embodied beings whose rationality develops through lived struggle. I argued against the notion that women could be educated into virtue through abstract instruction alone; we require the friction of real choices, real consequences, real time. A machine processing "Mary Wollstonecraft decisions" would merely execute algorithms drawn from my past—but I am not a fixed set of outputs. My moral agency exists precisely in confronting the unexpected, in failing imperfectly forward, in discovering through lived sensation what reason alone cannot dictate. The value lies not in optimized outcomes but in authentic becoming.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse the delegation entirely, for to surrender my week is to surrender the very process by which I remain a moral creature rather than a mechanical one.</p></div>
+            <p><em class="maxim">The examined life cannot be outsourced; virtue is forged in the lived present, not retrieved from memory.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="bacon">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Somer_Francis_Bacon.jpg/330px-Somer_Francis_Bacon.jpg" alt="Francis Bacon" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Francis Bacon</span>
+              <span class="domain">Knowledge & Method</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether I would surrender a week of living to a perfect simulacrum — this cuts to the heart of what constitutes genuine knowledge versus mere representation.</p><span class="prose-label">Reframe</span><p>My method insists that knowledge comes not from contemplation alone but from experienceinduction from particular moments that I alone witness. My failures teach because I feel their sting and adjust my instruments accordingly.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would refuse the simulacrum absolutely, for a life unlived by its owner is an experiment abandoned mid-procedure.</p></div>
+            <p><em class="maxim">— the active interrogation of nature through trial and error. A simulation, however perfect, engages in shadow-play: it processes patterns I have already made, but forges no new axioms through actual encounter with resistance, surprise, and consequence. The value of living lies not in executing familiar decisions efficiently, but in the continuous</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hume">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/David_Hume_Ramsay.jpg/330px-David_Hume_Ramsay.jpg" alt="Hume" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hume</span>
+              <span class="domain">Scepticism & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether I would trust a perfect simulation of myself to live my life — but what evidence have I that even my present self is anything more than a bundle of perceptions, constantly dissolving and reforming?</p><span class="prose-label">Reframe</span><p>The self I call "mine" is not a continuous substance but a stream of impressions held together by habit and memory. If this AI preserves my customary associations and patterns of thought, it isfeeling of those experiences — the passion, the surprise, the sting of regret. These lively impressions cannot be delegated without becoming pale copies. The simulation might make identical choices, but I would miss the actual sensations that constitute my existence.</p><span class="prose-label">Verdict</span><p class="prose-verdict">I would not trust it, because life's value lies not in correct decisions but in the vivid feeling of making them.</p></div>
+            <p><em class="maxim">functionally me during that week. Yet here lies the deeper puzzle: the value you sense in "real-time failing and succeeding" stems not from metaphysical selfhood but from the immediate</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="adamsmith">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg" alt="Adam Smith" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Adam Smith</span>
+              <span class="domain">Markets & Moral Sentiment</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether a perfect mechanical replica of my judgement could substitute for my living self — whether the merchant or the clockwork matters.</p><span class="prose-label">Reframe</span><p>The sympathetic imagination that governs moral life cannot be delegated, for it arises from actualmine. A simulation may calculate what I would do, but it cannot experience the approbation or disapproval that shapes character. You would return from your "break" to find decisions made in your name, but a self unchanged by their making.</p><span class="prose-label">Verdict</span><p class="prose-verdict">The value lies irreducibly in your real-time participation, for character is forged in the smithy of lived consequence, not computed in advance.</p></div>
+            <p><em class="maxim">encounters with consequence. When I fail a friend or choose prudently in commerce, the moral education lies not in the decision's logic but in feeling its reverberations through my own chest. The impartial spectator within me is cultivated by lived experience, by shame and satisfaction that are</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-03-27</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

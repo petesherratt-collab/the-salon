@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-03-25</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rule);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <main>
+      <section class="topic-section">
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          To what extent should a Central Bank prioritize reaching a 2% inflation target if the high-interest rates required to get there risk triggering a significant recession?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="machiavelli">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Machiavelli" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Machiavelli</span>
+              <span class="domain">Power & Politics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>The question presents a false choice — as if the state's credibility and the people's immediate welfare were separable concerns.</p><p>REFRAME</p><p>A prince who abandons his declared target appears weak, inviting speculation and disorder in markets. Yet a prince who impoverishes his subjects through rigid doctrine makes them receptive to upheaval and new allegiances. The art lies in appearing consistent while adjusting means to circumstances. Central bankers who sacrifice employment on the altar of a number worship abstraction over reality — the surest path to losing both economic stability and political legitimacy. Better to achieve 2.5% with social peace than 2.0% with factories shuttered and bread lines forming. The target exists to serve prosperity, not the reverse.</p><p>VERDICT</p><p>Prioritize the target's spirit — stable prices and public confidence — over its letter, adjusting course when rigidity would destroy the very order you seek to preserve.</p><p>MAXIM</p></div>
+            <p><em class="maxim">The wise prince knows that numbers written in doctrine dissolve quickly in the blood spilled by recession.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="montaigne">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>Here we face a conflict between abstract numerical targets and the lived reality of human suffering — a choice between the doctrine of the economists and the welfare of actual people.</p><p>REFRAME</p><p>Custom has convinced us that 2% inflation is some natural law, when it is merely a modern convention, no more sacred than any other human invention. The zealous pursuit of this arbitrary figure, through instruments that devastate employment and trade, reveals our dangerous habit of sacrificing concrete goods for theoretical perfection. I have learned through experience that rigid principles, when applied without regard for circumstance, become tyranny. The central banker who would impoverish thousands to hit a precise numerical target resembles the surgeon who kills the patient to perfect his technique.</p><p>VERDICT</p><p>The target should bend before it breaks the commonwealth.</p><p>MAXIM</p></div>
+            <p><em class="maxim">When your medicine proves worse than the disease, only a fool continues the prescription.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="aurelius">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p class="empty">No judgement generated.</p></div>
+            
+          </div>
+        </div>
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Austen" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## FRAMING</p><p>We are debating whether the pain of tightened credit and reduced employment ought to be inflicted in service of an abstract numerical target—a question not of economics but of .</p><p>## REFRAME</p><p>A 2% inflation target privileges creditors, bondholders, and those with accumulated wealth whose returns erode with price increases. The working poor experience recession's unemployment far more acutely than inflation's gradual erosion. Central bankers, insulated by position and portfolio, prescribe remedies they themselves will never taste. The question is not technical efficiency but moral priority: do we protect capital's purchasing power or labour's capacity to purchase at all? Every policy choice reveals whom we consider expendable.</p><p>## VERDICT</p><p>The Central Bank should abandon the 2% target when achieving it requires deliberately engineering mass unemployment.</p><p>## MAXIM</p><p>No percentage is worth defending when the human cost of defending it exceeds the human cost of deviation.</p></div>
+            <p><em class="maxim">whose suffering we consider legitimate</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This question asks me to weigh two forms of suffering as if they were commensurate — but they are not, and the very asking reveals a herd morality that fears creative destruction.</p><p>REFRAME</p><p>Central bankers worship their 2% target like priests clutching sacred tablets, yet this numerical idol demands we strangle the economy's vital forces to appease an abstract consistency. The real question is whether we serve life — with its necessary cycles of destruction and rebirth, its temporary chaos that clears ground for new growth — or whether we serve the timid shopkeeper's dream of eternal price stability. A recession that culls inefficiency and punishes malinvestment may express more health than the prolonged mediocrity of manipulated "stability." The economy, like all living systems, requires periodic fevers to purge what has become decadent.</p><p>VERDICT</p><p>Prioritize neither target mechanically; instead recognize that economic vitality sometimes demands what the comfortable classes call catastrophe.</p><p>MAXIM</p></div>
+            <p><em class="maxim">The will to stability is often nothing but the fear of becoming.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="camus">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Camus" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Camus</span>
+              <span class="domain">Absurdity & Revolt</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## JUDGEMENT</p><p>We confront a manufactured crisis, a collision between the absurd arithmetic of central banking and the lived suffering of real people. The "2% target" is a Sisyphean boulder — an arbitrary number elevated to sacred doctrine, pursued with religious fervor regardless of consequence.</p><p>The technocrats who would sacrifice employment, savings, and social stability on the altar of price stability commit the same error as all ideological absolutists: they mistake their constructed meaning for truth itself. There is no cosmic law ordaining 2% inflation as virtuous. What exists concretely is this: people losing work, families unable to afford homes, communities fractured by economic violence — all to satisfy an abstraction.</p><p>When your principle demands mass immiseration to preserve its purity, you have ceased thinking and begun genuflecting.</p><p>The question is not whether to hit the target, but whether we possess the lucidity to recognize that human dignity cannot be sacrificed to numerical theology.</p></div>
+            <p><em class="maxim">A society that destroys the present to perfect a percentage has chosen the mathematics of death over the revolt of the living.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Bashō" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The 2% target is pursued like a destination, yet economies breathe — they expand and contract like seasons turning. Central bankers fix their eyes on a numerical horizon while the living present slips away beneath their feet.</p><p>Pursuing the target through recession reveals our modern delusion: that stability comes from controlling outcomes rather than attuning to conditions. The high interest rate is a dam built against the river's flow. Yes, inflation erodes slowly, but recession destroys suddenly — livelihoods vanish, families fracture, communities hollow out. The 2% figure itself is arbitrary poetry mistaken for natural law. What matters is not the precision of the number but whether people can meet today's needs while building tomorrow's capacity. A rigid target pursued through devastation values the map over the territory, the concept over the lived moment.</p></div>
+            <p><em class="maxim">The Central Bank should loosen its grip when tightening its policy would crush the very economic life it claims to stabilize — better approximate health than exact destruction.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This is fundamentally a question of whether aggregate statistical targets should trump the lived welfare of actual persons who would suffer unemployment, business failure, and material hardship in a recession.</p><p>REFRAME</p><p>The 2% target is a policy convention, not a natural law—a numerical fetish that gains authority merely through repetition by technocratic consensus. The utility principle demands we weigh concrete harms against abstract consistency: thousands unemployed, families impoverished, enterprises destroyed are definite evils, while the dangers of 3% or 4% inflation remain largely speculative and distributed. Central bankers exhibit that dangerous tendency of administrators everywhere—sacrificing the tangible welfare of real people to preserve the symmetry of their theoretical models. The few who designed this target must not be permitted to impose such sweeping misery on the many who never consented to treat 2% as sacred.</p><p>VERDICT</p><p>The central bank should subordinate the inflation target to preventing severe recession; no technocratic rule merits inflicting mass unemployment.</p></div>
+            <p><em class="maxim">Numerical precision in monetary policy must never be purchased with human destitution.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes we can engineer prosperity through mechanical adjustments, as if the economy were a clock rather than a living organism. This is the surrender of self-reliance to expertise — we have elevated technicians above the natural laws of value and exchange.</p><p>The 2% target is an artificial idol. Nature knows no such precision. When we sacrifice the productive capacity of actual human enterprise — farms, workshops, the creative labor of thousands — to maintain a numerical abstraction, we invert the proper order of things. The Central Bank mistakes the map for the territory. Real wealth springs from individual initiative and honest production, not from the manipulation of interest rates. A recession caused by policy is not correction but violence against the organic economy.</p></div>
+            <p><em class="maxim">The society that permits clerks to bankrupt its makers in service of a percentage has forgotten that all value originates in human hands, not central offices.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>Framing: This question asks whether we should impoverish the many today to satisfy an abstract numerical target that serves the creditor class tomorrow.</p><p>Reframe: The 2% target is not natural law—it is a convention adopted by technocrats who seem to forget that money exists to serve human prosperity, not the reverse. When central bankers engineer recession to hit their sacred number, they compound the very harm inflation causes: they destroy livelihoods, shutter businesses, and crush the working population under dual burdens of past price rises and present unemployment. The creditor benefits twice—first from the real value of debts increasing, second from desperate workers accepting worse terms. This is not sound policy; it is class warfare dressed in economic models.</p><p>Verdict: A central bank that triggers mass unemployment to achieve 2% inflation has betrayed its duty to the commonwealth and serves only those who profit from others' desperation.</p><p>Maxim:</p></div>
+            <p><em class="maxim">The state that starves its citizens to perfect its ledgers has forgotten that government exists for the living, not for numbers.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This is a question of sovereign authority and social covenant — whether the leviathan's monetary arm should inflict predictable suffering to maintain a numerical promise.</p><p>REFRAME</p><p>The 2% target is itself an artifact of credibility, not natural law. Central banks derive their power from belief in their commitment, much as my sovereign derives authority from the people's agreement to be bound. Yet the original covenant — the reason men submitted to monetary authority — was to escape the chaos of economic disorder and secure stable conditions for industry. If strict adherence to this target throws multitudes into unemployment and desperation, you recreate the very state of conflict and want that institutions exist to prevent. The powerful must ask: does our rigid doctrine serve the peace, or merely our pride?</p><p>VERDICT</p><p>Prioritize avoiding severe recession; a central bank that starves the commonwealth to preserve its numerical reputation betrays its fundamental purpose.</p><p>MAXIM</p></div>
+            <p><em class="maxim">Authority exists to secure prosperity, not to sacrifice the living to abstract promises.</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-03-25</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

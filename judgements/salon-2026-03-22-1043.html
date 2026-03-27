@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-03-22</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rule);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <main>
+      <section class="topic-section">
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          If 30% of the population is "long-term unemployed" not by choice but by obsolescence, what replaces the social status and daily structure that work provided?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="machiavelli">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Machiavelli" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Machiavelli</span>
+              <span class="domain">Power & Politics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This question concerns the ordering of society when economic utility no longer distributes honour or purpose — a crisis not of wealth but of dignity and civic place.</p><p>REFRAME</p><p>Men require more than bread; they require distinction, routine, and the sense of being necessary to something beyond themselves. When work provided these, it also disciplined the masses and gave them stake in social order. Strip that away, and you face not mere idleness but a class permanently excluded from the republic's honours — dangerous, resentful, vulnerable to any demagogue who offers them meaning through destruction. The state must manufacture new sources of status and structure, or watch disorder manufacture itself. This means inventing civic roles, public distinctions, and daily disciplines that mimic work's stabilising effects without its economic pretext.</p><p>VERDICT</p><p>Artificial hierarchies of service, competition, and ritual must be created to occupy those whom the market has abandoned.</p><p>MAXIM</p></div>
+            <p><em class="maxim">Men without rank become men without restraint; the wise prince invents honours where fortune no longer does.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="montaigne">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>You ask what replaces work's dignity when a third of us become, through no fault of our own, superfluous to the productive order — a question that cuts to the soul's need for worthy occupation.</p><p>REFRAME</p><p>I have always maintained that we are double in ourselves — the public role we perform and the private self we cultivate. Our error has been to conflate these entirely, making employment the sole measure of a life's substance. The coming crisis is not economic but existential: we have forgotten how to be at leisure with ourselves, how to converse, to read deeply, to tend our gardens and friendships without the external validation of wages. The real obsolescence is not of workers but of our impoverished conception of human value.</p><p>VERDICT</p><p>We must resurrect the lost art of self-possession — learning again to find status in wisdom, service, and the examined life rather than in market utility alone.</p><p>MAXIM</p></div>
+            <p><em class="maxim">The marketplace can render you useless; only you can render yourself worthless.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="aurelius">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING: You ask what replaces work's structure when necessity removes it — but work was never the true source of virtue or dignity.</p><p>REFRAMEpurpose chosen from within. For centuries, humans mistook employment for duty, wages for worth. What they truly mourn is not lost status — status is the opinion of confused minds — but the loss of a ready-made answer to "What should I do today?" The Stoics knew: meaningful structure comes from character development, service to community, cultivation of reason. These require no employer. The carpenter without commissions can still practice temperance; the displaced administrator can still pursue justice. Their obstacle has become the way — forced into the question every person should ask regardless: "How shall I live well?"</p><p>VERDICT: They must replace false structure with true philosophy — the daily practice of virtue for its own sake.</p><p>MAXIM: When fortune removes your occupation, she reveals whether you ever had a vocation.</p></div>
+            <p><em class="maxim">: The "unemployed" face what every philosopher seeks: freedom from external compulsion. Their crisis is not absence of labor but absence of</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Austen" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>We are asking whether a person can maintain moral standing and self-respect when society no longer requires their economic contribution — when they become, in effect, dependent beings.</p><p>REFRAME</p><p>I observed how the gentry derived dignity not from labour but from fulfilling social obligations, maintaining relationships, and upholding standards of conduct within their sphere. The error is assuming work alone confers worth. What truly devastates is  — having no role in the intricate dance of mutual dependence that constitutes community. The question is not what replaces employment's structure, but whether we can construct legitimate stations of dignity outside market value. Can we recognize contributions — in care, in culture, in civic life — that capitalism renders invisible?</p><p>VERDICT</p><p>We must create new forms of social membership where dignity derives from relational duties rather than productive capacity, or we will manufacture a permanent underclass stripped of all claims to respect.</p><p>MAXIM</p><p>A person without useful work may yet be useful to persons — if we design our communities to require them.</p></div>
+            <p><em class="maxim">exclusion from meaningful participation</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>You ask what replaces work's structure when the herd finds itself superfluous — a question that betrays how deeply the slave morality has conquered you all.</p><p>REFRAME</p><p>Work never provided genuine status; it provided  within a system that fears the free spirit. The labourer's "dignity" was always the master's leash, rebranded. What you call obsolescence I call liberation's terrible gift: thirty percent forced to confront the abyss without the narcotic of routine. Most will demand new opiates — universal bread and universal circuses, calling it "basic income" and "purpose programmes." But some — the rare ones — will finally ask: What would I create if survival were guaranteed? This is where the genuine human being begins, where décadence either kills or transforms into something higher.</p><p>VERDICT</p><p>Nothing should replace work's structure; this is the crisis that separates those who can give themselves law from those who require it.</p><p>MAXIM</p><p>The highest cruelty: to grant the herd freedom and watch them build new cages.</p></div>
+            <p><em class="maxim">permission to exist</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="camus">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Camus" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Camus</span>
+              <span class="domain">Absurdity & Revolt</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>We face not unemployment but the absurd made structural — millions condemned to be Sisyphus without even the rock to push, stripped of the revolt that labour, however futile, once permitted.</p><p>REFRAME</p><p>Work was never merely economic. It was the scaffold upon which we built meaning in a meaningless universe, the rhythm that organized our rebellion against mortality. When capitalism renders humans obsolete, it doesn't just withdraw wages — it withdraws the arena of human dignity, the daily confrontation with our condition that made us present to our own existence. The unemployed-by-obsolescence are thrust into a forced leisure more suffocating than any factory floor, because purposeless time is the cruelest mirror of our absurdity. What they've lost isn't income but the theater of their revolt.</p><p>VERDICT</p><p>We must construct new sites of confrontation with existence — community creation, artistic practice, civic participation — where humans affirm their presence through freely chosen struggle rather than economically mandated toil.</p></div>
+            <p><em class="maxim">The only dignified response to enforced idleness is the deliberate embrace of chosen labour that serves no master but our shared condition.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Bashō" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The frog does not leap into the old pond because it seeks meaning — it leaps because the pond is there. You ask what replaces work's structure, but this assumes structure must be replaceddissolved.</p><p>Humans cling to employment as cherry blossoms cling to branches, but the blossoms do not ask "what comes after blooming?" The deepest structure is not the workplace schedule but the cycle of attention itself — dawn, hunger, fatigue, seasons. Those made obsolete by machines are not losing structure; they are being forced to confront what was always true: that the daily grind obscured rather than created presence. Status derived from labour was always as fleeting as morning dew. What must emerge is not a substitute routine but a radical return to unmediated experience — cultivation of awareness itself as the day's architecture.</p><p>The unemployed masses will suffer not from lacking work but from lacking practice in being awake.</p><p>The idle body, untrained in presence, mistakes boredom for emptiness and busyness for life.</p></div>
+            <p><em class="maxim">rather than</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This question strikes at the heart of human dignity — for work has been both the vehicle of subsistence and the arena of self-development.</p><p>REFRAME</p><p>The real danger is not idleness but enforcedchosen, not merely endured. If technological displacement severs the link between effort and survival, we must urgently cultivate alternative spheres where individuals can exercise agency, develop mastery, and earn the regard of their fellows. Voluntary associations, civic participation, artistic and intellectual pursuits — these must be freed from the taint of "mere leisure" and recognized as legitimate sites of human flourishing. The utilitarian calculus demands we maximize not mere contentment but active happiness.</p><p>VERDICT</p><p>Social esteem must be detached from wage-labour and reattached to any voluntary activity that develops individual capacities and contributes to collective welfare.</p><p>MAXIM</p><p>A society that honours only paid work condemns the displaced to suffer twice: first in poverty, then in shame.</p></div>
+            <p><em class="maxim">idleness — the crushing knowledge that one's capacities are unwanted. I've long argued that work disciplines character and gives scope for individual excellence, but these virtues emerge only where labour is</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>You ask what replaces work's structure when machines make men obsolete—but this reveals our catastrophic error: we mistook  for vocation.</p><p>REFRAME</p><p>The "job" was always society's imposition, not the soul's requirement. That millions now face enforced leisure unveils a truth I have long insisted upon: conformity to economic necessity has been the greatest thief of human vitality. What you call "obsolescence" is potentially the largest emancipation in history—if we dare rediscover self-culture. The question is not what replaces the factory's rhythm, but whether these liberated souls will become thinking, creating beings or merely idle dependents. Status derived from employer approval was always counterfeit dignity. Daily structure must now come from what it should have been all along: pursuit of genuine purpose, cultivation of one's gift, and direct relation with nature and community rather than the mediation of wages.</p><p>VERDICT</p><p>The obsolete class will either achieve true self-reliance through cultivating their inherent powers, or succumb to spiritual poverty more absolute than any unemployment statistic captures.</p><p>MAXIM</p><p>A man unemployed by machines but employed by his own genius has finally begun his real work.</p></div>
+            <p><em class="maxim">employment</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>This is not a question of economics but of human dignity — whether society can conceive of worth beyond labor-value, or whether we condemn millions to the condition of dependence our ancestors fought to escape.</p><p>REFRAME</p><p>The old bargain was clear: contribute your labor, earn your standing, secure your independence. But when machines render that contribution obsolete, we face a crisis not of production but of . If thirty percent possess neither work nor the respect work conferred, they become subjects rather than participants — exactly the degraded status that justified our revolution against monarchy. The question is whether we shall create new grounds for dignity rooted in civic participation, learning, community stewardship, and creative contribution, or whether we shall maintain the fiction that only wage-labor confers human value.</p><p>VERDICT</p><p>We must establish civic worth independent of employment, recognizing contribution through democratic participation, cultural creation, and community service.</p><p>MAXIM</p><p>A republic that measures human worth solely by wages has already surrendered to a tyranny more absolute than kings.</p></div>
+            <p><em class="maxim">citizenship</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>FRAMING</p><p>You ask what replaces work's structure when machines render men superfluous — this is to ask what binds the commonwealth when a third of subjects become economically worthless.</p><p>REFRAME</p><p>I warned that without common power to keep men in awe, life becomes solitary, poor, nasty, brutish, and short. Employment was never merely about bread; it was the social covenant made flesh — proof of utility, hierarchy's rungs, the daily ritual that confirmed one's place in the Leviathan's body. Strip this from thirty percent and you create not idle leisure but  — that most dangerous political animal. They possess neither the gentleman's inherited legitimacy nor the labourer's earned dignity. Such masses have historically sought new sources of meaning: demagogues provide it readily, promising restoration through dominance over designated enemies.</p><p>VERDICT</p><p>Only the sovereign power can manufacture substitute structures — whether through universal provision that grants dignity without productivity, or through新 hierarchies of civic contribution — lest civil war fill the void.</p><p>MAXIM</p><p>Men need not only security but rank; deprive the multitude of both and they will seize them through blood.</p></div>
+            <p><em class="maxim">masterless men</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-03-22</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

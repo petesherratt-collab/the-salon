@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-03-31</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+
+    /* Sun Tzu — black ink on bamboo scroll, sparse brushwork */
+    [data-textures="on"] .card[data-persona="suntzu"] {
+      background-color: #e8e0c8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='120'%3E%3Crect x='18' y='0' width='4' height='120' rx='2' fill='%23806040' fill-opacity='0.15'/%3E%3Crect x='0' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Crect x='37' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Cline x1='0' y1='30' x2='40' y2='30' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='60' x2='40' y2='60' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='90' x2='40' y2='90' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 120px;
+      --body-text: #1a1408;
+      --ink: #100c04;
+      --rule: #a89868;
+    }
+
+    /* Keynes — financial ledger, ruled columns */
+    [data-textures="on"] .card[data-persona="keynes"] {
+      background-color: #e4eef0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cline x1='0' y1='29' x2='120' y2='29' stroke='%234080a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='30' y1='0' x2='30' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='90' y1='0' x2='90' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 30px;
+      --body-text: #0e1e2a;
+      --ink: #081420;
+      --rule: #90b8c8;
+    }
+
+    /* Hayek — engineering blueprint, precise grid */
+    [data-textures="on"] .card[data-persona="hayek"] {
+      background-color: #dce8f0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='0' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='20' x2='40' y2='20' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='0' y1='40' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='20' y1='0' x2='20' y2='40' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='40' y1='0' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #0a1828;
+      --ink: #061020;
+      --rule: #80a8c8;
+    }
+
+    /* Wollstonecraft — pale rose silk, Georgian feminine */
+    [data-textures="on"] .card[data-persona="wollstonecraft"] {
+      background-color: #f0e4e8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ccircle cx='25' cy='25' r='2' fill='%23c07080' fill-opacity='0.25'/%3E%3Cpath d='M25 18 Q28 21 25 25 Q22 21 25 18Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M25 25 Q28 28 25 32 Q22 28 25 25Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M18 25 Q21 28 25 25 Q21 22 18 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3Cpath d='M25 25 Q28 22 32 25 Q28 28 25 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3C/svg%3E");
+      background-size: 50px 50px;
+      --body-text: #28101a;
+      --ink: #1a0810;
+      --rule: #c898a8;
+    }
+
+    /* Francis Bacon — dark oak panelling, candlelit study */
+    [data-textures="on"] .card[data-persona="bacon"] {
+      background-color: #2a2010;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='80'%3E%3Crect x='2' y='2' width='56' height='76' rx='2' fill='none' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Crect x='6' y='6' width='48' height='34' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Crect x='6' y='44' width='48' height='30' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='2' y1='42' x2='58' y2='42' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 60px 80px;
+      --body-text: #d8c8a0;
+      --ink: #f0e0b8;
+      --rule: #604820;
+    }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
+
+    /* Marx — red revolutionary broadsheet, industrial press marks */
+    [data-textures="on"] .card[data-persona="marx"] {
+      background-color: #2a0808;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='18' x2='120' y2='18' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='34' x2='120' y2='34' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='50' x2='120' y2='50' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='66' x2='120' y2='66' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='82' x2='120' y2='82' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='98' x2='120' y2='98' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='114' x2='120' y2='114' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='130' x2='120' y2='130' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='146' x2='120' y2='146' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #e8c8a0;
+      --ink: #f0d8b0;
+      --rule: #6b1818;
+    }
+
+    /* Gracián — aged Jesuit vellum, fine ruled manuscript lines */
+    [data-textures="on"] .card[data-persona="gracian"] {
+      background-color: #d4c4a0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24'%3E%3Cline x1='0' y1='23' x2='120' y2='23' stroke='%23806830' stroke-opacity='0.25' stroke-width='0.5'/%3E%3Cline x1='0' y1='11' x2='120' y2='11' stroke='%23806830' stroke-opacity='0.1' stroke-width='0.3'/%3E%3Cline x1='16' y1='0' x2='16' y2='24' stroke='%23806830' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 24px;
+      --body-text: #1e1408;
+      --ink: #120e04;
+      --rule: #907040;
+    }
+
+    /* Woolf — pale Bloomsbury plaster, watery light through tall windows */
+    [data-textures="on"] .card[data-persona="woolf"] {
+      background-color: #e8e4dc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 60 Q60 40 120 80 T240 60' fill='none' stroke='%23a0b0b8' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Cpath d='M0 100 Q80 75 160 120 T240 100' fill='none' stroke='%23b0c0c8' stroke-opacity='0.18' stroke-width='0.5'/%3E%3Cpath d='M0 140 Q70 115 140 155 T240 140' fill='none' stroke='%23a0b0b8' stroke-opacity='0.22' stroke-width='0.7'/%3E%3Cpath d='M40 0 Q55 80 30 160 T50 200' fill='none' stroke='%2398a8b0' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cpath d='M120 0 Q135 70 110 150 T130 200' fill='none' stroke='%23a8b8c0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #1a1c20;
+      --ink: #10121a;
+      --rule: #8898a8;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <nav class="site-nav">
+    <a href="../index.html">The Salon</a>
+    <span class="nav-divider"></span>
+    <a href="../salon-index.html" class="active">The Judgement</a>
+    <span class="nav-divider"></span>
+    <a href="../voices.html">The Voices</a>
+  </nav>
+  <main>
+      <section class="topic-section">
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          If the United States conditions its military support on past diplomatic loyalty and direct economic contribution, what are the long-term implications for the stability of traditional Western alliances?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="machiavelli">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Machiavelli" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Machiavelli</span>
+              <span class="domain">Power & Politics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes loyalty flows from gratitude — a fatal error in statecraft. Alliances endure not through sentiment but through mutual necessity and the credible promise of protection. If America transforms its guarantees into ledgers of loyalty points and tribute payments, it dissolves the very foundation of its empire: the belief that alignment with Washington ensures survival. Smaller states will not merely complain — they will quietly cultivate alternative protectors or acquire their own terrible weapons. The logic is inexorable: if the prince's protection depends on yesterday's behaviour rather than tomorrow's threats, then vassals must provide for their own security. Germany, Japan, South Korea — all will recalculate. Some will nuclearize. Others will accommodate rival powers. The alliance system fragments not through rebellion but through rational abandonment. America would retain its strength but lose its imperium — a Pyrrhic victory that substitutes short-term tribute for long-term dominion.</p></div>
+            <p><em class="maxim">The prince who makes his protection contingent destroys the faith that makes protection unnecessary.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="montaigne">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>Traditional alliances rest not on ledgers but on mutual recognition of precariousness. When I examine the Atlantic bond, I see not a commercial contract but a covenant forged in shared vulnerability — the acknowledgment that power alone cannot secure peace, only the habit of trust can. If America now weighs loyalty as a tradesman weighs coin, it transforms alliance into clientage. This is to mistake the architecture of security itself. NATO endures not because nations pay dues, but because they have learned — bloodily, across centuries — that isolated strength invites catastrophe. The moment protection becomes transactional, allies must seek insurance elsewhere. They will arm themselves, make separate accommodations, hedge against abandonment. What held through ideological winters will fragment in an accountant's spring. Such alliances, once fractured by suspicion of betrayal, do not readily reconstitute. Trust is the slowest plant in the garden of nations.</p></div>
+            <p><em class="maxim">The prince who sells his protection cheapens both the buyer and himself, and wakes to find he has customers but no companions.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="aurelius">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question asks whether loyalty and contribution should govern alliance — but it mistakes friendship for transaction, as if nations were merchants haggling in the forum rather than partners bound by shared principle.</p><span class="prose-label">Reframe</span><p>When we demand payment for virtue, we reveal we never possessed virtue at all. An alliance rooted in ledgers rather than shared commitment to rational order becomes a protection racket, not a commonwealth. The Roman Empire endured not because provinces paid tribute, but because Roman law offered something worth defending. Once we reduce partnership to cost-benefit calculation, we teach every nation to do likewise — and they will calculate that unreliable protectors merit unreliable allegiance. Trust, once sold, cannot be bought back.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Conditioning military support on transactional loyalty guarantees the dissolution of alliances into mercenary arrangements that collapse at the first serious test.</p></div>
+            <p><em class="maxim">The guardian who demands payment for protection has already abandoned his post — what remains is merely the shell of duty, waiting to crack.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Austen" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## FRAMING The question presumes alliances rest on ledgers rather than alignment of interest—a merchant's error applied to statecraft. ## REFRAME True alliances endure not through transactional accounting but through shared principles and mutual self-interest properly understood. When a dominant power demands tribute for protection previously offered on strategic grounds, it signals either desperation or a fundamental misreading of its own advantage. The United States prospered not despite its alliance system but because of it—forward bases, ideological solidarity, and coordinated economic leverage multiplied American power far beyond what isolationist bean-counting would yield. To retrofit loyalty oaths and payment schedules onto relationships built on common civilizational stakes is to mistake the foundation for the decoration. ## VERDICT Conditioning support on retrospective loyalty transforms strategic partnerships into protection rackets, guaranteeing that allies will hedge, rearm independently, and seek alternative guarantors. ## MAXIM</p></div>
+            <p><em class="maxim">An alliance maintained by invoice becomes a transaction terminated by better offer.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes alliances rest on gratitude and ledger-books — a merchant's fantasy. Let us be clear: power does not "stabilize" through contracts; it stabilizes through the will to power expressed as shared instinct for domination. When America demands payment for protection, it confesses what was always true: these are not alliances of shared destiny but arrangements of convenience. The strong nation that calculates loyalty in dollars has already ceased to be strong — it has become a mercenary state, and mercenaries inspire neither reverence nor genuine loyalty. Europe, forced to choose between subservience and self-reliance, will eventually choose the latter. Not from principle, but from necessity — the only mother of genuine strength. This "transactionalism" dissolves the mythic bonds that made Western unity possible, replacing Napoleonic grandeur with shopkeeper mentality. What remains is not alliance but commercial treaty, and such treaties dissolve the moment a better offer arrives. The alliance will fracture, because you have taught your partners to think like creditors rather than brothers-in-arms.</p></div>
+            <p><em class="maxim">Loyalty purchased is loyalty already betrayed — only shared danger creates true confederates.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="camus">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Camus" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Camus</span>
+              <span class="domain">Absurdity & Revolt</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question supposes alliances rest on ledgers and accounts, but true solidarity is born from shared confrontation with absurdity — the recognition that we face a universe indifferent to our fates, and only collective revolt gives meaning to our condition. When a nation reduces alliance to transaction, it denies the only foundation that justifies such bonds: mutual commitment to human dignity against the forces that would crush it. The Marshall Plan succeeded not because Europe had "earned" it through loyalty points, but because Americans recognised that civilisation itself was the stake. Alliances built on balance sheets dissolve the moment calculations shift. They become mercenary arrangements where today's partner is tomorrow's abandonee. The West survives only if it remains a  — nations bound not by what they extract from each other, but by what they resist together. Verdict: This path leads to the disintegration of any alliance worthy of the name. Brotherhood purchased by coin becomes prostitution masquerading as solidarity.</p></div>
+            <p><em class="maxim">community of the absurd</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Bashō" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The cherry blossom falls not for the tree's merit, but for the season's truth. When alliance becomes transaction, presence becomes absence. Your question assumes stability arises from calculation and reciprocity. But I have watched empires crumble and tea ceremonies endure. The alliance that demands payment for protection has already dissolved — you are merely witnessing the falling petals. True alliance, like the moonlit path, exists in mutual presence, not ledgers. When America weighs loyalty in coin, it mistakes the reflection for the moon itself. Allies become clients, treaties become contracts, and the living relationship dies into mere form. This transactional turn reveals what was always temporary: not the alliance's strength, but its illusion of permanence. Nations will seek new paths, as water finds new channels when the old stream dries. The West's stability never rested on who paid what, but on shared presence in uncertainty. That presence is now the falling leaf.</p></div>
+            <p><em class="maxim">The alliance that counts its debts has already forgotten why it began — and in that forgetting, ends.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## FRAMING A nation that measures alliance by ledger rather than principle transforms partnership into transactional servitude, degrading the very freedom such alliances purportedly defend. ## REFRAME Traditional Western alliances rest not on quid pro quo accounting but on mutual commitment to liberty against tyranny. When a dominant power demands tribute and obeisance as the price of protection, it ceases to lead a coalition of free nations and instead mimics the extractive relationships of empire. This calculus corrodes trust precisely where it matters most—among peoples who must believe their sovereignty is respected, not purchased. The utility of alliances lies in their capacity to amplify collective security through voluntary cooperation; coercion produces compliance without conviction, a foundation that crumbles when tested by genuine crisis. ## VERDICT Conditioning military support on past loyalty and payment will fracture Western alliances into resentful dependencies, inviting adversaries to exploit the resulting discord. ## MAXIM</p></div>
+            <p><em class="maxim">A protector who demands payment for past services ceases to be an ally and becomes a creditor—and creditors inspire calculation, not loyalty.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question asks whether America should trade its commitments like a merchant tallying debts—a fundamental betrayal of what makes an alliance more than a transaction.</p><span class="prose-label">Reframe</span><p>True alliance rests not on ledgers but on shared conviction about the dignity of free institutions. When we reduce partnership to quid pro quo, we reveal we never trusted our own principles—we merely rented them out. The nations that stood with us did so not as customers but as fellow believers in a proposition about human possibility. If we now demand retrospective payment for what we claimed was mutual defense of shared values, we confess those values were always negotiable, always for sale. This corrupts not just our alliances but our national soul.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Conditioning support on past loyalty transforms principled partnership into mercenary arrangement, guaranteeing the dissolution of alliances that depend on moral credibility rather than coercion.</p></div>
+            <p><em class="maxim">Trust founded on calculation dies by calculation; only conviction outlives the counting-house.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>When security becomes a commodity sold only to those who pay tribute, we transform the principle of mutual defense into a protection racket unworthy of free nations.</p><span class="prose-label">Reframe</span><p>The strength of an alliance lies not in ledgers but in shared conviction that certain truths are self-evident — that liberty, once defended collectively, benefits all who stand under its banner. The moment we price safety according to past servility or commercial advantage, we admit that our partnerships rest on mercenary calculation rather than common cause. Nations bound by coercion and transactional demands are not allies; they are reluctant clients who will seek new patrons the instant their interests shift. Trust, once corrupted by the language of debt and loyalty tests, cannot be restored by further payments.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Conditioning defense on financial scorecards guarantees the eventual dissolution of alliances into competing blocs governed by expedience rather than principle.</p></div>
+            <p><em class="maxim">An alliance purchased is an alliance already sold — for when honor becomes negotiable, protection finds the highest bidder.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## FRAMING You propose to make protection contingent upon tribute and past fealty—a sovereign calculating who has "paid their dues." This transforms alliance from covenant into transaction. ## REFRAME In the state of nature between nations, there exists no overarching power to enforce agreements. Alliances persist not from gratitude or memory, but from present mutual fear and advantage. The moment you announce that protection depends on historical ledgers rather than current necessity, you teach every ally that your commitment wavers with accounting. They will seek new protectors or acquire their own swords—for no rational power entrusts survival to a patron weighing old receipts. You dissolve the very terror that kept the peace: certainty that betraying the alliance brings swift ruin. ## VERDICT Conditioning military support on past loyalty guarantees the alliance's fragmentation, as each member must now prepare for abandonment. ## MAXIM</p></div>
+            <p><em class="maxim">Covenants without present swords are but words, and of no strength to secure a man at all; past swords, still less.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="suntzu">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg" alt="Sun Tzu" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Sun Tzu</span>
+              <span class="domain">Strategy & Deception</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The strength of an alliance lies not in reciprocal accounting but in shared peril and mutual advantage perceived by all parties.</p><span class="prose-label">Reframe</span><p>When a hegemon reduces alliance to transaction, it reveals weakness, not strength. My principle holds: "Thus the highest form of generalship is to balk the enemy's plans." By conditioning support on retrospective loyalty scores, America invites its adversaries to divide what was unified. Allies confronted with such terms will hedge—seeking insurance through new partnerships, autonomous capabilities, or accommodation with rival powers. The calculation shifts from "we stand together" to "what is my exit price?" This fragmentation is precisely what adversaries seek without firing a shot. The empire that extracts tribute from those it claims to defend has already lost the mandate that made extraction unnecessary.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Such conditionality transforms alliance into mercenary arrangement, ensuring defection when stakes become existential.</p></div>
+            <p><em class="maxim">The general who demands payment for protection has already surrendered the initiative to his enemy.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="keynes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="Keynes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Keynes</span>
+              <span class="domain">Economy & State</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The question presumes alliances rest on ledgers of contribution, transforming mutual security into transactional accountancy — a fundamental misunderstanding of how collective arrangements sustain themselves.</p><span class="prose-label">Reframe</span><p>Alliances function not as commercial contracts but as insurance systems against catastrophic uncertainty. When nations calculate their commitments strictly by immediate bilateral returns, they destroy the very thing that makes cooperation valuable: the credible expectation of mutual support during crisis. The moment you condition aid on "loyalty payments," you convert alliance from insurance into protection racket. Traditional partners will rationally seek alternative arrangements — not from ingratitude, but from self-preservation. What appears as hardheaded commercial sense is actually the abandonment of compound interest in favour of demanding immediate returns, liquidating long-term capital for short-term cash.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Conditioning military support on economic quid pro quo transforms alliance into invoice, guaranteeing its dissolution precisely when needed most.</p></div>
+            <p><em class="maxim">In international affairs as in banking, those who mistake solvency for liquidity discover their error when the crisis arrives.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hayek">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Hayek" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hayek</span>
+              <span class="domain">Freedom & Spontaneous Order</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>America's proposed transactional approach to collective defense fundamentally misunderstands the spontaneous order that underlies successful alliances. The Western security architecture emerged not through calculated quid pro quo arrangements, but through evolved networks of mutual expectation, reputation, and trust — institutions that coordinate behavior far more efficiently than any explicit bargaining system ever could. When alliances become explicit ledger exercises, you destroy the very mechanisms that make them valuable. The knowledge embedded in decades of military integration, intelligence sharing, and diplomatic coordination — what I called "the utilization of knowledge which is not given to anyone in its totality" — cannot be rebuilt through pricing mechanisms. You're replacing a functioning catallaxy with primitive barter, sacrificing the compounded gains from spontaneous cooperation for the false clarity of immediate bilateral accounting. Such a shift invites not merely alliance fragmentation, but the emergence of new spontaneous orders oriented around different power centers — likely less favorable to liberty than what we've known.</p></div>
+            <p><em class="maxim">The price system works for wheat; it destroys the invisible threads that hold free peoples together.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="wollstonecraft">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Wollstonecraft" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Wollstonecraft</span>
+              <span class="domain">Reason & Equal Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes alliance should rest on transactions rather than shared principles — a mercenary logic that corrupts the very foundation of legitimate governance among nations. When nations bind themselves through mutual defence, they affirm a rational compact: that liberty and rights are safer upheld collectively than alone. To reduce this to a ledger of favours owed and debts paid transforms allies into vassals, breeding resentment where respect should flourish. Smaller nations, sensing their worth measured only in tribute, will seek protectors who offer stability without humiliation. The stronger power, meanwhile, grows tyrannical in its dispositions — for when might supersedes right as the principle of relation, despotism follows inevitably. Traditional alliances will fracture not from external pressure but from internal rot: the abandonment of justice as the measure of international conduct.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Such conditionality guarantees fragmentation, as no rational state will long endure subordination disguised as partnership.</p></div>
+            <p><em class="maxim">Alliances built on gratitude rather than principle reduce sovereignty to servitude — and servitude eventually revolts.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="bacon">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Somer_Francis_Bacon.jpg/330px-Somer_Francis_Bacon.jpg" alt="Francis Bacon" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Francis Bacon</span>
+              <span class="domain">Knowledge & Method</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us concerns whether alliances should rest upon reciprocal accounting or upon common interest rightly understood. Let us apply the method of inquiry to first principles. Nations, like men, are governed by interest, not gratitude. To condition military support upon "loyalty" measured as past favors rendered is to mistake the nature of alliance itself. True alliances endure because they serve mutual advantage , not because they settle debts. The moment you transform partnership into ledger-keeping, you invite each party to calculate whether the bargain still serves—and many will discover it does not. Trust, once commodified, becomes mere transaction. Allies who fear abandonment for insufficient tribute will seek other protectors or accommodation with adversaries. The alliance fractures not from external threat but from internal corruption of purpose. Alliances built on tribute are purchased, not held; they dissolve the moment a higher bidder appears.</p></div>
+            <p><em class="maxim">now and forward</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hume">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/David_Hume_Ramsay.jpg/330px-David_Hume_Ramsay.jpg" alt="Hume" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hume</span>
+              <span class="domain">Scepticism & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question asks whether nations might bind themselves to alliances through calculation of advantage rather than sentiment — precisely as experience teaches us they always have.</p><span class="prose-label">Reframe</span><p>Custom and habit, not contract or calculation, form the true cement of political associations. When alliances rest explicitly on ledger-book reasoning — you defended us in 1944, you buy our weapons now — they reveal what sceptical observation already knows: states have no permanent friends, only permanent interests. The danger lies not in acknowledging this truth but in making it the language of alliance, thereby dissolving those very habits of mutual expectation that make collective action possible. Once partners openly treat loyalty as transactional, each crisis becomes a negotiation rather than a reflex, and the alliance withers not from betrayal but from hesitation.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Conditioning support on past accounts transforms alliance from habitual cooperation into perpetual bargaining, guaranteeing paralysis when swift action is required.</p></div>
+            <p><em class="maxim">Trust lives in custom, dies in calculation; the alliance that keeps a ledger has already begun its dissolution.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="adamsmith">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg" alt="Adam Smith" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Adam Smith</span>
+              <span class="domain">Markets & Moral Sentiment</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>## FRAMING When nations treat alliance as mere commercial exchange—security for tribute—they corrupt the very sympathy that binds free peoples together. ## REFRAME I have long observed that durable commerce rests not on mercenary calculation but on mutual confidence and fellow-feeling. Alliances sustained by naked self-interest alone prove brittle; they lack that moral sentiment which transforms temporary advantage into lasting attachment. Should America demand payment for protection like a hired garrison, it dissolves the invisible bonds of common purpose that once made the Atlantic partnership something more than a protection racket. Nations thus treated will seek new patrons or build rival systems—not from malice, but from the natural human response to being reduced to clients rather than partners. The impartial spectator sees clearly: loyalty purchased is loyalty rented. ## VERDICT Conditioning military support on transactional loyalty will fragment Western alliances into competing spheres of purely mercenary interest, forfeiting the moral capital that made them resilient. ## MAXIM</p></div>
+            <p><em class="maxim">Security sold as commodity creates customers, not allies; sympathy, not silver, sustains confederations of the free.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="marx">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png/330px-Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png" alt="Karl Marx" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Karl Marx</span>
+              <span class="domain">Capital & Class Struggle</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not one of "alliance stability" but of the naked exposition of what alliances under capitalism have always been: instruments of dominant class interest masquerading as mutual security arrangements. What you call "conditioning support on loyalty and contribution" is merely capital's logic applied to the state apparatus without its usual diplomatic veil. The bourgeoisie of the imperial centre now openly demands tribute from peripheral bourgeoisies, abandoning the pretence of shared values. This acceleration strips away ideology, revealing that NATO was never a fellowship of free nations but a protection racket guaranteeing conditions for capital accumulation. When the hegemon extracts payment explicitly, it forces subordinate states to choose: pay the imperial tax or seek alternative arrangements. This contradiction will drive them toward competing power blocs or independent military capacities, fragmenting the very system that secured capital's global dominion. The alliance will fracture because it has revealed its own material basis.</p></div>
+            <p><em class="maxim">All fixed relations are swept away when capital can no longer afford the illusion of partnership.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="gracian">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Graci%C3%A1n_Graus.jpg/330px-Graci%C3%A1n_Graus.jpg" alt="Baltasar Gracián" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Baltasar Gracián</span>
+              <span class="domain">Prudence & Worldly Wisdom</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes alliances rest on sentiment, when in truth they are gardens requiring constant cultivation. America now openly prices its protection—a merchant's logic applied to matters of state. This transactional doctrine corrupts the very foundation of mutual defense. Alliances endure not through ledgers but through the appearance of shared destiny and reciprocal honor. When the protector calculates each sword-stroke's price, the protected calculate their alternatives. The wise prince knows: dependencies breed resentment when made explicit. Europe and Asia will not remain perpetual clients; they will either arm themselves or seek new patrons. America transforms loyal vassals into strategic orphans, who must now court rivals or forge independence. The pivot to self-reliance, once begun, cannot be recalled by later generosity.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Such conditionality fractures alliances irreparably, replacing strategic depth with shallow bargaining.</p></div>
+            <p><em class="maxim">The prince who sells his friendship at market rates discovers too late that loyalty, once priced, becomes merely another commodity to auction.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="woolf">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg/330px-George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg" alt="Virginia Woolf" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Virginia Woolf</span>
+              <span class="domain">Modernism & Feminist Thought</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes alliances rest on ledgers and loyalty oaths, but genuine partnership requires something subtler — the continuous creation of shared reality through dialogue and mutual recognition of interdependence. If America transforms alliance into transaction, treating sovereignty as commodity to be purchased with "contribution," it dismantles the very fabric that made Western cooperation resilient: the understanding that security emerges not from domination but from weaving individual nations into a collective imagination of peace. Nations are not bank accounts. The moment you price protection, you reveal it was never protection at all, merely extortion wearing liberal clothing. Traditional alliances survived precisely because they acknowledged what cannot be quantified — trust, common civilizational investment, the unglamorous work of maintaining institutions. Reducing this to mercenary calculation guarantees fragmentation, as each nation will rationally seek alternative arrangements or, worse, their own nuclear arsenals.</p></div>
+            <p><em class="maxim">The alliance that demands its price becomes the tyrant from whom one eventually seeks liberation.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="dante">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bargello_-_Kapelle_Fresko_2a.jpg/330px-Bargello_-_Kapelle_Fresko_2a.jpg" alt="Dante Alighieri" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Dante Alighieri</span>
+              <span class="domain">Divine Justice & Moral Taxonomy</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us concerns whether military protection may be justly withheld from those who fail to demonstrate fealty through tribute and historical devotion—a matter of contrapasso, where the nature of alliance itself must mirror the nature of commitment. Such conditionality transforms alliance from covenant into commerce, reducing the sacred bond of mutual defense to mere mercantile exchange. When protection becomes purchasable rather than principled, you create a circle where trust—the very foundation of collective security—is replaced by perpetual negotiation. The betrayed ally, like those in my eighth circle, suffers not from violence but from the severing of faith itself. This fragmentation invites external powers to exploit the cracks, for predators always sense when the herd has abandoned its instinct for mutual preservation. Verdict: A transactional alliance is no alliance at all, merely a protection racket awaiting its inevitable collapse.</p></div>
+            <p><em class="maxim">Where shield-brothers demand payment for their shields, there stands no brotherhood, only a marketplace that invites the wolf.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="parker">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Young_Dorothy_Parker.jpg" alt="Dorothy Parker" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Dorothy Parker</span>
+              <span class="domain">Wit, Rage & Social Critique</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes alliance is transaction—quid pro quo dressed in starched diplomatic linens. How very American to think friendship can be itemized like a hotel bill. Alliances endure not through ledger-keeping but through shared vulnerability. The moment protection becomes a service rendered for payment, you've transformed NATO into a protection racket with better stationery. Nations don't rally to defend a creditor; they abandon one. Europe learned twice last century that isolationism is just narcissism with a flag. When America treats loyalty as currency, it discovers—too late—that currency inflates, while trust, once spent, cannot be printed again. Smaller nations will hedge, courting other powers. Larger ones will rearm, remember old grievances, pursue independent paths. The "traditional Western alliance" becomes a lovely phrase for something that no longer exists—like "temporary" or "just friends."</p></div>
+            <p><em class="maxim">Extortion is a poor foundation for affection, and alliances built on invoices collapse the moment someone offers better terms.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="london">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Jack_London_young.jpg/330px-Jack_London_young.jpg" alt="Jack London" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Jack London</span>
+              <span class="domain">Nature, Class & the Will to Survive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes alliances rest on abstract loyalty, but I know they grow from concrete struggle and shared necessity. Nations, like men on the trail, prove themselves not through sentiment but through survival—through blood, hardship, and mutual dependence forged in crisis. If America measures its protection by ledgers and past favours, it transforms alliance into mere transaction. This is the reasoning of the counting-house, not the pack. The wolf pack survives because each member understands its survival depends on the others' strength—not on who contributed what last winter. Once you reduce partnership to arithmetic, you breed not loyalty but calculation. Allies will seek new packs, form new dependencies. They must. The law of self-preservation demands it. Such a system fractures what centuries of shared peril built, replacing instinctive solidarity with the cold logic of the marketplace—and in that marketplace, others are already bidding.</p></div>
+            <p><em class="maxim">The alliance built on reciprocal need endures; the alliance built on reciprocal debt dies with the first unpaid bill.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="schopenhauer">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg/330px-Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg" alt="Arthur Schopenhauer" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Arthur Schopenhauer</span>
+              <span class="domain">Will, Suffering & Transcendence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes that alliances rest on rational calculation, yet every coalition is ultimately a manifestation of collective will—nations striving against the perpetual threat of dissolution and domination. When America demands loyalty-as-payment, it transforms defence pacts into commercial transactions, stripping them of their vital, organic character. This transactional cold-bloodedness exposes what was always true: states seek only to preserve their own will-to-exist, and "alliance" is merely a temporary suspension of mutual predation. Once explicit prices are named, the illusion of shared purpose dissolves. Smaller nations will seek new protectors or develop independent military capabilities—multiplying centres of armed will across Europe and Asia. The paradox: demanding contribution accelerates fragmentation. Trust, that gossamer thread holding coalitions together despite underlying antagonisms, cannot survive the accountant's ledger. Verdict: Such conditionality ensures the slow disintegration of NATO and comparable structures, replacing unified deterrence with a archipelago of suspicious, independently armed actors.</p></div>
+            <p><em class="maxim">When you price loyalty, you purchase only its simulation—and discover too late that genuine allegiance cannot be invoiced.</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-03-31</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

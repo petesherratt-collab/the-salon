@@ -641,15 +641,15 @@
     background: var(--aged);
     border-left: 3px solid var(--amber);
     font-style: normal;
-    color: var(--ink);
+    color: var(--body-text, var(--ink));
   }
 
   .msg.bot {
     align-self: flex-start;
-    background: white;
+    background: var(--cream);
     border-left: 3px solid var(--rust);
     font-style: italic;
-    color: var(--ink);
+    color: var(--body-text, var(--ink));
   }
 
   .msg .msg-speaker {
@@ -664,7 +664,7 @@
 
   .msg.thinking {
     align-self: flex-start;
-    background: white;
+    background: var(--cream);
     border-left: 3px solid var(--aged);
     color: var(--muted);
     font-style: italic;

@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 
-const OPENROUTER_API_KEY = "YOUR_OPENROUTER_KEY_HERE"; // paste your key from salon.html
+const OPENROUTER_API_KEY = "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";
 
 const PERSONAS = [
   { id: "machiavelli", name: "Machiavelli", emoji: "⚔️", domain: "Power & Politics" },
@@ -260,28 +260,28 @@ export default function App() {
   const isRunning = jobStatus === STATUS.running;
 
   return (
-    <div style={{ fontFamily: "var(--font-sans)", maxWidth: 1100, margin: "0 auto", padding: "1.5rem 1rem" }}>
+    <div style={{ fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", maxWidth: 1100, margin: "0 auto", padding: "1.5rem 1rem" }}>
 
       {/* Header */}
       <div style={{ marginBottom: "2rem" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 4 }}>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 500, color: "var(--color-text-primary)" }}>
+          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 500, color: "#111827" }}>
             The Judgement
           </h1>
-          <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Batch Processor</span>
+          <span style={{ fontSize: 13, color: "#6b7280" }}>Batch Processor</span>
         </div>
-        <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+        <p style={{ margin: 0, fontSize: 14, color: "#6b7280", lineHeight: 1.5 }}>
           Upload a CSV of topics — receive a Judgement from each Salon persona. Export your content library.
         </p>
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: 0, borderBottom: "0.5px solid var(--color-border-tertiary)", marginBottom: "1.5rem" }}>
+      <div style={{ display: "flex", gap: 0, borderBottom: "0.5px solid #e5e7eb", marginBottom: "1.5rem" }}>
         {["setup", "results"].map(tab => (
           <button key={tab} onClick={() => setActiveTab(tab)} style={{
-            background: "none", border: "none", borderBottom: activeTab === tab ? "2px solid var(--color-text-primary)" : "2px solid transparent",
+            background: "none", border: "none", borderBottom: activeTab === tab ? "2px solid #111827" : "2px solid transparent",
             padding: "8px 16px", fontSize: 14, fontWeight: activeTab === tab ? 500 : 400,
-            color: activeTab === tab ? "var(--color-text-primary)" : "var(--color-text-secondary)",
+            color: activeTab === tab ? "#111827" : "#6b7280",
             cursor: "pointer", marginBottom: -1
           }}>
             {tab === "setup" ? "Setup" : `Results${progress.total ? ` (${progress.done}/${progress.total})` : ""}`}
@@ -294,7 +294,7 @@ export default function App() {
 
           {/* Upload */}
           <div>
-            <p style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 500, color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 500, color: "#6b7280" }}>
               Upload CSV or paste topics
             </p>
             <div
@@ -303,17 +303,17 @@ export default function App() {
               onDragLeave={() => setDragOver(false)}
               onClick={() => fileRef.current?.click()}
               style={{
-                border: `1px dashed ${dragOver ? "var(--color-border-primary)" : "var(--color-border-secondary)"}`,
-                borderRadius: "var(--border-radius-lg)", padding: "1.5rem",
+                border: `1px dashed ${dragOver ? "#374151" : "#d1d5db"}`,
+                borderRadius: "10px", padding: "1.5rem",
                 textAlign: "center", cursor: "pointer", marginBottom: 12,
-                background: dragOver ? "var(--color-background-secondary)" : "transparent",
+                background: dragOver ? "#f9fafb" : "transparent",
                 transition: "all 0.15s"
               }}>
               <input ref={fileRef} type="file" accept=".csv,.txt" style={{ display: "none" }}
                 onChange={e => e.target.files[0] && handleFile(e.target.files[0])} />
-              <div style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>
                 {topics.length
-                  ? <><span style={{ fontWeight: 500, color: "var(--color-text-primary)" }}>{topics.length} topics loaded</span> — click to replace</>
+                  ? <><span style={{ fontWeight: 500, color: "#111827" }}>{topics.length} topics loaded</span> — click to replace</>
                   : "Drop CSV here or click to browse"}
               </div>
             </div>
@@ -324,22 +324,22 @@ export default function App() {
               onChange={handlePaste}
               style={{
                 width: "100%", minHeight: 180, resize: "vertical", fontSize: 13,
-                fontFamily: "var(--font-mono)", boxSizing: "border-box",
-                background: "var(--color-background-secondary)", border: "0.5px solid var(--color-border-tertiary)",
-                borderRadius: "var(--border-radius-md)", padding: "10px 12px", color: "var(--color-text-primary)"
+                fontFamily: "ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace", boxSizing: "border-box",
+                background: "#f9fafb", border: "0.5px solid #e5e7eb",
+                borderRadius: "6px", padding: "10px 12px", color: "#111827"
               }}
             />
 
             {topics.length > 0 && (
-              <div style={{ marginTop: 8, fontSize: 12, color: "var(--color-text-secondary)" }}>
-                {topics.length} topics × {activePers.length} personas = <span style={{ fontWeight: 500, color: "var(--color-text-primary)" }}>{topics.length * activePers.length} Judgements</span>
+              <div style={{ marginTop: 8, fontSize: 12, color: "#6b7280" }}>
+                {topics.length} topics × {activePers.length} personas = <span style={{ fontWeight: 500, color: "#111827" }}>{topics.length * activePers.length} Judgements</span>
               </div>
             )}
           </div>
 
           {/* Persona + Options */}
           <div>
-            <p style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 500, color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 500, color: "#6b7280" }}>
               Select personas
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: "1.5rem" }}>
@@ -348,27 +348,27 @@ export default function App() {
                 return (
                   <button key={p.id} onClick={() => togglePersona(p.id)} style={{
                     display: "flex", alignItems: "center", gap: 8, padding: "8px 10px",
-                    border: `0.5px solid ${on ? "var(--color-border-primary)" : "var(--color-border-tertiary)"}`,
-                    borderRadius: "var(--border-radius-md)", background: on ? "var(--color-background-secondary)" : "transparent",
+                    border: `0.5px solid ${on ? "#374151" : "#e5e7eb"}`,
+                    borderRadius: "6px", background: on ? "#f9fafb" : "transparent",
                     cursor: "pointer", textAlign: "left"
                   }}>
                     <span style={{ fontSize: 16 }}>{p.emoji}</span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: on ? 500 : 400, color: on ? "var(--color-text-primary)" : "var(--color-text-secondary)" }}>{p.name}</div>
-                      <div style={{ fontSize: 11, color: "var(--color-text-tertiary)" }}>{p.domain}</div>
+                      <div style={{ fontSize: 13, fontWeight: on ? 500 : 400, color: on ? "#111827" : "#6b7280" }}>{p.name}</div>
+                      <div style={{ fontSize: 11, color: "#9ca3af" }}>{p.domain}</div>
                     </div>
                   </button>
                 );
               })}
             </div>
 
-            <p style={{ margin: "0 0 8px", fontSize: 13, fontWeight: 500, color: "var(--color-text-secondary)" }}>
+            <p style={{ margin: "0 0 8px", fontSize: 13, fontWeight: 500, color: "#6b7280" }}>
               Concurrency: {concurrency} parallel calls
             </p>
             <input type="range" min={1} max={8} step={1} value={concurrency}
               onChange={e => setConcurrency(Number(e.target.value))}
               style={{ width: "100%", marginBottom: 4 }} />
-            <div style={{ fontSize: 12, color: "var(--color-text-tertiary)" }}>
+            <div style={{ fontSize: 12, color: "#9ca3af" }}>
               Higher = faster but more rate-limit risk
             </div>
 
@@ -378,10 +378,10 @@ export default function App() {
               style={{
                 marginTop: "1.5rem", width: "100%", padding: "10px 16px",
                 fontSize: 14, fontWeight: 500, cursor: topics.length && activePers.length && !isRunning ? "pointer" : "not-allowed",
-                border: "0.5px solid var(--color-border-secondary)",
-                borderRadius: "var(--border-radius-md)",
-                background: topics.length && activePers.length && !isRunning ? "var(--color-background-secondary)" : "transparent",
-                color: topics.length && activePers.length && !isRunning ? "var(--color-text-primary)" : "var(--color-text-tertiary)"
+                border: "0.5px solid #d1d5db",
+                borderRadius: "6px",
+                background: topics.length && activePers.length && !isRunning ? "#f9fafb" : "transparent",
+                color: topics.length && activePers.length && !isRunning ? "#111827" : "#9ca3af"
               }}>
               {isRunning ? "Running…" : `Run Batch — ${topics.length * activePers.length} Judgements`}
             </button>
@@ -395,40 +395,40 @@ export default function App() {
           {(isRunning || jobStatus === STATUS.done) && (
             <div style={{ marginBottom: "1.5rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+                <span style={{ fontSize: 13, color: "#6b7280" }}>
                   {isRunning ? `Processing… ${progress.done} / ${progress.total}` : `Complete — ${progress.done} Judgements`}
                 </span>
                 <div style={{ display: "flex", gap: 8 }}>
                   {isRunning && (
                     <button onClick={stopBatch} style={{
-                      fontSize: 12, padding: "4px 10px", border: "0.5px solid var(--color-border-secondary)",
-                      borderRadius: "var(--border-radius-md)", background: "transparent",
-                      color: "var(--color-text-secondary)", cursor: "pointer"
+                      fontSize: 12, padding: "4px 10px", border: "0.5px solid #d1d5db",
+                      borderRadius: "6px", background: "transparent",
+                      color: "#6b7280", cursor: "pointer"
                     }}>Stop</button>
                   )}
                   {jobStatus === STATUS.done && (
                     <div style={{ display: "flex", gap: 6 }}>
                       <button onClick={downloadCsv} style={{
                         fontSize: 12, padding: "4px 10px",
-                        border: "0.5px solid var(--color-border-secondary)",
-                        borderRadius: "var(--border-radius-md)",
-                        background: "var(--color-background-secondary)",
-                        color: "var(--color-text-primary)", cursor: "pointer", fontWeight: 500
+                        border: "0.5px solid #d1d5db",
+                        borderRadius: "6px",
+                        background: "#f9fafb",
+                        color: "#111827", cursor: "pointer", fontWeight: 500
                       }}>Export CSV ↓</button>
                       <button onClick={downloadSplitCsv} style={{
                         fontSize: 12, padding: "4px 10px",
-                        border: "0.5px solid var(--color-border-secondary)",
-                        borderRadius: "var(--border-radius-md)",
+                        border: "0.5px solid #d1d5db",
+                        borderRadius: "6px",
                         background: "transparent",
-                        color: "var(--color-text-secondary)", cursor: "pointer"
+                        color: "#6b7280", cursor: "pointer"
                       }}>Export split columns ↓</button>
                     </div>
                   )}
                 </div>
               </div>
-              <div style={{ height: 4, background: "var(--color-background-secondary)", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: 4, background: "#f9fafb", borderRadius: 2, overflow: "hidden" }}>
                 <div style={{
-                  height: "100%", width: `${pct}%`, background: "var(--color-text-primary)",
+                  height: "100%", width: `${pct}%`, background: "#111827",
                   borderRadius: 2, transition: "width 0.3s"
                 }} />
               </div>
@@ -438,8 +438,8 @@ export default function App() {
           {errors.length > 0 && (
             <div style={{
               marginBottom: "1rem", padding: "10px 12px", fontSize: 13,
-              background: "var(--color-background-danger)", borderRadius: "var(--border-radius-md)",
-              color: "var(--color-text-danger)", border: "0.5px solid var(--color-border-danger)"
+              background: "#fef2f2", borderRadius: "6px",
+              color: "#dc2626", border: "0.5px solid #fca5a5"
             }}>
               {errors.length} error{errors.length > 1 ? "s" : ""}: {errors.map(e => `${e.persona} / ${e.topic.slice(0, 30)}`).join(", ")}
             </div>
@@ -455,9 +455,9 @@ export default function App() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 500, fontSize: 12, color: "var(--color-text-secondary)", borderBottom: "0.5px solid var(--color-border-tertiary)" }}>Topic</th>
+                    <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 500, fontSize: 12, color: "#6b7280", borderBottom: "0.5px solid #e5e7eb" }}>Topic</th>
                     {activePers.map(p => (
-                      <th key={p.id} style={{ textAlign: "left", padding: "8px 10px", fontWeight: 500, fontSize: 12, color: "var(--color-text-secondary)", borderBottom: "0.5px solid var(--color-border-tertiary)" }}>
+                      <th key={p.id} style={{ textAlign: "left", padding: "8px 10px", fontWeight: 500, fontSize: 12, color: "#6b7280", borderBottom: "0.5px solid #e5e7eb" }}>
                         {p.emoji} {p.name}
                       </th>
                     ))}
@@ -465,8 +465,8 @@ export default function App() {
                 </thead>
                 <tbody>
                   {topics.map((topic, ti) => (
-                    <tr key={ti} style={{ borderBottom: "0.5px solid var(--color-border-tertiary)" }}>
-                      <td style={{ padding: "10px 10px", verticalAlign: "top", color: "var(--color-text-primary)", fontWeight: 500, fontSize: 13 }}>
+                    <tr key={ti} style={{ borderBottom: "0.5px solid #e5e7eb" }}>
+                      <td style={{ padding: "10px 10px", verticalAlign: "top", color: "#111827", fontWeight: 500, fontSize: 13 }}>
                         {topic}
                       </td>
                       {activePers.map(p => {
@@ -476,18 +476,18 @@ export default function App() {
                         return (
                           <td key={p.id} style={{ padding: "10px 10px", verticalAlign: "top" }}>
                             {!cell ? (
-                              <span style={{ fontSize: 12, color: "var(--color-text-tertiary)" }}>—</span>
+                              <span style={{ fontSize: 12, color: "#9ca3af" }}>—</span>
                             ) : cell.status === "loading" ? (
                               <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                                <span style={{ fontSize: 12, color: "var(--color-text-tertiary)" }}>Thinking</span>
-                                <span className="dots" style={{ color: "var(--color-text-tertiary)", fontSize: 12 }}>…</span>
+                                <span style={{ fontSize: 12, color: "#9ca3af" }}>Thinking</span>
+                                <span className="dots" style={{ color: "#9ca3af", fontSize: 12 }}>…</span>
                               </div>
                             ) : cell.status === "error" ? (
-                              <span style={{ fontSize: 12, color: "var(--color-text-danger)" }}>Error</span>
+                              <span style={{ fontSize: 12, color: "#dc2626" }}>Error</span>
                             ) : (
                               <div>
                                 <div style={{
-                                  fontSize: 12, color: "var(--color-text-secondary)", lineHeight: 1.6,
+                                  fontSize: 12, color: "#6b7280", lineHeight: 1.6,
                                   overflow: "hidden", maxHeight: isExpanded ? "none" : 72,
                                   maskImage: isExpanded ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)",
                                   WebkitMaskImage: isExpanded ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)"
@@ -495,7 +495,7 @@ export default function App() {
                                   {cell.text}
                                 </div>
                                 <button onClick={() => setExpandedCell(isExpanded ? null : key)} style={{
-                                  marginTop: 4, fontSize: 11, color: "var(--color-text-tertiary)", background: "none",
+                                  marginTop: 4, fontSize: 11, color: "#9ca3af", background: "none",
                                   border: "none", padding: 0, cursor: "pointer"
                                 }}>
                                   {isExpanded ? "collapse ↑" : "expand ↓"}
@@ -513,7 +513,7 @@ export default function App() {
           )}
 
           {topics.length === 0 && (
-            <div style={{ textAlign: "center", padding: "3rem", color: "var(--color-text-tertiary)", fontSize: 14 }}>
+            <div style={{ textAlign: "center", padding: "3rem", color: "#9ca3af", fontSize: 14 }}>
               Load topics in the Setup tab to begin.
             </div>
           )}

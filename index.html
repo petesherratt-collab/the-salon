@@ -3694,16 +3694,24 @@ async function sendMessage() {
 }
 
 function showSharePicker() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text) return;
-
   // Toggle: close if already open
   const existing = document.getElementById('sharePopover');
   if (existing) { existing.remove(); return; }
 
   const personaName = document.getElementById('modalName').textContent;
-  const shareText = `${text}\n\n— In conversation with ${personaName} on The Salon\n${window.location.href}`;
+  const typedText = document.getElementById('userInput').value.trim();
+
+  // Use typed text if present; otherwise share the last exchange from history
+  let shareText;
+  if (typedText) {
+    shareText = `${typedText}\n\n— In conversation with ${personaName} on The Salon\n${window.location.href}`;
+  } else if (conversationHistory.length >= 2) {
+    const lastUser = conversationHistory[conversationHistory.length - 2].content;
+    const lastReply = conversationHistory[conversationHistory.length - 1].content;
+    shareText = `"${lastReply.slice(0, 240)}${lastReply.length > 240 ? '…' : ''}"\n\n— ${personaName}, in response to: "${lastUser.slice(0, 80)}${lastUser.length > 80 ? '…' : ''}"\n\nThe Salon · ${window.location.href}`;
+  } else {
+    shareText = `I'm in conversation with ${personaName} on The Salon · ${window.location.href}`;
+  }
 
   const platforms = [
     { label: 'X',        url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}` },

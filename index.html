@@ -780,10 +780,10 @@
     flex: 1;
     padding: 1rem 1.4rem;
     border: none;
-    background: white;
+    background: var(--cream);
     font-family: 'Cormorant Garamond', serif;
     font-size: 1rem;
-    color: var(--ink);
+    color: var(--body-text);
     resize: none;
     outline: none;
     min-height: 60px;
@@ -806,6 +806,17 @@
 
   .modal-input-row button:hover { background: var(--rust); }
   .modal-input-row button:disabled { background: var(--muted); cursor: not-allowed; }
+
+  #shareBtn {
+    background: none;
+    border-left: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 1rem 1rem;
+    letter-spacing: 0;
+  }
+
+  #shareBtn:hover { background: var(--aged); color: var(--amber); }
 
   /* clickable cards */
   .voice-card { cursor: pointer; }
@@ -1088,7 +1099,8 @@
     <div class="modal-messages" id="modalMessages"></div>
     <div class="modal-input-row">
       <textarea id="userInput" placeholder="Speak your mind…" rows="2"></textarea>
-      <button id="sendBtn" onclick="showSharePicker()">Send →</button>
+      <button id="shareBtn" onclick="showSharePicker()" title="Share to social media">↗</button>
+      <button id="sendBtn" onclick="sendMessage()">Send →</button>
     </div>
   </div>
 </div>
@@ -3527,7 +3539,7 @@ document.getElementById('chatModal').addEventListener('click', function(e) {
 document.getElementById('userInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
-    showSharePicker();
+    sendMessage();
   }
 });
 
@@ -3629,6 +3641,54 @@ function renderMarkdown(text) {
   t = t.replace(/(<\/blockquote>)<\/p>/g, '$1');
 
   return t;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const text = input.value.trim();
+  if (!text || !currentPersona) return;
+
+  input.value = '';
+  sendBtn.disabled = true;
+
+  appendMessage('user', text);
+  conversationHistory.push({ role: 'user', content: text });
+
+  const thinking = appendThinking();
+
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: 'system', content: currentPersona.systemPrompt },
+          ...conversationHistory
+        ]
+      })
+    });
+
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message);
+
+    const reply = data.choices[0].message.content;
+    conversationHistory.push({ role: 'assistant', content: reply });
+
+    thinking.remove();
+    appendMessage('bot', reply);
+
+  } catch (err) {
+    thinking.remove();
+    const errDiv = document.createElement('div');
+    errDiv.className = 'msg thinking';
+    errDiv.innerHTML = `<div class="msg-speaker">System</div>Something went wrong: ${err.message}`;
+    document.getElementById('modalMessages').appendChild(errDiv);
+  } finally {
+    sendBtn.disabled = false;
+    input.focus();
+  }
 }
 
 function showSharePicker() {

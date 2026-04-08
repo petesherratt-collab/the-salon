@@ -3717,8 +3717,8 @@ function showSharePicker() {
     { label: 'X',        url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}` },
     { label: 'Threads',  url: `https://www.threads.net/intent/post?text=${encodeURIComponent(shareText)}` },
     { label: 'Bluesky',  url: `https://bsky.app/intent/compose?text=${encodeURIComponent(shareText)}` },
-    { label: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&summary=${encodeURIComponent(text)}` },
-    { label: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}` },
+    { label: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&summary=${encodeURIComponent(shareText)}` },
+    { label: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}` },
   ];
 
   const popover = document.createElement('div');

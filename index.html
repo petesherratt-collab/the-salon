@@ -768,6 +768,8 @@
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
   }
 
   .share-platform-btn:hover {
@@ -3721,14 +3723,14 @@ function showSharePicker() {
   popover.appendChild(label);
 
   platforms.forEach(p => {
-    const btn = document.createElement('button');
-    btn.className = 'share-platform-btn';
-    btn.textContent = p.label;
-    btn.addEventListener('click', () => {
-      window.open(p.url, '_blank', 'width=600,height=500,noopener,noreferrer');
-      popover.remove();
-    });
-    popover.appendChild(btn);
+    const a = document.createElement('a');
+    a.className = 'share-platform-btn';
+    a.textContent = p.label;
+    a.href = p.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.addEventListener('click', () => popover.remove());
+    popover.appendChild(a);
   });
 
   document.querySelector('.modal-input-row').appendChild(popover);

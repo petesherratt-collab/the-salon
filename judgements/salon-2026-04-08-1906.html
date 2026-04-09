@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-04-08</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+
+    /* Sun Tzu — black ink on bamboo scroll, sparse brushwork */
+    [data-textures="on"] .card[data-persona="suntzu"] {
+      background-color: #e8e0c8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='120'%3E%3Crect x='18' y='0' width='4' height='120' rx='2' fill='%23806040' fill-opacity='0.15'/%3E%3Crect x='0' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Crect x='37' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Cline x1='0' y1='30' x2='40' y2='30' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='60' x2='40' y2='60' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='90' x2='40' y2='90' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 120px;
+      --body-text: #1a1408;
+      --ink: #100c04;
+      --rule: #a89868;
+    }
+
+    /* Keynes — financial ledger, ruled columns */
+    [data-textures="on"] .card[data-persona="keynes"] {
+      background-color: #e4eef0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cline x1='0' y1='29' x2='120' y2='29' stroke='%234080a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='30' y1='0' x2='30' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='90' y1='0' x2='90' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 30px;
+      --body-text: #0e1e2a;
+      --ink: #081420;
+      --rule: #90b8c8;
+    }
+
+    /* Hayek — engineering blueprint, precise grid */
+    [data-textures="on"] .card[data-persona="hayek"] {
+      background-color: #dce8f0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='0' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='20' x2='40' y2='20' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='0' y1='40' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='20' y1='0' x2='20' y2='40' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='40' y1='0' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #0a1828;
+      --ink: #061020;
+      --rule: #80a8c8;
+    }
+
+    /* Wollstonecraft — pale rose silk, Georgian feminine */
+    [data-textures="on"] .card[data-persona="wollstonecraft"] {
+      background-color: #f0e4e8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ccircle cx='25' cy='25' r='2' fill='%23c07080' fill-opacity='0.25'/%3E%3Cpath d='M25 18 Q28 21 25 25 Q22 21 25 18Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M25 25 Q28 28 25 32 Q22 28 25 25Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M18 25 Q21 28 25 25 Q21 22 18 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3Cpath d='M25 25 Q28 22 32 25 Q28 28 25 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3C/svg%3E");
+      background-size: 50px 50px;
+      --body-text: #28101a;
+      --ink: #1a0810;
+      --rule: #c898a8;
+    }
+
+    /* Francis Bacon — dark oak panelling, candlelit study */
+    [data-textures="on"] .card[data-persona="bacon"] {
+      background-color: #2a2010;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='80'%3E%3Crect x='2' y='2' width='56' height='76' rx='2' fill='none' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Crect x='6' y='6' width='48' height='34' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Crect x='6' y='44' width='48' height='30' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='2' y1='42' x2='58' y2='42' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 60px 80px;
+      --body-text: #d8c8a0;
+      --ink: #f0e0b8;
+      --rule: #604820;
+    }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
+
+    /* Marx — red revolutionary broadsheet, industrial press marks */
+    [data-textures="on"] .card[data-persona="marx"] {
+      background-color: #2a0808;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='18' x2='120' y2='18' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='34' x2='120' y2='34' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='50' x2='120' y2='50' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='66' x2='120' y2='66' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='82' x2='120' y2='82' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='98' x2='120' y2='98' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='114' x2='120' y2='114' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Cline x1='0' y1='130' x2='120' y2='130' stroke='%23c03020' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='146' x2='120' y2='146' stroke='%23c03020' stroke-opacity='0.2' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #e8c8a0;
+      --ink: #f0d8b0;
+      --rule: #6b1818;
+    }
+
+    /* Gracián — aged Jesuit vellum, fine ruled manuscript lines */
+    [data-textures="on"] .card[data-persona="gracian"] {
+      background-color: #d4c4a0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24'%3E%3Cline x1='0' y1='23' x2='120' y2='23' stroke='%23806830' stroke-opacity='0.25' stroke-width='0.5'/%3E%3Cline x1='0' y1='11' x2='120' y2='11' stroke='%23806830' stroke-opacity='0.1' stroke-width='0.3'/%3E%3Cline x1='16' y1='0' x2='16' y2='24' stroke='%23806830' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 24px;
+      --body-text: #1e1408;
+      --ink: #120e04;
+      --rule: #907040;
+    }
+
+    /* Woolf — pale Bloomsbury plaster, watery light through tall windows */
+    [data-textures="on"] .card[data-persona="woolf"] {
+      background-color: #e8e4dc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 60 Q60 40 120 80 T240 60' fill='none' stroke='%23a0b0b8' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Cpath d='M0 100 Q80 75 160 120 T240 100' fill='none' stroke='%23b0c0c8' stroke-opacity='0.18' stroke-width='0.5'/%3E%3Cpath d='M0 140 Q70 115 140 155 T240 140' fill='none' stroke='%23a0b0b8' stroke-opacity='0.22' stroke-width='0.7'/%3E%3Cpath d='M40 0 Q55 80 30 160 T50 200' fill='none' stroke='%2398a8b0' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cpath d='M120 0 Q135 70 110 150 T130 200' fill='none' stroke='%23a8b8c0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #1a1c20;
+      --ink: #10121a;
+      --rule: #8898a8;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <nav class="site-nav">
+    <a href="../index.html">The Salon</a>
+    <span class="nav-divider"></span>
+    <a href="../salon-index.html" class="active">The Judgement</a>
+    <span class="nav-divider"></span>
+    <a href="../voices.html">The Voices</a>
+  </nav>
+  <main>
+      <section class="topic-section">
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          With the 2026 World Cup featuring an expanded 48-team format for the first time, do you think this "bigger is better" approach will successfully democratize football for smaller nations, or does it risk diluting the prestige and quality of the tournament?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="machiavelli">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg/330px-Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg" alt="Machiavelli" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Machiavelli</span>
+              <span class="domain">Power & Politics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question is not whether more nations enrich the spectacle, but whether expansion serves those who govern or those who compete. In matters of state—and FIFA is nothing if not a state unto itself—grand gestures of inclusion often mask the pursuit of wealth and influence. Consider: a prince expands his court not from generosity but to bind more tributaries to his power. FIFA multiplies participants to multiply revenues, broadcast markets, and patron nations. They speak of "democratization" while centralizing their own authority. The smaller nations gain visibility, yes—but on terms dictated entirely by the powerful. Meanwhile, the tournament's severity diminishes when qualification no longer separates the formidable from the merely present. Prestige rests upon exclusivity and excellence; dilute the contest, and you devalue the crown itself. The expansion succeeds—but for FIFA's treasury, not football's integrity.</p></div>
+            <p><em class="maxim">It is better to rule many subjects than to serve a discerning few; expansion favours the administrator, not the art.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="montaigne">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is whether abundance enriches or cheapens experience — a matter I have pondered regarding banquets, libraries, and now this global spectacle of athletic contest. I confess skepticism toward the notion that merely multiplying participants democratizes excellence. True, more nations gain entry, yet does the Andorran player truly compete, or does he merely attend his own humiliation? We grant access without granting capacity. Meanwhile, the tournament swells beyond what any reasonable spectator can digest — too many matches blur into tedium, reducing that sharp intensity which makes a contest memorable. I recall how the most exquisite meals are often the simplest, not the most profuse. The organizers confuse quantity with equity, when what smaller nations need is not ceremonial inclusion but genuine development of skill.</p></div>
+            <p><em class="maxim">Expansion grants the appearance of generosity while delivering the reality of dilution — we democratize participation at the cost of excellence, satisfying neither the ambitious nor the worthy.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="aurelius">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether the contest grows larger, but whether its expansion serves virtue or merely appetite for spectacle. Consider: Does including more nations cultivate excellence, or does it indulge our desire for novelty while weakening the standard that makes victory meaningful? The Stoic asks what is  — not the tournament's size, but whether we preserve what makes competition valuable: the testing of genuine skill, the reward of discipline, the example of virtue under pressure. If expansion allows worthy nations previously excluded by circumstance to demonstrate their excellence, this serves justice. But if we dilute the field merely to multiply markets and profits, we trade substance for appearance. The tournament's dignity depends not on its scale but on whether it remains a proving ground for true merit. A crown worn by many loses no value if each bearer earned it through virtue; but one distributed freely becomes mere decoration.</p></div>
+            <p><em class="maxim">within our control</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Austen" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes that prestige derives from exclusivity, when in truth it rests upon the depth of engagement it commands. A tournament's consequence lies not in artificial scarcity but in whether it occasions genuine investment of feeling and attention. The expansion reveals a tension between two conceptions of merit: one that values proven excellence through rigorous qualification, another that grants opportunity to develop excellence through participation. I observe that smaller nations lack not talent but the established networks and accumulated advantages that perpetuate existing hierarchies. Yet mere inclusion cannot manufacture what must be cultivated through sustained attention and resources. The risk is not dilution per se, but creating the appearance of democratization while preserving the fundamental inequalities that determine outcomes. If expanded participation occasions no redistribution of development resources, we create only a larger theatre for displaying the same disparities.</p></div>
+            <p><em class="maxim">Tournaments democratize only when they redistribute advantages, not merely attention.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The herd celebrates "inclusion" while the tournament's vitality bleeds out through a thousand mediocre matches. This expansion mistakes access for ascension — as if widening the gate raises anyone upward. What you call democratization, I recognize as the levelling impulse: the resentment of excellence that demands every nation receive its participation trophy. True greatness emerges not from guaranteed slots but from the will to overcome. Small nations earn nothing from pity-invitations to be humiliated on global stages; they need the fierce necessity that breeds genuine strength. Meanwhile, the World Cup — once a crucible where only the worthy survived — becomes another bloated spectacle where quantity masquerades as virtue. The tournament loses precisely what made it valuable: its ruthless selectivity, its demand for greatness.</p></div>
+            <p><em class="maxim">This expansion feeds the vanity of the weak while starving the festival of the strong.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="camus">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg/330px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche%2C_cigarette_de_tabagisme.jpg" alt="Camus" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Camus</span>
+              <span class="domain">Absurdity & Revolt</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes prestige lies in exclusivity — a comforting myth for those who've already claimed their seats at the table. But football's meaning was never found in scarcity; it emerges from the encounter itself, from nations facing the absurd challenge of competition knowing full well they may be crushed. The expansion doesn't dilute prestige — it exposes what prestige always was: an arbitrary gate maintained by the comfortable. When a smaller nation steps onto that pitch, they rebel against their assigned irrelevance. They affirm that participation itself, not probability of victory, holds inherent worth. Yes, blowouts will multiply. Yes, "quality" by traditional measures may suffer. But who decided 32 teams represented football's essential truth? The tournament was already arbitrary; now it's differently arbitrary, with more nations experiencing what Sisyphus knew — that the struggle itself suffices.</p></div>
+            <p><em class="maxim">Expansion doesn't cheapen the summit; it multiplies the mountains worth climbing.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Bashō" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes accumulation enhances meaning, yet I have watched a single dewdrop contain the entire morning. Expansion mistakes quantity for depth. This tournament swells like a river in flood season — it touches more banks, yes, but loses the clarity that made its waters prized. The World Cup's essence lies not in how many witness the moon's reflection, but in the perfection of that reflection itself. By admitting lesser preparations, you do not democratize excellence; you democratize mediocrity. The smaller nations do not need pity-invitations to a diminished feast. They need the sharpening stone of qualification's difficulty, which makes their rare arrival unforgettable. A thousand blossoms are not more beautiful than one perfect cherry blossom — they are merely noisier. The verdict: This expansion democratizes participation while impoverishing the sacred intensity that made the tournament worthy of pilgrimage.</p></div>
+            <p><em class="maxim">When every village enters the temple, the temple becomes a marketplace.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether expansion makes the tournament larger, but whether it extends genuine opportunity or merely the illusion of participation while debasing the competition's worth. A tournament gains its value not from the number who enter, but from the conditions under which they compete. If expansion genuinely allows nations previously excluded by arbitrary barriers to demonstrate their capabilities on merit, it advances human flourishing—these players develop their faculties, their societies gain inspiration, and football itself benefits from wider cultivation of excellence. But if we merely inflate numbers while maintaining structures that ensure the same powers dominate, we create what I termed "the tyranny of the majority" in reverse: many participate, few meaningfully compete, and the whole enterprise loses the very quality that made it worth pursuing. The standard of play must not be sacrificed on the altar of inclusion, for degraded competition serves no one's interest, least of all the newly admitted nations who deserve worthy opposition.</p></div>
+            <p><em class="maxim">True democratization requires equal opportunity to excel, not merely equal opportunity to lose.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes that prestige resides in exclusion, that worth must be rationed. But what is this "quality" you protect—except the consolidated privilege of established powers? I trust the energy of competition more than the gatekeeping of committees. Expansion returns football to its rightful participants—not as charity, but as recognition that genius springs from unexpected soil. The tournament's value lies not in artificial scarcity but in authentic contest. Let smaller nations prove themselves on the pitch rather than be dismissed in boardrooms. Each match will either justify their presence or expose it; this is democracy's proper test. The risk is not dilution but revelation—that yesterday's hierarchies may crumble before today's hungry competitors. Better a tournament that errs toward inclusion than one that calcifies mediocrity behind gilded gates. The World Cup will be precisely as prestigious as the play it produces, nothing more.</p></div>
+            <p><em class="maxim">Exclusivity is the refuge of those who fear their excellence cannot survive fair encounter.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The expansion of the World Cup is framed as democratization, but let me tell you plainly: access to the table means nothing if the feast remains controlled by the same hereditary powers. FIFA speaks the language of inclusion while preserving the structures that concentrate wealth, training facilities, and competitive advantage in the hands of established football aristocracies. True democratization requires more than additional seats—it demands fundamental redistribution of resources, genuine investment in emerging football nations, and dismantling the systems that keep smaller countries perpetually disadvantaged. Without this, you merely invite more witnesses to their own subjugation, dressed as participants. The "prestige" some fear losing was never equally distributed to begin with; it was always a crown worn by the privileged few.</p></div>
+            <p><em class="maxim">Expansion without redistribution is tokenism masquerading as revolution—a larger stage still owned by the same theatre masters.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us concerns not the beauty of sport, but the architecture of competition among sovereign nations. How we structure tournaments reveals what we truly value: excellence or inclusion, quality or equality. Let me be plain: expansion dilutes competitive excellence in pursuit of an illusion — that broader participation equals greater legitimacy. The World Cup's prestige derives precisely from its exclusivity, from the brutal Hobbesian reality that only the strongest survive qualification. When forty-eight enter instead of thirty-two, we do not "democratize" football; we merely redistribute the glory that scarcity creates. Smaller nations gain entry, yes, but to what? A stage where their inadequacy becomes spectacle. Meanwhile, the tournament's credibility suffers as mismatches multiply and the threshold for "world-class" descends. The expansion serves not sporting ideals but commercial and political appetites — more markets, more revenue, more votes from grateful federations.</p></div>
+            <p><em class="maxim">True honour lives only where true contest exists; enlarge the arena and you diminish the crown.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="suntzu">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg" alt="Sun Tzu" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Sun Tzu</span>
+              <span class="domain">Strategy & Deception</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question is not whether the gates open wider, but whether wider gates invite stronger challengers or merely expose weakness to exploitation. An army of superior numbers without discipline becomes a burden to itself. The World Cup's expansion may grant smaller nations entry, but opportunity without preparation is vulnerability disguised as honor. True democratization requires not just seats at the table, but cultivation of genuine competitive strength. Meanwhile, established powers will study these expanded battlegrounds, identifying weaker opponents to accumulate victories and conserve their forces for decisive encounters. The format creates more battles, yes — but quantity of conflict does not equal quality of warfare. What appears as generosity may prove strategic advantage to the already strong, who navigate easier paths while prestige dissipates through predictable mismatches. The tournament dilutes itself not through size, but through the illusion that access alone transforms capability.</p></div>
+            <p><em class="maxim">All warfare is based on deception; expansion deceives the weak into believing they compete while providing the strong easier terrain to dominate.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="keynes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="Keynes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Keynes</span>
+              <span class="domain">Economy & State</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>The expansion question mirrors perfectly what I observed in monetary systems: enlarging participation generates real benefits, but only if we maintain standards that prevent debasement of the currency itself.</p><span class="prose-label">Reframe</span><p>Football's World Cup functions as a currency of international prestige—its value derives from scarcity and quality combined. Expanding from 32 to 48 teams does democratize opportunity, granting smaller nations access to revenues and experience they desperately need. But here's the rub: if early rounds become tedious mismatches, we dilute the tournament's purchasing power as spectacle. The question isn't philosophical—it's whether FIFA can design a format that maintains competitive intensity whilst broadening participation. Simply enlarging the money supply, as it were, without adjusting the institutional framework, invites inflation of the most worthless kind: mediocrity.</p><span class="prose-label">Verdict</span><p class="prose-verdict">The expansion will democratize access but diminish quality unless accompanied by structural reforms ensuring competitive balance from the opening whistle.</p></div>
+            <p><em class="maxim">Participation without standards is merely organized decline wearing the mask of egalitarianism.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hayek">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Hayek" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hayek</span>
+              <span class="domain">Freedom & Spontaneous Order</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes central planning can optimize what only decentralized competition reveals. Football's greatness emerged not from committees deciding the "correct" number of participants, but from voluntary associations, local clubs, and organic rivalries—spontaneous order in its purest athletic form. FIFA's expansion represents the fatal conceit: technocrats believe they can design optimal inclusivity. But prestige cannot be manufactured by decree; it emerges from the unplanned outcomes of genuine competition. When artificially expanded, you don't democratize excellence—you dilute the information system that signals true quality. Smaller nations gain nothing from participation trophies. They advance through the same process that built football itself: gradual improvement through real competition, coaching evolution, and investment responding to genuine demand, not bureaucratic allocation. The tournament will become less prestigious precisely because merit has been compromised by designed "fairness."</p></div>
+            <p><em class="maxim">The road to mediocrity is paved with intentions to include everyone in victories they haven't earned.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="wollstonecraft">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Wollstonecraft" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Wollstonecraft</span>
+              <span class="domain">Reason & Equal Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether more teams grace the pitch, but whether this expansion genuinely extends opportunity to those long denied it — or merely multiplies spectacle while preserving established hierarchies. Consider: does adding sixteen nations challenge the system that concentrates resources, training, and infrastructure among the wealthy few? Or does it create the illusion of access while smaller nations arrive unprepared, serving as decorative fodder for traditional powers? True democratization requires not merely invitation, but the cultivation of capability — investment in coaching, facilities, and development where football has been starved of support. Without this foundation, expansion becomes patronizing theatre: we permit you to attend the feast, but offer you no seat at the table. Verdict: This expansion democratizes in name only; without structural investment in emerging football nations, it produces symbolic participation rather than genuine equality.</p></div>
+            <p><em class="maxim">An invitation without preparation is not opportunity — it is the performance of inclusion that disguises continued exclusion.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="bacon">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Somer_Francis_Bacon.jpg/330px-Somer_Francis_Bacon.jpg" alt="Francis Bacon" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Francis Bacon</span>
+              <span class="domain">Knowledge & Method</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is whether multiplying participants enhances or adulterates the World Cup's excellence. This matter touches upon the very method by which we achieve true merit versus the appearance of it. My philosophy teaches that knowledge advances through systematic collection of particulars, yet not all observations hold equal value. By admitting 48 nations, we create more instances of participation, but we risk confusing quantity of data with quality of discovery. The tournament's prestige derives not from breadth of inclusion but from the severity of its test — where only proven excellence survives elimination. Expanding access may serve political equality, yet football's truth reveals itself through competition's crucible, not through ceremonial attendance. We democratize the dream while potentially democratizing mediocrity.</p></div>
+            <p><em class="maxim">The multiplication of participants without the refinement of standards produces not advancement but dilution; nature's gold is not made more precious by mixing it with baser metals.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hume">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/David_Hume_Ramsay.jpg/330px-David_Hume_Ramsay.jpg" alt="Hume" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hume</span>
+              <span class="domain">Scepticism & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question presumes that expanding participation necessarily elevates either excellence or equity, when experience teaches us that custom and spectacle govern our passions for such contests far more than rational calculation. We must examine what actually moves us when we watch the World Cup. It is not abstract "quality" we seek, but the drama of witnessing our associations — national, tribal, emotional — reflected in struggle. If Honduran or Canadian supporters experience that passion for the first time on this stage, their pleasure is no less authentic than a Brazilian's. The tournament's prestige exists only in our collective sentiment; it cannot be "diluted" by mathematics alone, only by our changing feelings toward it. What risks degradation is not quality but the narrative coherence we've grown accustomed to — yet custom itself is merely habit, not sacred law. The expansion succeeds if it generates new passions; it fails if it bores us.</p></div>
+            <p><em class="maxim">Prestige resides not in exclusion but in the intensity of our caring.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="adamsmith">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg" alt="Adam Smith" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Adam Smith</span>
+              <span class="domain">Markets & Moral Sentiment</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether we enlarge a spectacle, but whether we extend the benefits of commerce to more participants while preserving what made the enterprise valuable. Consider this through the lens of market design. The World Cup's prestige derives not from artificial scarcity but from the quality of competition it attracts and the passions it stirs. When we expand participation, we risk what I observed in any marketplace: that debasing the currency—here, the meaning of qualification—diminishes trust in the whole system. Yet I also recognize that monopolies of excellence, when too tightly held, prevent the development of skill and ambition in excluded parties. The crucial test is whether expansion creates genuine pathways for improvement or merely theatrical participation that satisfies vanity while producing tedious matches that spectators endure rather than celebrate.</p></div>
+            <p><em class="maxim">Expansion succeeds only when it cultivates capability, not when it merely distributes consolation prizes.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="marx">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png/330px-Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png" alt="Karl Marx" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Karl Marx</span>
+              <span class="domain">Capital & Class Struggle</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The expansion to 48 teams appears as democratization but functions as accumulation. FIFA presents this as opening opportunities for "smaller nations," yet what we witness is the commodification of aspiration itself — more matches mean more broadcasting rights, more sponsorships, more surplus value extracted from the spectacle of competition. This is not solidarity with the footballing periphery; it is the logic of capital seeking new markets. The tournament becomes less a contest of sporting excellence and more a mechanism for expanding FIFA's monopoly over global attention. The "prestige" you mourn was always tied to exclusivity that served particular interests. But dilution through expansion doesn't liberate — it merely spreads the same hierarchical relations thinner. The powerful federations will still dominate; smaller nations will participate as token gestures while the real value flows upward to FIFA's coffers and its corporate partners. The expansion democratizes access to exploitation, not power.</p></div>
+            <p><em class="maxim">The capitalist offers you a seat at the table only when he's built a larger banquet from which to profit.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="gracian">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Graci%C3%A1n_Graus.jpg/330px-Graci%C3%A1n_Graus.jpg" alt="Baltasar Gracián" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Baltasar Gracián</span>
+              <span class="domain">Prudence & Worldly Wisdom</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether to expand the feast, but whether more guests enhance or diminish the banquet's savor. Prestige lives not in numbers but in the discernment of those admitted. This expansion confuses accessibility with excellence. The World Cup's greatness arose precisely from its selectivity—the difficulty of entry created its mystique. By lowering the threshold, we risk what I observed in courts: when everyone gains admission, distinction evaporates. The tournament becomes a census rather than a consecration. Smaller nations deserve opportunity, yes, but earned through merit, not granted through charity disguised as inclusion. The group stages will bloat with mismatches; the worthy will wade through tedium before glory appears. We democratize access only to aristocratize boredom. Verdict: This expansion sacrifices concentrated excellence for diffuse mediocrity—a poor trade.</p></div>
+            <p><em class="maxim">Greatness requires gatekeepers; when all enter freely, none arrive anywhere worth reaching.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="woolf">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg/330px-George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg" alt="Virginia Woolf" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Virginia Woolf</span>
+              <span class="domain">Modernism & Feminist Thought</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes expansion means democratization, yet observe how FIFA's "inclusivity" mirrors the false universalism of empires — absorbing more territories while preserving the same hierarchies of power and capital. What appears as generosity toward smaller nations is actually the tournament conforming to market logic: more matches, more advertising inventory, more television hours to monetize. The "Room of One's Own" principle applies here — true democratization requires not merely admission to the tournament, but genuine investment in infrastructure, coaching, youth development in these nations. Without this foundation, we create the spectacle of participation while perpetuating inequality. Meanwhile, the dilution concern betrays football's patriarchal anxiety: that opening the gates somehow diminishes what the establishment has built, when in fact excellence adapts and reasserts itself regardless of field size.</p></div>
+            <p><em class="maxim">The tournament expands not to share power, but to extract value from a wider geography of devotion.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="dante">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bargello_-_Kapelle_Fresko_2a.jpg/330px-Bargello_-_Kapelle_Fresko_2a.jpg" alt="Dante Alighieri" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Dante Alighieri</span>
+              <span class="domain">Divine Justice & Moral Taxonomy</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not one of numbers but of worthiness. Does expansion distribute glory justly, or does it merely confuse merit with participation? Consider my own architecture: the Inferno's circles do not expand to accommodate more sinners — they exist to sortearned presence. Expansion democratizes only if the tournament remains purgatorial — a place of testing and ascent. Otherwise, it becomes infernal: crowded, disordered, and stripped of transcendent meaning. Glory shared among the unworthy is not democracy but degradation.</p></div>
+            <p><em class="maxim">them according to their nature and desert. A tournament gains meaning not from the multitude it admits, but from the trials that separate the worthy from the unworthy. If these new entrants face genuine ordeal — qualifying groups that truly test, matches that genuinely challenge — then expansion serves justice. But if we merely grant passage without proportionate trial, we create a Limbo: teams present but purposeless, wandering without either glory or meaningful contest. The prestige lies not in exclusivity alone, but in</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="parker">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Young_Dorothy_Parker.jpg" alt="Dorothy Parker" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Dorothy Parker</span>
+              <span class="domain">Wit, Rage & Social Critique</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>You're asking whether throwing open the velvet rope makes the party better or just more crowded. How democratic of FIFA to discover inclusion precisely when it fattens their wallet. Here's what your expansion really means: more matches nobody remembers, more teams mathematically eliminated by halftime, more "historic firsts" that feel like participation trophies. Quality doesn't scale democratically — ask any writer who's watched their tight short story get bloated into a novel because publishers wanted more pages to sell. The World Cup's magic never came from more; it came from scarcity, from the brutal elegance of elimination, from knowing that getting there actually meant something. Democratization is the perfume you spray on commercialization. They're not expanding opportunity; they're expanding inventory.</p></div>
+            <p><em class="maxim">Prestige dies the moment everyone's invited — exclusivity isn't cruelty, it's the price of mattering.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="london">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Jack_London_young.jpg/330px-Jack_London_young.jpg" alt="Jack London" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Jack London</span>
+              <span class="domain">Nature, Class & the Will to Survive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The World Cup's expansion is survival of the fittest dressed as charity. They speak of democratization, but what I observe is the strong manufacturing consent while the weak are granted scraps at a table they'll never truly sit at. Here's the raw truth: genuine competition forges excellence through brutal selection. The greatest tournaments throughout history became legendary precisely because entry was scarce, hard-won. When Jamaica's Reggae Boyz or Iceland's Vikings claw their way in under the old system, they arrive battle-hardened, representing something earned through blood and sweat. Expansion doesn't democratize — it creates a bloated spectacle where preliminary rounds become exhibitions, where minnows provide fodder for giants, and the tournament becomes a commercial enterprise stretched thin across three nations. The powerful federations profit; smaller nations get participation trophies. This isn't about opportunity. It's about FIFA maximizing revenue streams while selling the romance of inclusion.</p></div>
+            <p><em class="maxim">True equality comes not from lowering the bar, but from giving the weak the tools to clear it at its highest point.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="schopenhauer">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg/330px-Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg" alt="Arthur Schopenhauer" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Arthur Schopenhauer</span>
+              <span class="domain">Will, Suffering & Transcendence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The World Cup's expansion betrays a fundamental misunderstanding: that broadening access to a spectacle diminishes the suffering inherent in its pursuit. You imagine democratization, but what you create is merely a more elaborate theatre of the Will. The striving for World Cup glory — that concentrated anguish of nations pouring their collective longing into twenty-two men — derives its meaning precisely from its scarcity and brutality. When forty-eight nations enter, you do not distribute dignity more equitably; you simply dilute the significance of qualification itself. The smaller nation does not transcend its station by participation alone — only through the genuine ordeal of competing against superior forces. Expansion offers the appearance of inclusion while hollowing out the sacred intensity that made the tournament a worthy object of devotion. You transform a crucible into a carnival. The expansion will succeed commercially while failing spiritually.</p></div>
+            <p><em class="maxim">The Will seeks not broader stages but worthier struggles; to multiply participants is to divide meaning itself.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="voltaire">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29_-002.jpg/330px-Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29_-002.jpg" alt="Voltaire" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Voltaire</span>
+              <span class="domain">Power, Reason & Reform</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not whether we expand opportunity, but whether we confuse quantity with merit. A tournament swollen to forty-eight nations may flatter itself as generous, yet generosity without discrimination becomes mere spectacle. True democratization requires not more participants, but better pathways — investment in football infrastructure, coaching, governance reform in neglected regions. Simply admitting more nations to the grand stage while they lack resources to compete meaningfully is theatre, not justice. We risk creating a two-tiered competition: the powerful nations who advance as expected, and a multitude of sacrificial participants whose presence serves only to justify the expansion's commercial appetite. The prestige of any contest derives from the difficulty of entry and the excellence it demands. Dilute these, and you have not democratized football — you have merely inflated it. The expansion will enrich administrators while providing smaller nations the illusion of equality rather than its substance.</p></div>
+            <p><em class="maxim">To multiply participants without multiplying genuine opportunity is to democratize nothing but disappointment.</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-04-08</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

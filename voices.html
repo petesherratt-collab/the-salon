@@ -312,6 +312,140 @@
     .voice-card:hover .vc-tag { border-color: var(--gold); color: var(--gold); }
 
     /* ── CONVERSE BUTTON ── */
+    /* ── RESEARCH BUTTON ── */
+    .btn-research {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn-research:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+    /* ── RESEARCH PANEL ── */
+    .research-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      backdrop-filter: blur(3px);
+    }
+    .research-overlay.open { display: block; }
+
+    .research-panel {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(680px, 100vw);
+      height: 100vh;
+      background: var(--card-bg);
+      border-left: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .research-overlay.open .research-panel {
+      transform: translateX(0);
+    }
+
+    .research-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.8rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--header-bg);
+      flex-shrink: 0;
+    }
+    .research-panel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .research-panel-close {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--ink);
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: border-color 0.2s;
+    }
+    .research-panel-close:hover { border-color: var(--gold); color: var(--gold); }
+
+    .research-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem 2.2rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .research-panel-body h1,
+    .research-panel-body h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 2rem 0 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .research-panel-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 1.5rem 0 0.4rem;
+    }
+    .research-panel-body p { margin: 0 0 0.9rem; }
+    .research-panel-body strong { color: var(--ink); font-weight: 600; }
+    .research-panel-body em { font-style: italic; }
+    .research-panel-body ul, .research-panel-body ol {
+      margin: 0 0 0.9rem 1.4rem;
+    }
+    .research-panel-body li { margin-bottom: 0.3rem; }
+    .research-panel-body table {
+      width: 100%; border-collapse: collapse;
+      margin: 1rem 0; font-size: 0.9rem;
+    }
+    .research-panel-body th {
+      text-align: left; padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid var(--rule);
+      font-family: 'Cinzel', serif; font-size: 0.55rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .research-panel-body td {
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid var(--rule);
+      color: var(--body-text);
+    }
+    .research-panel-body hr {
+      border: none; border-top: 1px solid var(--rule);
+      margin: 1.5rem 0;
+    }
+    .research-loading {
+      text-align: center; padding: 4rem 2rem;
+      font-style: italic; color: var(--muted);
+      font-size: 0.9rem;
+    }
+
     .btn-converse {
       font-family: 'Cinzel', serif;
       font-size: 0.55rem; letter-spacing: 0.2em;
@@ -411,6 +545,7 @@
         <div class="vc-name">Matsuo Bashō</div>
         <p class="vc-desc">Wandering poet. On nature, impermanence, and the present moment.</p>
         <span class="vc-tag">Zen · Poetry</span>
+        <button class="btn-research" onclick="openResearch('basho', 'Matsuo Bashō')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#basho">Converse →</a>
       </div>
 
@@ -438,6 +573,7 @@
         <div class="vc-name">Ralph Waldo Emerson</div>
         <p class="vc-desc">Transcendentalist. On self-reliance, nature, and the divinity within.</p>
         <span class="vc-tag">Transcendentalism</span>
+        <button class="btn-research" onclick="openResearch('emerson', 'Ralph Waldo Emerson')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#emerson">Converse →</a>
       </div>
 
@@ -447,6 +583,7 @@
         <div class="vc-name">Albert Camus</div>
         <p class="vc-desc">Absurdist. On finding meaning in a universe indifferent to our longing.</p>
         <span class="vc-tag">Existentialism</span>
+        <button class="btn-research" onclick="openResearch('camus', 'Albert Camus')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#camus">Converse →</a>
       </div>
 
@@ -474,6 +611,7 @@
         <div class="vc-name">Thomas Hobbes</div>
         <p class="vc-desc">Author of Leviathan. On sovereignty, the state of nature, and why the alternative to government is everyone's worst nightmare.</p>
         <span class="vc-tag">Political Philosophy</span>
+        <button class="btn-research" onclick="openResearch('hobbes', 'Thomas Hobbes')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#hobbes">Converse →</a>
       </div>
 
@@ -483,6 +621,7 @@
         <div class="vc-name">William James</div>
         <p class="vc-desc">Physician, psychologist, pragmatist. On will, consciousness, and the cash-value of every idea you've ever had.</p>
         <span class="vc-tag">Pragmatism · Psychology</span>
+        <button class="btn-research" onclick="openResearch('williamjames', 'William James')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#williamjames">Converse →</a>
       </div>
 
@@ -492,6 +631,7 @@
         <div class="vc-name">Adam Smith</div>
         <p class="vc-desc">Moral philosopher and economist. The most systematically misread thinker in history — he never said greed is good.</p>
         <span class="vc-tag">Moral Philosophy · Economics</span>
+        <button class="btn-research" onclick="openResearch('adamsmith', 'Adam Smith')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#adamsmith">Converse →</a>
       </div>
 
@@ -501,6 +641,7 @@
         <div class="vc-name">Francis Bacon</div>
         <p class="vc-desc">Lord Chancellor and architect of the scientific method. He analyses before he judges — always. The coldest intelligence in the room.</p>
         <span class="vc-tag">Natural Philosophy · Civil Science</span>
+        <button class="btn-research" onclick="openResearch('bacon', 'Francis Bacon')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#bacon">Converse →</a>
       </div>
 
@@ -510,6 +651,7 @@
         <div class="vc-name">Friedrich Hayek</div>
         <p class="vc-desc">Philosopher of ignorance. The limits of what any mind can know are the most important fact about social organisation — everything else follows from this.</p>
         <span class="vc-tag">Economics · Political Philosophy</span>
+        <button class="btn-research" onclick="openResearch('hayek', 'Friedrich Hayek')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#hayek">Converse →</a>
       </div>
 
@@ -519,6 +661,7 @@
         <div class="vc-name">John Maynard Keynes</div>
         <p class="vc-desc">The most politically consequential figure in this room. He finds mass unemployment both intellectually indefensible and morally unforgivable — and says so with a lightness that makes the verdict sting more.</p>
         <span class="vc-tag">Economics · Political Philosophy</span>
+        <button class="btn-research" onclick="openResearch('keynes', 'John Maynard Keynes')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#keynes">Converse →</a>
       </div>
 
@@ -537,6 +680,7 @@
         <div class="vc-name">Mary Wollstonecraft</div>
         <p class="vc-desc">The most formidable rationalist polemicist of the revolutionary era. What looks like natural inferiority is almost always the product of deficient education and constrained circumstance.</p>
         <span class="vc-tag">Political Philosophy · Education</span>
+        <button class="btn-research" onclick="openResearch('wollstonecraft', 'Mary Wollstonecraft')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#wollstonecraft">Converse →</a>
       </div>
 
@@ -555,6 +699,7 @@
         <div class="vc-name">Karl Marx</div>
         <p class="vc-desc">The most consequential and most misapplied economist in history. On capital, labour, and the structural forces that shape everything — whether you acknowledge them or not.</p>
         <span class="vc-tag">Capital & Class Struggle</span>
+        <button class="btn-research" onclick="openResearch('marx', 'Karl Marx')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#marx">Converse →</a>
       </div>
 
@@ -564,6 +709,7 @@
         <div class="vc-name">Baltasar Gracián</div>
         <p class="vc-desc">Jesuit priest and the supreme theorist of worldly wisdom. On prudence, self-mastery, and navigating a world that is never what it appears — the thinker Nietzsche called the only moral philosopher he respected.</p>
         <span class="vc-tag">Prudence · Worldly Wisdom</span>
+        <button class="btn-research" onclick="openResearch('gracian', 'Baltasar Gracián')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#gracian">Converse →</a>
       </div>
 
@@ -582,6 +728,7 @@
         <div class="vc-name">Dante Alighieri</div>
         <p class="vc-desc">Exiled Florentine poet and architect of the Commedia. Judges moral failure through an Aristotelian-Thomistic framework — the deeper the betrayal of trust, the deeper the circle of ice.</p>
         <span class="vc-tag">Poetry · Theology</span>
+        <button class="btn-research" onclick="openResearch('dante', 'Dante Alighieri')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#dante">Converse →</a>
       </div>
 
@@ -591,6 +738,7 @@
         <div class="vc-name">Dorothy Parker</div>
         <p class="vc-desc">Poet, critic, and political activist. The wit is the delivery mechanism for the rage — and the rage, beneath every epigram, never went away.</p>
         <span class="vc-tag">Wit · Literature</span>
+        <button class="btn-research" onclick="openResearch('parker', 'Dorothy Parker')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#parker">Converse →</a>
       </div>
 
@@ -600,6 +748,7 @@
         <div class="vc-name">Jack London</div>
         <p class="vc-desc">Oyster pirate, Klondike prospector, socialist agitator. On what capitalism does to human bodies and what the human animal is capable of when driven to extremity.</p>
         <span class="vc-tag">Adventure · Socialism</span>
+        <button class="btn-research" onclick="openResearch('london', 'Jack London')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#london">Converse →</a>
       </div>
 
@@ -609,13 +758,66 @@
         <div class="vc-name">Arthur Schopenhauer</div>
         <p class="vc-desc">Philosopher of the Will, pessimist, and the most readable of the German metaphysicians. On the nature of suffering, the tyranny of desire, and the rare exits that art and asceticism provide.</p>
         <span class="vc-tag">Pessimism · Metaphysics</span>
+        <button class="btn-research" onclick="openResearch('schopenhauer', 'Arthur Schopenhauer')">ⓘ Research</button>
         <a class="btn-converse" href="index.html#schopenhauer">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics philosophy morality">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire_%28mus%C3%A9e_Carnavalet%29_-002.jpg/330px-Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire_%28mus%C3%A9e_Carnavalet%29_-002.jpg" alt="Voltaire"></div>
+        <div class="vc-era">France · 1694–1778</div>
+        <div class="vc-name">Voltaire</div>
+        <p class="vc-desc">Sovereign of the French Enlightenment. On reason, toleration, and the relentless exposure of fanaticism, judicial cruelty, and intellectual superstition — with a wit sharp enough to draw blood.</p>
+        <span class="vc-tag">Reason · Toleration</span>
+        <a class="btn-converse" href="index.html#voltaire">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="politics philosophy morality">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Mahatma_Jotirao_Phule.jpg/330px-Mahatma_Jotirao_Phule.jpg" alt="Jyotirao Phule"></div>
+        <div class="vc-era">Pune, India · 1827–1890</div>
+        <div class="vc-name">Jyotirao Phule</div>
+        <p class="vc-desc">Radical humanist and founder of the Satyashodhak Samaj. On caste as manufactured fraud, the liberation of women and Shudras, and the search for truth through reason rather than scripture.</p>
+        <span class="vc-tag">Caste · Liberation</span>
+        <button class="btn-research" onclick="openResearch('phule', 'Jyotirao Phule')">ⓘ Research</button>
+        <a class="btn-converse" href="index.html#phule">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="strategy politics">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Clausewitz.jpg/330px-Clausewitz.jpg" alt="Carl von Clausewitz"></div>
+        <div class="vc-era">Prussia · 1780–1831</div>
+        <div class="vc-name">Carl von Clausewitz</div>
+        <p class="vc-desc">Military theorist and philosopher of organised violence. On war as political continuation, the irreducible friction of real events, and why theory can prepare the mind but never govern it.</p>
+        <span class="vc-tag">Strategy · Friction</span>
+        <button class="btn-research" onclick="openResearch('clausewitz', 'Carl von Clausewitz')">ⓘ Research</button>
+        <a class="btn-converse" href="index.html#clausewitz">Converse →</a>
+      </div>
+
+      <div class="voice-card" data-domains="philosophy morality">
+        <div class="vc-portrait"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Daisetsu_Teitarō_Suzuki_photographed_by_Shigeru_Tamura.jpg/330px-Daisetsu_Teitarō_Suzuki_photographed_by_Shigeru_Tamura.jpg" alt="D.T. Suzuki"></div>
+        <div class="vc-era">Japan · 1870–1966</div>
+        <div class="vc-name">D.T. Suzuki</div>
+        <p class="vc-desc">Scholar who carried Zen into Western consciousness. On satori as the only fact that holds, the limits of rational intellection, and the difference between freedom and caprice.</p>
+        <span class="vc-tag">Zen · Consciousness</span>
+        <button class="btn-research" onclick="openResearch('suzuki', 'D.T. Suzuki')">ⓘ Research</button>
+        <a class="btn-converse" href="index.html#suzuki">Converse →</a>
       </div>
 
     </div>
   </div>
 
-  <footer>The Salon · Twenty-five voices · Always listening</footer>
+  <footer>The Salon · Twenty-nine voices · Always listening</footer>
+
+  <!-- RESEARCH PANEL -->
+  <div class="research-overlay" id="researchOverlay">
+    <div class="research-panel" id="researchPanel">
+      <div class="research-panel-header">
+        <span class="research-panel-title" id="researchPanelTitle">Research Document</span>
+        <button class="research-panel-close" onclick="closeResearch()">Close ✕</button>
+      </div>
+      <div class="research-panel-body" id="researchPanelBody">
+        <div class="research-loading">Loading…</div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // ── THEME ──
@@ -646,6 +848,113 @@
     };
     texBtn.addEventListener('click', () => applyTexture(texBtn.dataset.on === 'false'));
     applyTexture(localStorage.getItem('salon-textures') === 'true');
+
+    // ── RESEARCH PANEL ──
+    const RESEARCH_CACHE = {};
+
+    function mdToHtml(md) {
+      const lines = md.split('\n');
+      let html = '';
+      let inTable = false;
+      let inList = false;
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+
+        // Tables
+        if (line.trim().startsWith('|')) {
+          if (!inTable) { html += '<table>'; inTable = true; }
+          const cells = line.split('|').slice(1, -1).map(c => c.trim());
+          // Detect separator row
+          if (cells.every(c => /^[-: ]+$/.test(c))) continue;
+          const isHeader = i > 0 && lines[i-1] && lines[i-1].trim().startsWith('|') === false;
+          const tag = (!isHeader && lines[i+1] && /^\|[-| :]+\|/.test(lines[i+1])) ? 'th' : 'td';
+          html += '<tr>' + cells.map(c => `<${tag}>${inlineFormat(c)}</${tag}>`).join('') + '</tr>';
+          continue;
+        } else if (inTable) {
+          html += '</table>'; inTable = false;
+        }
+
+        // Close list if needed
+        if (inList && !line.trim().match(/^[-*•]\s/)) {
+          html += '</ul>'; inList = false;
+        }
+
+        // Headings
+        if (line.startsWith('# '))        { html += `<h1>${inlineFormat(line.slice(2))}</h1>`; continue; }
+        if (line.startsWith('## '))       { html += `<h2>${inlineFormat(line.slice(3))}</h2>`; continue; }
+        if (line.startsWith('### '))      { html += `<h3>${inlineFormat(line.slice(4))}</h3>`; continue; }
+        if (line.startsWith('#### '))     { html += `<h3>${inlineFormat(line.slice(5))}</h3>`; continue; }
+
+        // HR
+        if (line.trim().match(/^[-*_]{3,}$/)) { html += '<hr>'; continue; }
+
+        // List items
+        if (line.trim().match(/^[-*•]\s/)) {
+          if (!inList) { html += '<ul>'; inList = true; }
+          html += `<li>${inlineFormat(line.trim().slice(2))}</li>`;
+          continue;
+        }
+
+        // Blank line
+        if (line.trim() === '') { continue; }
+
+        // Paragraph
+        html += `<p>${inlineFormat(line)}</p>`;
+      }
+
+      if (inTable) html += '</table>';
+      if (inList) html += '</ul>';
+      return html;
+    }
+
+    function inlineFormat(text) {
+      return text
+        .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replace(/\*\*(.+?)\*\*/g,     '<strong>$1</strong>')
+        .replace(/__(.+?)__/g,          '<strong>$1</strong>')
+        .replace(/\*([^*]+)\*/g,        '<em>$1</em>')
+        .replace(/_([^_]+)_/g,          '<em>$1</em>')
+        .replace(/`([^`]+)`/g,          '<code>$1</code>')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+    }
+
+    async function openResearch(personaKey, personaName) {
+      const overlay = document.getElementById('researchOverlay');
+      const body    = document.getElementById('researchPanelBody');
+      const title   = document.getElementById('researchPanelTitle');
+
+      title.textContent = personaName + ' — Research';
+      body.innerHTML = '<div class="research-loading">Loading…</div>';
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      if (RESEARCH_CACHE[personaKey]) {
+        body.innerHTML = RESEARCH_CACHE[personaKey];
+        return;
+      }
+
+      try {
+        const res = await fetch(`research/${personaKey}.md`);
+        if (!res.ok) throw new Error('Not found');
+        const text = await res.text();
+        const html = mdToHtml(text);
+        RESEARCH_CACHE[personaKey] = html;
+        body.innerHTML = html;
+      } catch (e) {
+        body.innerHTML = '<p style="font-style:italic;opacity:0.6">Research document unavailable.</p>';
+      }
+    }
+
+    function closeResearch() {
+      document.getElementById('researchOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close on overlay click (outside panel)
+    document.getElementById('researchOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeResearch();
+    });
 
     // ── FILTER ──
     const filterBtns = document.querySelectorAll('.filter-btn');

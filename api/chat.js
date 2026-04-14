@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { model, messages } = req.body;
+  const { model, messages, max_tokens } = req.body;
 
   try {
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         'HTTP-Referer': 'https://the-salon.vercel.app',
         'X-Title': 'The Salon'
       },
-      body: JSON.stringify({ model, messages })
+      body: JSON.stringify({ model, messages, ...(max_tokens && { max_tokens }) })
     });
 
     const data = await response.json();

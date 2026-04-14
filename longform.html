@@ -800,7 +800,7 @@ Your register is precise, occasionally impatient, and grounded in your own sator
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: 'anthropic/claude-sonnet-4-5',
-            max_tokens: 1500,
+            max_tokens: 2500,
             messages: [
               { role: 'system', content: getSystemPrompt(key) },
               { role: 'user', content: `Write a longform piece on the following subject:\n\n"${topic}"\n\nNo imposed structure. Write in your full voice until the thought is complete.` }

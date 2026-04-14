@@ -799,9 +799,11 @@ Your register is precise, occasionally impatient, and grounded in your own sator
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            messages: [{ role: 'user', content: `Write a longform piece on the following subject:\n\n"${topic}"\n\nNo imposed structure. No word count. Write in your full voice until the thought is complete.` }],
-            system: getSystemPrompt(key),
-            max_tokens: 4000,
+            model: 'anthropic/claude-sonnet-4-5',
+            messages: [
+              { role: 'system', content: getSystemPrompt(key) },
+              { role: 'user', content: `Write a longform piece on the following subject:\n\n"${topic}"\n\nNo imposed structure. No word count. Write in your full voice until the thought is complete.` }
+            ],
           }),
         });
 

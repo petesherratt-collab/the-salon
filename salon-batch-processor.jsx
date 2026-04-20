@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 
-const OPENROUTER_API_KEY = "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";
+const CHAT_ENDPOINT = "https://the-salon.vercel.app/api/chat";
 
 const PERSONAS = [
   { id: "machiavelli", name: "Machiavelli", emoji: "⚔️", domain: "Power & Politics" },
@@ -104,12 +104,9 @@ function buildSplitCsvExport(topics, results, activePers) {
 
 async function fetchJudgement(topic, persona, retries = 3) {
   for (let attempt = 0; attempt <= retries; attempt++) {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const response = await fetch(CHAT_ENDPOINT, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "anthropic/claude-sonnet-4-5",
         max_tokens: 1000,

@@ -9,9 +9,11 @@ You are running an automated routine for The Salon. Generate one new Judgement, 
 ## Preconditions
 
 - Current working directory is the repo root (contains `run-judgements.js`, `voices.html`, `salon-index.html`, `judgements/`).
-- `OPENROUTER_API_KEY` is set in the environment. If it is not, stop and report — do not proceed.
 - `node` is on PATH.
 - Current branch is `main` with a clean working tree.
+- Network access to `https://the-salon.vercel.app/api/chat` (the proxy endpoint — key lives in Vercel env).
+
+No OpenRouter key is needed: `run-judgements.js` defaults to the Vercel proxy, and the question-generation step in this routine also goes through the proxy.
 
 If any precondition fails, report what's missing and stop. Do not attempt to fix environment issues.
 
@@ -32,16 +34,22 @@ Open `run-judgements.js` and read the `PERSONAS` array (starts at the `const PER
 - Pick one persona at random from the intersected list as the **questioner**.
 - Pick one of the questioner's `data-domains` at random as the **topic domain**.
 
-### 4. Generate the question via OpenRouter
+### 4. Generate the question via the Vercel proxy
 
-Call `https://openrouter.ai/api/v1/chat/completions` with:
-- Model: `anthropic/claude-sonnet-4-5`
-- Auth: `Bearer $OPENROUTER_API_KEY`
-- System message: `You are <questioner name>, the historical thinker. In character, pose one sharp, specific question within the domain of <domain>. One sentence. No preamble, no greeting, no quotation marks around the output.`
-- User message: `Pose your question now.`
-- `max_tokens: 200`
+POST to `https://the-salon.vercel.app/api/chat` (no auth header — Vercel holds the key):
 
-Capture the response text, strip surrounding quotes/whitespace. If the call fails, log the error and stop — do not commit.
+```json
+{
+  "model": "anthropic/claude-sonnet-4-5",
+  "max_tokens": 200,
+  "messages": [
+    {"role": "system", "content": "You are <questioner name>, the historical thinker. In character, pose one sharp, specific question within the domain of <domain>. One sentence. No preamble, no greeting, no quotation marks around the output."},
+    {"role": "user", "content": "Pose your question now."}
+  ]
+}
+```
+
+Parse `choices[0].message.content`. Strip surrounding quotes/whitespace. If the call fails or the response has no content, log the error and stop — do not commit.
 
 ### 5. Pick respondents
 
@@ -105,7 +113,7 @@ Print a one-paragraph summary: questioner, domain, question, respondent names, s
 
 ## Failure handling
 
-- OpenRouter failure at step 4: report and stop. No commit.
+- Proxy failure at step 4: report and stop. No commit.
 - Script non-zero exit at step 7: report and stop. No commit.
 - Script succeeded but fewer than 3 respondents completed: report and stop. No commit, no push. Leave the generated files on disk for inspection.
 - Git push failure: report the error. The files are already committed locally, so a human can retry the push.

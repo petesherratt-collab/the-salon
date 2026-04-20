@@ -7,7 +7,13 @@ const fs   = require("fs");
 const path = require("path");
 
 // ── Config ──────────────────────────────────────────────────────────────────
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+// Two call modes:
+//   • Direct  — set OPENROUTER_API_KEY and we hit OpenRouter ourselves (fastest, good for local).
+//   • Proxy   — default; POST through SALON_PROXY_URL (Vercel /api/chat holds the key).
+// The proxy URL is overrideable via SALON_PROXY_URL for testing.
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
+const SALON_PROXY_URL    = process.env.SALON_PROXY_URL || "https://the-salon.vercel.app/api/chat";
+const USE_DIRECT         = !!OPENROUTER_API_KEY;
 const MODEL              = "anthropic/claude-sonnet-4-5";
 const MAX_TOKENS         = 1000;
 const RETRIES            = 3;
@@ -946,13 +952,15 @@ function buildHtml(topics, results, date, personas, portraits, questioner) {
 
 // ── API call ─────────────────────────────────────────────────────────────────
 async function fetchJudgement(topic, persona) {
+  const endpoint = USE_DIRECT ? "https://openrouter.ai/api/v1/chat/completions" : SALON_PROXY_URL;
+  const headers = USE_DIRECT
+    ? { "Content-Type": "application/json", "Authorization": `Bearer ${OPENROUTER_API_KEY}` }
+    : { "Content-Type": "application/json" };
+
   for (let attempt = 0; attempt <= RETRIES; attempt++) {
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const res = await fetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type":  "application/json",
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      },
+      headers,
       body: JSON.stringify({
         model:      MODEL,
         max_tokens: MAX_TOKENS,
@@ -1316,12 +1324,6 @@ async function runPool(tasks, concurrency, onDone) {
     process.exit(1);
   }
 
-  if (!OPENROUTER_API_KEY) {
-    console.error("OPENROUTER_API_KEY is not set. Export it before running:");
-    console.error("  export OPENROUTER_API_KEY=sk-or-v1-...");
-    process.exit(1);
-  }
-
   const scriptDir    = __dirname;
   const inputFile    = path.resolve(scriptDir, inputArg);
   const now          = new Date();
@@ -1370,6 +1372,7 @@ async function runPool(tasks, concurrency, onDone) {
   }
 
   console.log(`\nSalon Batch Processor`);
+  console.log(`  Mode     : ${USE_DIRECT ? "direct (OpenRouter)" : `proxy (${SALON_PROXY_URL})`}`);
   console.log(`  Topics   : ${topics.length}`);
   console.log(`  Personas : ${activePersonas.length}${personaIds ? ` (selected: ${activePersonas.map(p => p.name).join(", ")})` : ""}`);
   if (questioner) console.log(`  Posed by : ${questioner.name}`);

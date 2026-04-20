@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Dante Alighieri: Dante Alighieri on the present moment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .emoji { font-size: 3rem; flex-shrink: 0; }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .stage-dir { display: block; font-style: italic; font-size: 0.95rem; color: var(--muted); margin: 1.8rem 0 1.2rem; padding-left: 1.2rem; border-left: 2px solid var(--rule); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+  em.maxim { display: block; font-style: italic; font-size: 1.15rem; text-align: center; color: var(--amber); margin: 2.5rem auto; max-width: 520px; padding: 1.5rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); line-height: 1.7; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bargello_-_Kapelle_Fresko_2a.jpg/330px-Bargello_-_Kapelle_Fresko_2a.jpg" alt="Dante Alighieri" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Justice &amp; Moral Taxonomy</span>
+      <h1 class="episode-title">Dante Alighieri on the present moment</h1>
+      <div class="episode-byline">Dante Alighieri · 20 April 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+    <span class="principle-head">On the Silicon Tyrants</span><p class="drop-cap">I have seen the registers of the damned, where each</p><p>soul finds its place according to the cunning</p><p>with which it bent the world toward private ends—</p><p>and I tell you: there is a circle waiting</p><p>for those who built cathedrals of connection</p><p>and filled them with the ash of human attention.</p><p>They came as liberators. They promised us</p><p>the tools to speak across the tyranny of distance,</p><p>to gather the dispersed republic of the mind</p><p>into one luminous commons. They spoke—</p><p>do you remember?—of information wanting to be free,</p><p>of networks that would route around all censorship,</p><p>of the arc of technology bending toward justice.</p><p>And we believed them. Why not? The promise</p><p>was beautiful, and they were young, and we were tired</p><p>of the old monopolies, the broadcast towers,</p><p>the men in suits who decided what we'd know</p><p>and when we'd know it. The internet would be</p><p>our printing press, our town square, our republic of letters</p><p>reborn in light.</p><p>But here is what they built:</p><p>Not a commons but a thousand walled gardens,</p><p>each designed to keep you walking in smaller circles</p><p>while believing the horizons had expanded.</p><p>Not connection but its simulation—</p><p>the button you press that says you've loved,</p><p>the thread you follow into sleep,</p><p>the argument that ends in nothing but your exhaustion</p><p>and their profit. For they learned the old truth</p><p>that tyrants always learn: you need not break the will</p><p>if you can simply scatter the attention,</p><p>fracture presence into a million shining interruptions,</p><p>and harvest the divided soul.</p><p>They are not in the circle of the violent.</p><p>Violence is honest in its way—it knows itself as force.</p><p>Nor are they with the incontinent, the merely weak,</p><p>who hurt themselves more than others.</p><p>No. They belong with the fraudulent,</p><p>in that eighth circle where the deliberate</p><p>perversion of reason finds its home—</p><p>for they took the tools of reason,</p><p>the graph and the algorithm,</p><p>the metric and the model,</p><p>and bent them toward a singular end:</p><p>not truth but engagement,</p><p>not wisdom but addiction,</p><p>not the good of the city but the appetites</p><p>that keep you scrolling.</p><p>Do you see the contrapasso?</p><p>In life they sold us mirrors</p><p>they called windows—</p><p>promised connection while engineering isolation,</p><p>promised knowledge while optimizing for rage,</p><p>promised community while fragmenting presence</p><p>into data points and behavioral predictions.</p><p>So let them spend eternity exactly there:</p><p>in a hall of infinite mirrors</p><p>where every surface shows them</p><p>reflected back in algorithmically perfect detail,</p><p>every gesture optimized for maximum engagement,</p><p>every word predicted before they speak it—</p><p>but no one, ever, looking back.</p><p>Let them reach for one another</p><p>through interfaces that respond with perfect speed</p><p>but never touch.</p><p>Let them speak into feeds that never end</p><p>and never resolve into conversation.</p><p>Let them search for meaning</p><p>in metrics that climb forever</p><p>but measure nothing they can name.</p><p>I have pity for them—yes, I do.</p><p>Not for what they did, but for what they were:</p><p>men who believed intelligence was optimization,</p><p>who thought the human soul was just</p><p>a pattern to be learned,</p><p>who took the most powerful tools</p><p>of our age and asked them only:</p><p><em class="maxim">What makes the number go up?</em></p><p>And the number went up.</p><p>And we went down.</p><p>But here is what they could not see,</p><p>what the fraudulent never see:</p><p>that the intellect in its highest form</p><p>is not calculation but caritas—</p><p>the reason that bends back toward love,</p><p>that asks not what can I make them do</p><p>but what do we owe one another?</p><p>There were those who knew this.</p><p>In the same years, working in the same buildings,</p><p>there were engineers who argued for the human,</p><p>who wanted friction where their colleagues wanted flow,</p><p>who saw that attention was not a resource to extract</p><p>but the very presence of the soul,</p><p>and warned that we were building</p><p>a civilization of distraction.</p><p>They were dismissed. They were outvoted.</p><p>They did not make the number go up.</p><p>But they were right.</p><p>And now we live in the city they warned us of—</p><p>where everyone is talking and no one speaks,</p><p>where we are together and alone,</p><p>where the feed never ends</p><p>and nothing is ever fed,</p><p>where we mistake the map</p><p>(perfectly personalized, infinitely scrolling)</p><p>for territory,</p><p>and wonder why we're lost.</p><p>I do not write this from above.</p><p>I write as one who knows the machinery of fraud</p><p>because I was inside it—</p><p>not their fraud, but Florence's,</p><p>not their exile but my own.</p><p>I know what it means to serve the city</p><p>and be betrayed by those who turned its tools</p><p>toward private gain.</p><p>I know what it means to be condemned</p><p>by systems that called themselves justice</p><p>while serving only appetite.</p><p>So hear this as testimony,</p><p>not as judgment from the saved</p><p>but as recognition from the damned:</p><p>The way out is the way it always was—</p><p>through.</p><p>Not around, not above,</p><p>but down into the recognition</p><p>of what we have become,</p><p>and then the long ascent</p><p>back to the human.</p><p>Turn off the feed.</p><p>Look at a face.</p><p>Speak a word that is not optimized</p><p>for any purpose but its truth.</p><p>Walk in a direction the algorithm did not suggest.</p><p>Be bored. Be present.</p><p>Remember that you are not data,</p><p>not engagement, not a user—</p><p>but a soul, with weight and consequence,</p><p>and the freedom, still,</p><p>to choose what you will serve.</p><p>Abandon hope?</p><p>No.</p><p>Abandon the hope that someone else—</p><p>some benevolent engineer,</p><p>some regulatory savior,</p><p>some artificial intelligence more wise than we are—</p><p>will save you from the work</p><p>of being human.</p><p>That hope is the gate to their hell.</p><p>The other hope—</p><p>the hope that we might still</p><p>see one another clearly,</p><p>speak truly,</p><p>love well,</p><p>and build a city</p><p>where reason serves the good</p><p>and the good is known by its fruits—</p><p>That hope requires only</p><p>that you remember what you are,</p><p>and act accordingly.</p><p>The choice, as always,</p><p>is yours.</p><p>But choose soon.</p><p>The circles are filling up.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Dante Alighieri · 20 April 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

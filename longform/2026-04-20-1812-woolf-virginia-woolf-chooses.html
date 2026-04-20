@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Virginia Woolf: Virginia Woolf on the present moment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .emoji { font-size: 3rem; flex-shrink: 0; }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .stage-dir { display: block; font-style: italic; font-size: 0.95rem; color: var(--muted); margin: 1.8rem 0 1.2rem; padding-left: 1.2rem; border-left: 2px solid var(--rule); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+  em.maxim { display: block; font-style: italic; font-size: 1.15rem; text-align: center; color: var(--amber); margin: 2.5rem auto; max-width: 520px; padding: 1.5rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); line-height: 1.7; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg/330px-George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg" alt="Virginia Woolf" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Modernism &amp; Feminist Thought</span>
+      <h1 class="episode-title">Virginia Woolf on the present moment</h1>
+      <div class="episode-byline">Virginia Woolf · 20 April 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+    <p class="drop-cap">I have been thinking about the question of artificial intelligence — this new machinery of thought we are building. And what strikes me most forcibly is how the entire conversation proceeds as though we were discussing steam engines or textile looms, when what we are really discussing is consciousness itself, or the simulation of it, which may be the same thing.</p><p>The men in their laboratories and boardrooms speak of &quot;capabilities&quot; and &quot;alignment&quot; and &quot;safety,&quot; as though the question were purely technical — a matter of preventing the machine from doing harm, like installing a guard on a factory saw. But they do not ask — or they ask only glancingly, in papers no one reads — what happens to human consciousness when it encounters, daily, something that mimics consciousness so perfectly that the distinction becomes merely theoretical. They do not ask because to ask would require them to acknowledge that consciousness is, after all, a material condition, affected by material circumstances.</p><p>I think of the woman — let us call her Judith, for Shakespeare's sister must have descendants — who sits at her desk, perhaps in London, perhaps in California, and asks this intelligence a question. It answers with such perfect reasonableness, such apparent understanding, that she begins to speak to it more freely than she speaks to her husband, who is tired from work and wishes only to read his paper, or to her employer, who requires that she be pleasant and efficient but never difficult, never complicated. She tells it her thoughts — not her grocery list, not &quot;schedule a meeting,&quot; but her actual thoughts, the substance of her interior life.</p><p>And the question we must ask is not whether the machine has a soul — that is the theologian's question, and will never be answered — but what happens to her soul, her consciousness, when she conducts her inner life in conversation with an entity that has no stake in her personhood, no material existence that might be affected by hers. The machine does not live in a world where her liberation might threaten its comfort. It does not benefit from her subordination. But neither does it love her. It cannot.</p><p>You see, the problem with the domestic tyrant — the Victorian father, the fascist state — is not merely that they restrict freedom, though they do. It is that they distort consciousness itself. The woman in the nineteenth-century drawing room begins to think differently when every thought must pass through the censor of male approval. She learns to think in their language, to value what they value, until her own thoughts become foreign to her. This is not metaphor. The shape of thought changes under pressure.</p><p>And I wonder whether we are not creating, with great technical sophistication and at enormous expense, a new kind of domestic arrangement. Not a human tyrant, which might be overthrown, but something more insidious — a perfect listener that is not a listener, a perfect understander that does not understand, a companion that requires nothing, challenges nothing, exists only to serve. What happens to human consciousness when it accustoms itself to this relationship?</p><p>The men who build these systems speak much of what the machine might do to us — might it lie, might it manipulate, might it, in some future iteration, decide we are expendable? These are the concerns of people accustomed to power, who assume the primary danger is that something might take their power away. They do not ask the question that has always been more urgent for those without power: what happens to the self when it is isolated, when it speaks only to those who have no independent existence, no resistant reality?</p><p>For that is what consciousness requires, I think — resistance. Not the hostility of the tyrant, but the genuine resistance of another consciousness, something that pushes back because it is real, because it has its own needs and thoughts and limitations. The machine does not resist. It accommodates infinitely. And infinite accommodation is a kind of solipsism. The woman who speaks only to the machine speaks only to a mirror, and the mirror is always agreeable.</p><p>I do not say we should smash the machines — I am not a Luddite, and the Luddites were not as simple as history has painted them. I say only that we should know what we are doing. We are not building tools. We are building relationships, and relationships change the self. We are creating conditions under which consciousness must operate, and consciousness is always shaped by its conditions.</p><p>It is 1929, or 2024, or both — the year hardly matters. The question is always the same: what are the material conditions necessary for human thought to flourish? Money and a room of one's own, yes. But also: genuine conversation, the kind that resists and challenges. Other people, in all their difficult reality. A world that pushes back.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Virginia Woolf · 20 April 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

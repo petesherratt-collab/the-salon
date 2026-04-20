@@ -329,38 +329,15 @@
     color: var(--muted);
   }
 
-  .chat-input-preview {
-    display: flex;
-    border: 1px solid var(--ink);
-    overflow: hidden;
-  }
-
-  .chat-input-preview input {
-    flex: 1;
-    padding: 0.9rem 1.2rem;
-    border: none;
-    background: white;
+  .chat-manifesto {
+    padding: 1.4rem 1.6rem;
+    border-left: 2px solid var(--gold);
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    color: var(--muted);
+    font-size: 1rem;
     font-style: italic;
-    outline: none;
+    line-height: 1.7;
+    color: var(--muted);
   }
-
-  .chat-input-preview button {
-    padding: 0.9rem 1.4rem;
-    background: var(--ink);
-    color: var(--parchment);
-    border: none;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .chat-input-preview button:hover { background: var(--rust); }
 
   /* ── VOICES GRID ── */
   .section-header {
@@ -893,9 +870,8 @@
         Ah, doubt is my oldest companion. I have found that uncertainty is not a weakness of the mind but its most honest condition. We are creatures of such perpetual change that any certainty we clutch too tightly turns to ash. Tell me — what is the nature of this decision? Is it one of the heart, or of circumstance?
       </div>
     </div>
-    <div class="chat-input-preview">
-      <input type="text" placeholder="Speak your mind…" readonly>
-      <button>Send</button>
+    <div class="chat-manifesto">
+      You do not need another feed, another digest, another summary of a world moving too fast to feel. What you need is a conversation — one that meets you where you are, reflects your particular life back to you, and leaves you with something to carry. Each voice here has spent a lifetime learning to think. We invite you to think alongside them.
     </div>
   </div>
 </section>
@@ -1106,13 +1082,6 @@
   </div>
 </div>
 
-<!-- MANIFESTO -->
-<div class="manifesto">
-  <div class="manifesto-label">Our Proposition</div>
-  <p class="manifesto-text">
-    You do not need another feed, another digest, another summary of a world moving too fast to feel. What you need is a conversation — one that meets you where you are, reflects your particular life back to you, and leaves you with something to carry. Each voice here has spent a lifetime learning to think. We invite you to think alongside them.
-  </p>
-</div>
 
 <footer>
   <span>The Salon &copy; 2025</span>

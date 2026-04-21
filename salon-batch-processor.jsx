@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 
-const CHAT_ENDPOINT = "https://the-salon.vercel.app/api/chat";
+const CHAT_ENDPOINT = "https://the-salon-ten.vercel.app/api/chat";
 
 const PERSONAS = [
   { id: "machiavelli", name: "Machiavelli", emoji: "⚔️", domain: "Power & Politics" },

@@ -12,7 +12,7 @@ const path = require("path");
 //   • Proxy   — default; POST through SALON_PROXY_URL (Vercel /api/chat holds the key).
 // The proxy URL is overrideable via SALON_PROXY_URL for testing.
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
-const SALON_PROXY_URL    = process.env.SALON_PROXY_URL || "https://the-salon.vercel.app/api/chat";
+const SALON_PROXY_URL    = process.env.SALON_PROXY_URL || "https://the-salon-ten.vercel.app/api/chat";
 const USE_DIRECT         = !!OPENROUTER_API_KEY;
 const MODEL              = "anthropic/claude-sonnet-4-5";
 const MAX_TOKENS         = 1000;

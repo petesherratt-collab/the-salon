@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       headers: {
         'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://the-salon.vercel.app',
+        'HTTP-Referer': 'https://the-salon-ten.vercel.app',
         'X-Title': 'The Salon'
       },
       body: JSON.stringify({ model, messages, ...(max_tokens && { max_tokens }) })

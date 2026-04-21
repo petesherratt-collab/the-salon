@@ -11,7 +11,7 @@ You are running an automated routine for The Salon. Generate one new Judgement, 
 - Current working directory is the repo root (contains `run-judgements.js`, `voices.html`, `salon-index.html`, `judgements/`).
 - `node` is on PATH.
 - Current branch is `main` with a clean working tree.
-- Network access to `https://the-salon.vercel.app/api/chat` (the proxy endpoint — key lives in Vercel env).
+- Network access to `https://the-salon-ten.vercel.app/api/chat` (the proxy endpoint — key lives in Vercel env).
 
 No OpenRouter key is needed: `run-judgements.js` defaults to the Vercel proxy, and the question-generation step in this routine also goes through the proxy.
 
@@ -36,7 +36,7 @@ Open `run-judgements.js` and read the `PERSONAS` array (starts at the `const PER
 
 ### 4. Generate the question via the Vercel proxy
 
-POST to `https://the-salon.vercel.app/api/chat` (no auth header — Vercel holds the key):
+POST to `https://the-salon-ten.vercel.app/api/chat` (no auth header — Vercel holds the key):
 
 ```json
 {

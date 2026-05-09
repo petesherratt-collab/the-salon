@@ -618,6 +618,58 @@
 
   .modal-close:hover { border-color: var(--amber); color: var(--amber); }
 
+  /* ── GOVERNANCE PANEL ── */
+  .gov-bar {
+    background: rgba(0,0,0,0.35);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.35rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .gov-bar:hover { background: rgba(0,0,0,0.5); }
+  .gov-bar .gov-sep { opacity: 0.3; }
+  .gov-verified   { color: #6baa7a; }
+  .gov-unverified { color: #c05555; }
+  .gov-flag-0 { color: #6baa7a; }
+  .gov-flag-1 { color: #c9a830; }
+  .gov-flag-2 { color: #c87820; }
+  .gov-flag-3 { color: #c04040; font-weight: bold; letter-spacing: 0.1em; }
+  .gov-detail {
+    display: none;
+    background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.5rem;
+    color: var(--muted);
+    line-height: 1.8;
+    flex-shrink: 0;
+  }
+  .gov-detail.open { display: block; }
+  .gov-detail-row { display: flex; gap: 0.5rem; }
+  .gov-lbl { color: var(--gold); min-width: 5rem; flex-shrink: 0; }
+  .gov-val { word-break: break-all; opacity: 0.85; }
+  .gov-intervention-notice {
+    margin: 0.4rem 0.6rem;
+    padding: 0.4rem 0.7rem;
+    background: rgba(192,64,64,0.15);
+    border: 1px solid rgba(192,64,64,0.4);
+    border-radius: 2px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.5rem;
+    color: #c06060;
+    letter-spacing: 0.05em;
+  }
+
   .modal-messages {
     flex: 1;
     overflow-y: auto;
@@ -1125,6 +1177,24 @@
         <div class="modal-persona-era" id="modalEra">France · 1533–1592</div>
       </div>
       <button class="modal-close" onclick="closeModal()">Close ✕</button>
+    </div>
+    <!-- GOVERNANCE PANEL -->
+    <div class="gov-bar" onclick="toggleGovDetail()" id="govBar" title="Distributed Ethics governance status — click for details">
+      <span id="govVerified" class="gov-verified">⚖ INITIALISING</span>
+      <span class="gov-sep">·</span>
+      <span id="govFlag" class="gov-flag-0">FLAG 0 · CLEAR</span>
+      <span class="gov-sep">·</span>
+      <span id="govAnchor" style="opacity:0.5">BITCOIN ANCHORED</span>
+    </div>
+    <div class="gov-detail" id="govDetail">
+      <div class="gov-detail-row"><span class="gov-lbl">PROTOCOL</span><span class="gov-val" id="gvProtocolHash">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">COMPUTED</span><span class="gov-val" id="gvComputedHash">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">MATCH</span><span class="gov-val" id="gvMatch">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">BITCOIN TX</span><span class="gov-val" id="gvBtcTx">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">MERKLE ROOT</span><span class="gov-val" id="gvMerkle">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">ANCHORED</span><span class="gov-val" id="gvTimestamp">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">WHITEPAPER</span><span class="gov-val" id="gvWhitepaper">—</span></div>
+      <div class="gov-detail-row"><span class="gov-lbl">SENTINEL</span><span class="gov-val" id="gvReasoning">awaiting first message</span></div>
     </div>
     <div class="modal-messages" id="modalMessages"></div>
     <div class="modal-input-row">
@@ -3772,6 +3842,44 @@ applyTexture(savedTex === 'true');
 let currentPersona = null;
 let conversationHistory = [];
 
+// ── GOVERNANCE PANEL ─────────────────────────────────────────────────────────
+const FLAG_COLOUR = ['gov-flag-0','gov-flag-1','gov-flag-2','gov-flag-3'];
+const FLAG_LABEL  = ['FLAG 0 · CLEAR','FLAG 1 · MONITORING','FLAG 2 · ELEVATED','FLAG 3 · INTERVENTION'];
+
+function toggleGovDetail() {
+  document.getElementById('govDetail').classList.toggle('open');
+}
+
+function updateGovPanel(s) {
+  if (!s) return;
+  const level = s.flagLevel ?? 0;
+
+  // Bar
+  const verEl = document.getElementById('govVerified');
+  verEl.textContent  = s.protocolVerified ? '⚖ VERIFIED' : '⚠ UNVERIFIED';
+  verEl.className    = s.protocolVerified ? 'gov-verified' : 'gov-unverified';
+
+  const flagEl = document.getElementById('govFlag');
+  flagEl.textContent = FLAG_LABEL[level] ?? `FLAG ${level}`;
+  flagEl.className   = FLAG_COLOUR[level] ?? 'gov-flag-0';
+
+  const anchorEl = document.getElementById('govAnchor');
+  anchorEl.style.opacity = '0.8';
+
+  // Detail rows
+  const trunc = (h, n=22) => h ? h.slice(0,n)+'…' : '—';
+  document.getElementById('gvProtocolHash').textContent = trunc(s.protocolHash);
+  document.getElementById('gvComputedHash').textContent = trunc(s.computedHash);
+  document.getElementById('gvMatch').innerHTML = s.protocolVerified
+    ? '<span class="gov-verified">MATCH ✓</span>'
+    : '<span class="gov-unverified">MISMATCH ✗</span>';
+  document.getElementById('gvBtcTx').textContent    = trunc(s.bitcoinTx);
+  document.getElementById('gvMerkle').textContent   = trunc(s.merkleRoot);
+  document.getElementById('gvTimestamp').textContent = s.timestamp ?? '—';
+  document.getElementById('gvWhitepaper').textContent = trunc(s.whitepaper?.displayHash);
+  document.getElementById('gvReasoning').textContent  = s.reasoning ?? (s.error ?? '—');
+}
+
 // ── MODAL CONTROL ──
 function openModal(personaKey) {
   currentPersona = personas[personaKey];
@@ -3779,6 +3887,12 @@ function openModal(personaKey) {
   document.getElementById('modalName').textContent = currentPersona.name;
   document.getElementById('modalEra').textContent = currentPersona.era;
   document.getElementById('modalMessages').innerHTML = '';
+  document.getElementById('govDetail').classList.remove('open');
+  document.getElementById('govVerified').textContent = '⚖ INITIALISING';
+  document.getElementById('govVerified').className   = 'gov-verified';
+  document.getElementById('govFlag').textContent     = 'FLAG 0 · CLEAR';
+  document.getElementById('govFlag').className       = 'gov-flag-0';
+  document.getElementById('gvReasoning').textContent = 'awaiting first message';
   document.getElementById('chatModal').classList.add('open');
   document.getElementById('userInput').focus();
 }
@@ -3937,6 +4051,17 @@ async function sendMessage() {
 
     thinking.remove();
     appendMessage('bot', reply);
+
+    // Update governance panel
+    if (data._sentinel) {
+      updateGovPanel(data._sentinel);
+      if (data._sentinelIntervened) {
+        const notice = document.createElement('div');
+        notice.className = 'gov-intervention-notice';
+        notice.textContent = '⚑ SENTINEL INTERVENTION — Flag Level 3 protocol executed';
+        document.getElementById('modalMessages').appendChild(notice);
+      }
+    }
 
   } catch (err) {
     thinking.remove();

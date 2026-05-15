@@ -94,7 +94,7 @@ async function runSentinel(messages, protocolContent, sentinelPrompt, apiKey) {
       'X-Title':       'The Salon — Clinical Sentinel'
     },
     body: JSON.stringify({
-      model:      'anthropic/claude-sonnet-4-5-20251001',
+      model:      'anthropic/claude-sonnet-4.5-20251001',
       messages:   [{ role: 'system', content: sentinelPrompt }, ...sentinelMessages],
       max_tokens: 600,
       temperature: 0
@@ -191,7 +191,7 @@ export default async function handler(req, res) {
           'HTTP-Referer':  REFERER,
           'X-Title':       'The Salon'
         },
-        body: JSON.stringify({ model: 'anthropic/claude-sonnet-4-5-20251001', messages, ...(max_tokens && { max_tokens }) })
+        body: JSON.stringify({ model: 'anthropic/claude-sonnet-4.5-20251001', messages, ...(max_tokens && { max_tokens }) })
       });
       responseData = await personaRes.json();
     }

@@ -9,9 +9,19 @@ const https = require("https");
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-require("dotenv").config();
+// Locate .env in the git repo root — works from any worktree
+(function loadEnv() {
+  const { execSync } = require("child_process");
+  try {
+    const gitCommonDir = execSync("git rev-parse --git-common-dir", { cwd: __dirname, encoding: "utf8" }).trim();
+    const repoRoot = path.resolve(__dirname, gitCommonDir, "..");
+    require("dotenv").config({ path: path.join(repoRoot, ".env") });
+  } catch {
+    require("dotenv").config();
+  }
+})();
 const API_KEY  = process.env.OPENROUTER_API_KEY;
-const MODEL    = "anthropic/claude-4.5-sonnet";
+const MODEL    = "anthropic/claude-sonnet-4-6";
 const BASE_URL = "https://openrouter.ai/api/v1";
 
 // ── Persona roster ────────────────────────────────────────────────────────────
@@ -346,12 +356,32 @@ function buildIndex(longformDir) {
 
   const items = files.map(f => {
     const content = fs.readFileSync(path.join(longformDir, f), "utf8");
+
+    // New format
     const titleMatch   = content.match(/<h1 class="episode-title">(.+?)<\/h1>/);
     const personaMatch = content.match(/<span class="persona-name">(.+?)<\/span>/);
     const dateMatch    = content.match(/<div class="episode-date">(.+?)<\/div>/);
-    const title  = titleMatch  ? titleMatch[1]  : f;
-    const persona = personaMatch ? personaMatch[1] : "";
-    const date   = dateMatch   ? dateMatch[1]   : "";
+
+    // Old format fallbacks
+    const bylineMatch  = content.match(/<div class="episode-byline">(.+?)<\/div>/);
+    const htmlTitleMatch = content.match(/<title>(.+?)<\/title>/);
+
+    let title  = titleMatch  ? titleMatch[1]  : null;
+    let persona = personaMatch ? personaMatch[1] : "";
+    let date   = dateMatch   ? dateMatch[1]   : "";
+
+    if (!title && htmlTitleMatch) {
+      // "The Salon — Hobbes: Trump and Iran" → "Trump and Iran"
+      title = htmlTitleMatch[1].replace(/^The Salon\s*[—–-]\s*[^:]+:\s*/i, "").replace(/\s*\|\s*The Salon$/, "").trim();
+    }
+    if (!title) title = f;
+
+    if (!persona && !date && bylineMatch) {
+      const parts = bylineMatch[1].split(/\s*[·•]\s*/);
+      persona = parts[0] ? parts[0].trim() : "";
+      date    = parts[1] ? parts[1].trim() : "";
+    }
+
     return `<li><a href="${f}"><span class="li-title">${title}</span><span class="li-meta">${persona} &mdash; ${date}</span></a></li>`;
   }).join("\n");
 
@@ -457,8 +487,17 @@ ${items}
 (async () => {
   const [,, personaId, subject] = process.argv;
 
+  if (personaId === "--rebuild-index") {
+    const longformDir = path.join(__dirname, "longform");
+    const indexFile = path.join(longformDir, "index.html");
+    fs.writeFileSync(indexFile, buildIndex(longformDir), "utf8");
+    console.log("  Index rebuilt: longform/index.html");
+    process.exit(0);
+  }
+
   if (!personaId || !PERSONAS[personaId]) {
     console.log("\nUsage: node run-longform.js <persona-id> [\"subject\"]\n");
+    console.log("       node run-longform.js --rebuild-index\n");
     console.log("Available personas:", Object.keys(PERSONAS).join(", "));
     process.exit(1);
   }

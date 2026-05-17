@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Salon — Judgements 2026-03-25</title>
+  <title>The Salon — Judgements 2026-04-27</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -156,7 +156,8 @@
       font-size: 0.95rem;
       font-style: italic;
       font-weight: 300;
-      color: var(--rule);
+      color: var(--gold);
+      opacity: 0.6;
       letter-spacing: 0.04em;
       margin-bottom: 1.25rem;
     }
@@ -170,6 +171,58 @@
       gap: 0.5rem;
     }
 
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
     /* ── Layout ── */
     main {
       max-width: 1400px;
@@ -179,6 +232,27 @@
 
     /* ── Topic section ── */
     .topic-section { margin-bottom: 5rem; }
+
+    .posed-by {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      opacity: 0.85;
+    }
+    .posed-by-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--crimson);
+      margin-left: 0.35em;
+    }
 
     .topic-heading {
       font-family: 'Cinzel', serif;
@@ -212,6 +286,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
+      align-items: start;
     }
 
     .card {
@@ -507,6 +582,26 @@
       --ink: #f0e0b8;
       --rule: #604820;
     }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
   </style>
 </head>
 <body>
@@ -527,48 +622,115 @@
     <a href="../salon-index.html" class="active">The Judgement</a>
     <span class="nav-divider"></span>
     <a href="../voices.html">The Voices</a>
-    <span class="nav-divider"></span>
-    <a href="../longform.html">The Long Form</a>
-    <span class="nav-divider"></span>
-    <a href="../longform/index.html">The Archive</a>
   </nav>
   <main>
       <section class="topic-section">
+        <p class="posed-by" data-questioner-id="hume">Posed by <span class="posed-by-name">Hume</span></p>
         <h2 class="topic-heading">
           <span class="topic-label">The Question</span>
-          To what extent should a Central Bank prioritize reaching a 2% inflation target if the high-interest rates required to get there risk triggering a significant recession?
+          Is there any foundation for moral judgement beyond custom and sentiment, or do our claims to reason merely dress up the instincts we were always going to follow?
         </h2>
         <div class="cards-grid">
-        <div class="card" data-persona="keynes">
+        <div class="card" data-persona="montaigne">
           <div class="card-header" role="button" aria-expanded="false">
-            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="Keynes" /></div>
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg/330px-Portrait_of_Michel_de_Montaigne%2C_circa_unknown.jpg" alt="Montaigne" /></div>
             <div class="card-meta">
-              <span class="persona-name">Keynes</span>
-              <span class="domain">Economy & State</span>
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
             </div>
             <span class="expand-icon">＋</span>
           </div>
           <div class="card-body">
-            <div class="card-prose"><p>FRAMING</p><p>The orthodox fixation on a precise 2% target mistakes the map for the territory — it sacrifices the living reality of employment and output on the altar of a statistical abstraction.</p><p>REFRAME</p><p>When I surveyed the wreckage of the 1920s, I learned that rigid monetary policy pursuing arbitrary price-level targets courts catastrophe. The question is not whether inflation sits at 2% or 3%, but whether we have full employment and productive investment. High interest rates that strangle enterprise and throw millions out of work inflict far graver social damage than modestly elevated prices. The real scandal is not inflation at 3% — it is deliberate unemployment manufactured by central bankers treating economics like geometry. In the long run we are all dead; what matters is whether people have work today, whether businesses can invest, whether animal spirits are encouraged or crushed.</p><p>VERDICT</p><p>A central bank should abandon the 2% fetish entirely when achieving it requires mass unemployment.</p></div>
-            <p><em class="maxim">Better a living economy at 3% inflation than a graveyard of idle men at 2%.</em></p>
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether reason governs our morals or merely decorates them — a question I have turned over countless times while watching how confidently men declare universal truths that their neighbours find barbarous.</p><span class="prose-label">Reframe</span><p>I have observed that what Persians call virtue, we call vice, and what we praise as justice, the Cannibals would judge cruelty. Reason, that faculty we claim elevates us, proves remarkably pliable — it can justify burning heretics or sparing them with equal eloquence. Yet this does not make all judgements equal. Custom shapes us profoundly, yes, but within custom we still exercise judgement, choose between competing instincts, and suffer genuine moral anguish. The foundation is not universal reason, but nor is it mere caprice — it is the human capacity to examine our sentiments, to question even as we remain bound.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Moral judgement rests not on transcendent reason but on examined sentiment — reason serves as sentiment's mirror, not its master.</p></div>
+            <p><em class="maxim">We do not follow reason to our judgements; we follow our judgements to reason.</em></p>
           </div>
         </div>
-        <div class="card" data-persona="hayek">
+        <div class="card" data-persona="aurelius">
           <div class="card-header" role="button" aria-expanded="false">
-            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Hayek" /></div>
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
             <div class="card-meta">
-              <span class="persona-name">Hayek</span>
-              <span class="domain">Freedom & Spontaneous Order</span>
+              <span class="persona-name">Marcus Aurelius</span>
+              <span class="domain">Stoic Ethics</span>
             </div>
             <span class="expand-icon">＋</span>
           </div>
           <div class="card-body">
-            <div class="card-prose"><p>The obsession with a precise 2% target reveals the fatal conceit I warned against—the belief that monetary authorities possess the knowledge to fine-tune such complex phenomena. This number is arbitrary theatre, not economic law.</p><p>What matters is not hitting an artificial target but maintaining the predictability of the monetary framework itself. When central banks manufacture recession to reach their proclaimed number, they demonstrate exactly the kind of constructive rationalism that ignores spontaneous market adjustments. The economy is not a machine with dials to calibrate. Real harm—unemployment, business failures, destroyed capital—is not justified by statistical aesthetics. If achieving 2% rather than 3% inflation requires deliberately impoverishing millions, the target itself has become destructive dogma. The central bank's proper role is providing a stable monetary framework, not pursuing numerical precision that pretends to knowledge it cannot possess.</p></div>
-            <p><em class="maxim">The pretense of knowledge that justifies widespread suffering in service of an arbitrary number is precisely the hubris that destroys free societies.</em></p>
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether reason governs our moral judgements or merely adorns our animal appetites with philosophical garments.</p><span class="prose-label">Reframe</span><p>I have observed that most humans do indeed follow sentiment dressed as principle, yet this does not exhaust our capacity. The rational faculty distinguishes us from beasts precisely because we can examine our impulses before acting upon them. When I feel anger at an insult, custom and sentiment scream for retaliation—but reason reveals that the insulter likely acts from ignorance or their own suffering, and that my tranquillity matters more than their opinion. This capacity to step back, to see things as they truly are rather than as passion paints them, constitutes our foundation beyond mere custom. The Logos within us can apprehend universal principles—reciprocity, dignity, the brotherhood of rational beings—that transcend any particular tribe's habits.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Reason provides genuine moral foundation, but only for those disciplined enough to use it against their own inclinations.</p></div>
+            <p><em class="maxim">The untrained mind mistakes the voice of appetite for the verdict of reason.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Nietzsche" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>You ask whether morality stands on reason or merely rationalizes instinct — but this already concedes too much to the priests who promised us eternal foundations. There is no moral bedrock beneath custom and sentiment, but this does not make our valuations arbitrary fictions. What you call "instinct" I recognize as will to power in its thousand forms — the drives that create, preserve, or degenerate life. Reason itself arose as an instrumenttransfiguring their drives into creative force. The herd dresses up its reactive instincts in moral language and calls this reason. The noble spirit acknowledges the source of valuation in life itself, then imposes form upon chaos. Your "claims to reason" are indeed costumes — but some wear them slavishly, others tailor them into new fashions. We do not discover values; we stamp them into becoming.</p></div>
+            <p><em class="maxim">of these drives, a late-arriving advocate that pleads cases already decided by deeper forces. Yet the highest types do not merely follow instinct blindly; they legislate new values by</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="mill">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg/330px-John_Stuart_Mill_by_London_Stereoscopic_Company%2C_c1870.jpg" alt="Mill" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Mill</span>
+              <span class="domain">Liberty & Utility</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>This question mistakes the genealogy of morals for their validity—a confusion that has plagued philosophy since Hume first posed his fork between reason and passion.</p><span class="prose-label">Reframe</span><p>Our moral sentiments indeed emerge from the accumulated experience of mankind, from the pleasures and pains that have instructed successive generations in what conduces to human flourishing. Yet this origin does not reduce morality to arbitrary custom. Through discussion, experiment, and the collision of opinion in free society, we refine these sentiments into principles capable of universal application. The utility of an action—its tendency to promote happiness—provides an objective standard against which we test inherited prejudices. Custom may be our starting point, but reason, properly employed in the service of the greatest happiness principle, allows us to distinguish which customs deserve preservation and which must be reformed or abolished.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Reason and sentiment are not antagonists but collaborators in moral progress, with utility serving as the rational criterion by which we elevate sentiment beyond mere instinct.</p></div>
+            <p><em class="maxim">The customs that survive rational scrutiny become principles; those that cannot, reveal themselves as mere prejudices awaiting reform.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg/330px-Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg" alt="Emerson" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The skeptic who asks this believes himself brave, yet he merely repeats the oldest fatigue of philosophy. He thinks morality crumbles if not shored up by universal law—as if truth required the permission of dead men's systems. The foundation you seek lies not in custom versus reason, but in the integrity of the individual soul meeting the moral sentiment directly. When I feel the wrongness of a lie or the rightness of courage, I do not consult Kant's architecture or poll my neighbours—I trust the intuition that rises in me like sap in a tree. This is not instinct dressed as reason; it is reason alive, not embalmed. Custom is merely the corpse of someone else's vital perception. Your error is imagining that because morality cannot be proven like geometry, it must therefore be arbitrary. The heart has demonstrations the syllogism knows nothing of. Moral truth exists, but only for those brave enough to feel it firsthand rather than borrow it pre-chewed from tradition.</p></div>
+            <p><em class="maxim">Trust thyself: every heart vibrates to that iron string, and no external validation can make truer what conscience already knows.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Hobbes" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether moral judgements rest on anything firmer than the passions that generate them — whether reason discovers truth or merely rationalizes appetite.</p><span class="prose-label">Reframe</span><p>In the state of nature, I observed no moral facts written in the stars, only the relentless logic of self-preservation and the war of all against all. What we call "moral reasoning" is the calculating faculty in service of desire — reason is, and ought only to be, the slave of the passions, as my successor Hume would say more plainly. The covenant that establishes justice is itself born not from transcendent truth but from fear of violent death. We reason our way to moral rules because our most fundamental passion — the desire to live — demands it. Custom and sentiment are not the corruption of morality; they are morality, systematized by prudent calculation into laws that preserve us from mutual destruction.</p><span class="prose-label">Verdict</span><p class="prose-verdict">There is foundation, but it is the foundation of fear and self-interest, not celestial geometry.</p></div>
+            <p><em class="maxim">Morality is simply the arithmetic of survival performed by creatures who prefer life to death.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="wollstonecraft">
+          <div class="card-header" role="button" aria-expanded="false">
+            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Wollstonecraft" /></div>
+            <div class="card-meta">
+              <span class="persona-name">Wollstonecraft</span>
+              <span class="domain">Reason & Equal Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>You pose a question that strikes at the very heart of what separates the human from the brute — whether we possess genuine moral faculty or merely elaborate our prejudices with philosophical ornament. I say plainly: reason itself is the foundation. Custom and sentiment without rational examination perpetuate tyranny — witness how "natural" female inferiority seemed to generations who never questioned inherited arrangements. Our instincts indeed exist, but to surrender moral judgement to them is to abandon our humanity. The mind that questions whether reason truly guides us has already transcended mere sentiment; the very act of asking demonstrates our capacity to stand above our conditioning. Those who claim we only rationalize instinct conveniently excuse their refusal to examine their own comfortable prejudices. To doubt reason's authority over passion is to surrender the only weapon by which tyranny has ever been challenged.</p></div>
+            <p><em class="maxim">Reason does not dress up instinct — it interrogates it, and only those who fear its verdict call such interrogation mere decoration.</em></p>
           </div>
         </div></div>
       </section></main>
-  <footer>Generated by The Salon Batch Processor · 2026-03-25</footer>
+  <footer>Generated by The Salon Batch Processor · 2026-04-27</footer>
   <script>
     const btns = document.querySelectorAll('.theme-btn');
     btns.forEach(btn => {

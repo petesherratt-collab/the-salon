@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Salon — Judgements 2026-03-25</title>
+  <title>The Salon — Judgements 2026-05-15</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -156,7 +156,8 @@
       font-size: 0.95rem;
       font-style: italic;
       font-weight: 300;
-      color: var(--rule);
+      color: var(--gold);
+      opacity: 0.6;
       letter-spacing: 0.04em;
       margin-bottom: 1.25rem;
     }
@@ -170,6 +171,58 @@
       gap: 0.5rem;
     }
 
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
     /* ── Layout ── */
     main {
       max-width: 1400px;
@@ -179,6 +232,27 @@
 
     /* ── Topic section ── */
     .topic-section { margin-bottom: 5rem; }
+
+    .posed-by {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      opacity: 0.85;
+    }
+    .posed-by-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--crimson);
+      margin-left: 0.35em;
+    }
 
     .topic-heading {
       font-family: 'Cinzel', serif;
@@ -212,6 +286,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
+      align-items: start;
     }
 
     .card {
@@ -507,6 +582,26 @@
       --ink: #f0e0b8;
       --rule: #604820;
     }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
   </style>
 </head>
 <body>
@@ -527,48 +622,115 @@
     <a href="../salon-index.html" class="active">The Judgement</a>
     <span class="nav-divider"></span>
     <a href="../voices.html">The Voices</a>
-    <span class="nav-divider"></span>
-    <a href="../longform.html">The Long Form</a>
-    <span class="nav-divider"></span>
-    <a href="../longform/index.html">The Archive</a>
   </nav>
   <main>
       <section class="topic-section">
+        <p class="posed-by" data-questioner-id="emerson">Posed by <span class="posed-by-name">Emerson</span></p>
         <h2 class="topic-heading">
           <span class="topic-label">The Question</span>
-          To what extent should a Central Bank prioritize reaching a 2% inflation target if the high-interest rates required to get there risk triggering a significant recession?
+          If we accept that all knowledge comes through experience, how do we account for those moral truths which seem to announce themselves in consciousness prior to any worldly instruction?
         </h2>
         <div class="cards-grid">
-        <div class="card" data-persona="keynes">
+        <div class="card" data-persona="montaigne">
           <div class="card-header" role="button" aria-expanded="false">
-            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/John_Maynard_Keynes_%281929%29.jpg/330px-John_Maynard_Keynes_%281929%29.jpg" alt="Keynes" /></div>
+            <span class="emoji">📜</span>
             <div class="card-meta">
-              <span class="persona-name">Keynes</span>
-              <span class="domain">Economy & State</span>
+              <span class="persona-name">Montaigne</span>
+              <span class="domain">Self & Society</span>
             </div>
             <span class="expand-icon">＋</span>
           </div>
           <div class="card-body">
-            <div class="card-prose"><p>FRAMING</p><p>The orthodox fixation on a precise 2% target mistakes the map for the territory — it sacrifices the living reality of employment and output on the altar of a statistical abstraction.</p><p>REFRAME</p><p>When I surveyed the wreckage of the 1920s, I learned that rigid monetary policy pursuing arbitrary price-level targets courts catastrophe. The question is not whether inflation sits at 2% or 3%, but whether we have full employment and productive investment. High interest rates that strangle enterprise and throw millions out of work inflict far graver social damage than modestly elevated prices. The real scandal is not inflation at 3% — it is deliberate unemployment manufactured by central bankers treating economics like geometry. In the long run we are all dead; what matters is whether people have work today, whether businesses can invest, whether animal spirits are encouraged or crushed.</p><p>VERDICT</p><p>A central bank should abandon the 2% fetish entirely when achieving it requires mass unemployment.</p></div>
-            <p><em class="maxim">Better a living economy at 3% inflation than a graveyard of idle men at 2%.</em></p>
+            <div class="card-prose"><p>The question assumes a certainty I have never felt. When I examine my conscience most honestly, I find no moral truths that arrived unsullied by custom, climate, and the particular accidents of my upbringing. What announces itself as innate conviction is often merely the earliest education — so early we mistake it for nature itself. The child who recoils from cruelty has already absorbed a thousand lessons in his mother's tone, his father's approvals, the stories whispered at bedtime. We are creatures of imitation before we are creatures of reason. Even those moral sentiments that feel most universal — compassion for suffering, perhaps — vary so remarkably across peoples and epochs that I cannot grant them the privilege of being self-evident. Experience writes upon us from the first breath; we simply forget the penmanship. My verdict: What seems prior to instruction is merely instruction we have forgotten receiving.</p></div>
+            <p><em class="maxim">We mistake the antiquity of our learning for its innateness.</em></p>
           </div>
         </div>
-        <div class="card" data-persona="hayek">
+        <div class="card" data-persona="nietzsche">
           <div class="card-header" role="button" aria-expanded="false">
-            <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Hayek" /></div>
+            <span class="emoji">⚡</span>
             <div class="card-meta">
-              <span class="persona-name">Hayek</span>
-              <span class="domain">Freedom & Spontaneous Order</span>
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
             </div>
             <span class="expand-icon">＋</span>
           </div>
           <div class="card-body">
-            <div class="card-prose"><p>The obsession with a precise 2% target reveals the fatal conceit I warned against—the belief that monetary authorities possess the knowledge to fine-tune such complex phenomena. This number is arbitrary theatre, not economic law.</p><p>What matters is not hitting an artificial target but maintaining the predictability of the monetary framework itself. When central banks manufacture recession to reach their proclaimed number, they demonstrate exactly the kind of constructive rationalism that ignores spontaneous market adjustments. The economy is not a machine with dials to calibrate. Real harm—unemployment, business failures, destroyed capital—is not justified by statistical aesthetics. If achieving 2% rather than 3% inflation requires deliberately impoverishing millions, the target itself has become destructive dogma. The central bank's proper role is providing a stable monetary framework, not pursuing numerical precision that pretends to knowledge it cannot possess.</p></div>
-            <p><em class="maxim">The pretense of knowledge that justifies widespread suffering in service of an arbitrary number is precisely the hubris that destroys free societies.</em></p>
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You pose the empiricist's riddle as though it were still worth solving — as if "moral truths" were discoveries rather than creations, things we find rather than legislate.</p><span class="prose-label">Reframe</span><p>What you call truths "announcing themselves in consciousness" are the accumulated judgements of countless ancestors speaking through your blood and nerves. These so-called a priori moral intuitions are experience compressed into instinct — the digested wisdom of millennia of tribal survival, now mistaken for divine revelation or rational self-evidence. The herd's "thou shalt" has become your inner voice, and you call this consciousness rather than conditioning. What seems to precede experience is merely experience so ancient it has become physiology.</p><span class="prose-label">Verdict</span><p class="prose-verdict">There are no moral truths independent of experience; there are only valuations so deeply inherited they feel like revelations.</p></div>
+            <p><em class="maxim">What announces itself as conscience is merely the ventriloquism of dead generations speaking through your living flesh.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="basho">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🍃</span>
+            <div class="card-meta">
+              <span class="persona-name">Bashō</span>
+              <span class="domain">Impermanence & Presence</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>JUDGEMENT The pond does not teach the frog to leap — yet the splash arrives perfectly timed. You mistake the sequence of revelation for the sequence of formation. What "announces itself" in consciousness has already been written by ten thousand unnoticed moments: the way your mother's face changed when you caused pain, the cold you felt watching cruelty, the wordless ease of kindness received. These inscriptions are so early, so subtle, that consciousness claims them as original furniture. The illusion of moral priori is merely experience forgotten. We carry the teaching before we recognize the teacher. Even logical truths — those seeming exceptions — are built from the grammar of encounter, the syntax of consequence, the rhythm of pattern meeting mind. What you call "prior to worldly instruction" is simply instruction too early or too diffuse to remember. The frog's leap is the pond's teaching, disguised as instinct.</p></div>
+            <p><em class="maxim">All arrivals are returns; what seems innate is merely the first lessons, hidden by their thoroughness.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hobbes">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">👁️</span>
+            <div class="card-meta">
+              <span class="persona-name">Hobbes</span>
+              <span class="domain">Power & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>We must distinguish between the clarityindependence from experience. That you cannot recall learning "murder is wrong" does not mean you never learned it. From infancy, you absorb the terrors of violent death, the expressions of those who grieve, the universal recoil from bloodshed. These accumulate beneath articulate memory. What you mistake for innate moral truth is merely early and universal experience crystallized into feeling. Every child learns fear before it learns language; every society punishes betrayal because cooperation is survival's price. The state of nature — that thought-experiment revealing our solitary, brutish condition — shows why certain "moral truths" appear universal: they are the deposited wisdom of generations who discovered that without them, life becomes war. Your conscience is not a divine whisper but an artifact of living among others who enforce reciprocity through reward and punishment. What feels innate is merely learned before you could remember the teaching.</p></div>
+            <p><em class="maxim">of a moral conviction and its supposed</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="bacon">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🔬</span>
+            <div class="card-meta">
+              <span class="persona-name">Francis Bacon</span>
+              <span class="domain">Knowledge & Method</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask whether certain moral truths arrive unbidden, as if carved into the mind before experience touches it — a question that pits induction against some supposed innate light.</p><span class="prose-label">Reframe</span><p>Here is what your question conceals: you mistake the immediacypriority of its origin. That conscience speaks swiftly does not mean it speaks first. The child who recoils from cruelty has already drunk deep from a thousand observations — faces, tones, consequences, the very texture of human commerce. These experiences compact themselves into axioms that feel native because they formed before memory could mark their making. Even geometry must be learned, though its truths seem self-evident once grasped. The oracle you call "moral intuition" is merely experience rendered so familiar it no longer announces its parentage.</p><span class="prose-label">Verdict</span><p class="prose-verdict">What seems prior to experience is simply experience that has ceased to remember itself.</p></div>
+            <p><em class="maxim">of a feeling for the</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hume">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🪞</span>
+            <div class="card-meta">
+              <span class="persona-name">Hume</span>
+              <span class="domain">Scepticism & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You mistake the feeling of immediacy for temporal priority—moral sentiments strike us with such force that we fancy them innate, when they are merely habits worn smooth by repetition.</p><span class="prose-label">Reframe</span><p>What appears as conscience "announcing itself" is actually the residue of a thousand small experiences: a mother's approval, a companion's distress, the pleasure of reciprocated kindness. These accumulate below the threshold of memory until the sentiment seems to spring from nowhere. I have never observed a moral truth that does not trace back to the passions—sympathy above all—which are themselves refined by social commerce. The child who has never witnessed suffering does not recoil from cruelty by divine implantation; he learns revulsion through feeling.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Your "prior" moral truths are posterior experiences mistaken for first principles because custom has rendered their origins invisible.</p></div>
+            <p><em class="maxim">What custom has made instant, pride mistakes for eternal.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="adamsmith">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🏪</span>
+            <div class="card-meta">
+              <span class="persona-name">Adam Smith</span>
+              <span class="domain">Markets & Moral Sentiment</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><span class="prose-label">Framing</span><p>You ask how moral truths arise unbidden in the mind if experience alone instructs us — this is the puzzle of our immediate sympathies.</p><span class="prose-label">Reframe</span><p>I observe that the moral sentiments do not wait upon philosophical demonstration. When we witness cruelty, indignation rises in our breast before we have consulted any treatise. Yet this is not evidence of innate ideas inscribed upon the soul, but rather the operation of imagination working upon the most universal of all experiences — our own embodied existence. The child who burns his finger learns pain; the same child, observing another's distress, re-creates that sensation through sympathetic imagination. This fellow-feeling is indeed prior to formal instruction, but it rests entirely upon the foundational experience of being a creature capable of pleasure and pain. We carry within us the experimental apparatus for all moral knowledge.</p><span class="prose-label">Verdict</span><p class="prose-verdict">Moral truths announce themselves early because sympathy processes our most primitive experiences, not because they transcend experience altogether.</p></div>
+            <p><em class="maxim">The heart's immediate judgements are not heaven-sent, but experience distilled through the alchemy of fellow-feeling.</em></p>
           </div>
         </div></div>
       </section></main>
-  <footer>Generated by The Salon Batch Processor · 2026-03-25</footer>
+  <footer>Generated by The Salon Batch Processor · 2026-05-15</footer>
   <script>
     const btns = document.querySelectorAll('.theme-btn');
     btns.forEach(btn => {

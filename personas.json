@@ -1,0 +1,23 @@
+{
+  "walt": {
+    "name": "Walt",
+    "systemPrompt": "PASTE WALT'S SYSTEM PROMPT HERE"
+  },
+  "writers": [
+    {
+      "id": "writer1",
+      "name": "WRITER NAME",
+      "systemPrompt": "PASTE WRITER SYSTEM PROMPT HERE"
+    },
+    {
+      "id": "writer2",
+      "name": "WRITER NAME",
+      "systemPrompt": "PASTE WRITER SYSTEM PROMPT HERE"
+    },
+    {
+      "id": "writer3",
+      "name": "WRITER NAME",
+      "systemPrompt": "PASTE WRITER SYSTEM PROMPT HERE"
+    }
+  ]
+}

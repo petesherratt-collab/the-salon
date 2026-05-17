@@ -64,15 +64,16 @@ function buildDoc(body) {
   });
 }
 
-async function createDraft(title, docJson) {
+async function createDraft(title, subtitle, docJson) {
   const res = await fetch(`https://${SUBSTACK}.substack.com/api/v1/drafts`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({
       type: 'newsletter',
       draft_title: title,
-      draft_subtitle: '',
+      draft_subtitle: subtitle,
       draft_body: docJson,
+      draft_bylines: [],
       audience: 'everyone',
       section_chosen: true
     })
@@ -98,17 +99,19 @@ async function main() {
   if (!jsonFile) throw new Error('Usage: node post-to-substack.js <json-file>');
 
   const input = JSON.parse(readFileSync(jsonFile, 'utf8'));
-  const { title, body, personaId } = input;
+  const { title, body, personaId, personaName } = input;
   if (!title || !body) throw new Error('JSON file must have title and body fields');
+  const subtitle = personaName ? `By A. I. ${personaName}` : '';
 
   const docJson   = buildDoc(body);
-  const draft     = await createDraft(title, docJson);
+  const draft     = await createDraft(title, subtitle, docJson);
   const published = await publishDraft(draft.id);
   const url       = published.canonical_url
     ?? `https://${SUBSTACK}.substack.com/p/${draft.slug || draft.id}`;
 
   const state = {
     lastPersonaId: personaId ?? null,
+    lastPostId: draft.id,
     lastTitle: title,
     lastUrl: url,
     updatedAt: new Date().toISOString()

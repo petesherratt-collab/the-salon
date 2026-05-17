@@ -1,0 +1,60 @@
+# Home Network Inventory
+*Drop this in the Project Files box. Update it when your setup changes.*
+
+---
+
+## ISP & Connection
+
+| Field | Your Details |
+|---|---|
+| ISP (provider name) | |
+| Connection type | (e.g. FTTC, FTTP, cable, ADSL) |
+| Approximate speed tier | (e.g. 100Mbps down / 20Mbps up) |
+| Contract modem or your own? | |
+
+---
+
+## Primary Router
+
+| Field | Your Details |
+|---|---|
+| Make & model | |
+| Firmware version (if known) | |
+| Supplied by ISP or purchased separately? | |
+| Admin interface address | (usually 192.168.0.1 or 192.168.1.1) |
+
+---
+
+## Additional Hardware
+
+| Device | Make & Model | Role |
+|---|---|---|
+| | | (e.g. switch, access point, mesh node) |
+| | | |
+| | | |
+
+---
+
+## Device Count (Approximate)
+
+| Category | Count |
+|---|---|
+| Wired devices | |
+| Wi-Fi devices | |
+| Smart home / IoT devices | |
+
+---
+
+## Known Problem Areas
+
+*Anything that doesn't work right, drops out, or you've never understood.*
+
+- 
+- 
+- 
+
+---
+
+## Notes
+
+*Anything else Dana should know about your setup.*

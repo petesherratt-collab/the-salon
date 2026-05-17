@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Long Form | The Salon</title>
+<style>
+  :root {
+    --parchment: #f5f0e8;
+    --ink: #1a1208;
+    --muted: #6b5e45;
+    --accent: #8b1a1a;
+    --border: #c8b89a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .site-nav {
+    background: var(--ink);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .site-nav a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .site-nav a:hover { opacity: 1; }
+  .nav-divider { color: var(--border); opacity: 0.4; }
+  main {
+    max-width: 740px;
+    margin: 48px auto 80px;
+    padding: 0 24px;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .intro {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+  ul { list-style: none; }
+  ul li {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  ul li a {
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  ul li a:hover .li-title { color: var(--accent); }
+  .li-title { font-size: 1.1rem; }
+  .li-meta {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider">|</span>
+  <a href="../salon-index.html">Archive</a>
+  <span class="nav-divider">|</span>
+  <a href="../voices.html">Voices</a>
+  <span class="nav-divider">|</span>
+  <a href="index.html">Long Form</a>
+</nav>
+<main>
+  <h1>Long Form</h1>
+  <p class="intro">Extended essays from the voices of The Salon — one thinker, one subject, uninterrupted.</p>
+  <ul>
+<li><a href="2026-05-17-0918-machiavelli-self-nominated.html"><span class="li-title">The Failure of Democratic States to Secure Their Digital Territories</span><span class="li-meta">Niccolò Machiavelli &mdash; 17 May 2026</span></a></li>
+  </ul>
+</main>
+</body>
+</html>

@@ -162,188 +162,218 @@ Then begin the essay immediately on the next line.`;
   return data.choices[0].message.content;
 }
 
+// ── Persona categories ────────────────────────────────────────────────────────
+
+const PERSONA_CATEGORIES = {
+  machiavelli:    "Power &amp; Politics",
+  montaigne:      "Essay &amp; Self-Knowledge",
+  aurelius:       "Stoic Philosophy",
+  nietzsche:      "Will &amp; Culture",
+  hobbes:         "Power &amp; Human Nature",
+  paine:          "Liberty &amp; Revolution",
+  mill:           "Liberty &amp; Ethics",
+  marx:           "Economy &amp; Class",
+  keynes:         "Economy &amp; State",
+  hayek:          "Liberty &amp; Markets",
+  wollstonecraft: "Rights &amp; Feminist Thought",
+  hume:           "Empiricism &amp; Scepticism",
+  emerson:        "Self-Reliance &amp; Nature",
+  suntzu:         "Strategy &amp; Conflict",
+  camus:          "Absurdism &amp; Revolt",
+  gracian:        "Wisdom &amp; Prudence",
+  woolf:          "Modernism &amp; Feminist Thought",
+  schopenhauer:   "Will &amp; Pessimism",
+  dante:          "Justice &amp; Moral Taxonomy",
+  bacon:          "Science &amp; Method",
+  smith:          "Economy &amp; Moral Sentiment",
+  clausewitz:     "War &amp; Strategy",
+  james:          "Pragmatism &amp; Psychology",
+  erasmus:        "Humanism &amp; Reform",
+  suzuki:         "Zen &amp; Eastern Thought",
+  austen:         "Society &amp; Manners",
+  basho:          "Nature &amp; Impermanence",
+};
+
 // ── HTML builders ─────────────────────────────────────────────────────────────
 
 function buildEpisodeHtml(personaId, subject, text, date, portrait) {
-  const persona    = PERSONAS[personaId];
-  const name       = persona.name;
+  const persona   = PERSONAS[personaId];
+  const name      = persona.name;
+  const category  = PERSONA_CATEGORIES[personaId] || "Long Form";
+
   const portraitEl = portrait
-    ? `<img src="${portrait}" alt="${name}" class="portrait">`
-    : `<div class="portrait-placeholder"></div>`;
+    ? `<div class="portrait-oval"><img src="${portrait}" alt="${name}" /></div>`
+    : `<div class="portrait-oval portrait-placeholder"></div>`;
 
   // Extract SUBJECT line if persona chose topic
   let displaySubject = subject;
-  let body = text;
+  let rawBody = text;
   if (!subject) {
     const match = text.match(/^SUBJECT:\s*(.+)\n/);
     if (match) {
       displaySubject = match[1].trim();
-      body = text.slice(match[0].length).trim();
+      rawBody = text.slice(match[0].length).trim();
     }
   }
 
-  // Convert **bold** and line breaks
-  body = body
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .split(/\n\n+/)
-    .map(p => p.trim())
-    .filter(Boolean)
-    .map(p => p.startsWith("<strong>") && p.endsWith("</strong>")
-      ? `<h3>${p.replace(/<\/?strong>/g, "")}</h3>`
-      : `<p>${p.replace(/\n/g, " ")}</p>`)
-    .join("\n");
+  // Convert markdown to rich HTML
+  const paras = rawBody.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+  let firstPara = true;
+  const bodyHtml = paras.map(p => {
+    // # Heading → section-head
+    if (/^#+\s+/.test(p)) {
+      return `<span class="section-head">${p.replace(/^#+\s+/, "")}</span>`;
+    }
+    // **standalone bold** → principle-head
+    if (/^\*\*.+\*\*$/.test(p)) {
+      return `<span class="principle-head">${p.replace(/^\*\*|\*\*$/g, "")}</span>`;
+    }
+    // Regular paragraph
+    const html = p
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\n/g, " ");
+    if (firstPara) { firstPara = false; return `<p class="drop-cap">${html}</p>`; }
+    return `<p>${html}</p>`;
+  }).join("\n");
 
-  const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const dateStr = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+  const byline  = `${name} · ${dateStr}`;
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="parchment">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${name} — ${displaySubject || "Long Form"} | The Salon</title>
+<title>The Salon — ${name}: ${displaySubject || "Long Form"}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --parchment: #f5f0e8;
-    --ink: #1a1208;
-    --muted: #6b5e45;
-    --accent: #8b1a1a;
-    --border: #c8b89a;
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--parchment);
-    color: var(--ink);
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 18px;
-    line-height: 1.75;
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
   }
-  .site-nav {
-    background: var(--ink);
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
   }
-  .site-nav a {
-    color: var(--parchment);
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.8;
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
   }
-  .site-nav a:hover { opacity: 1; }
-  .nav-divider { color: var(--border); opacity: 0.4; }
-  header.episode-header {
-    max-width: 740px;
-    margin: 48px auto 0;
-    padding: 0 24px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 32px;
-  }
-  .rubric {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .persona-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-  .portrait {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--border);
-    filter: sepia(30%);
-  }
-  .portrait-placeholder {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-  .persona-name {
-    font-size: 14px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  h1.episode-title {
-    font-size: 2rem;
-    line-height: 1.25;
-    margin-bottom: 12px;
-    color: var(--ink);
-  }
-  .episode-date {
-    font-size: 13px;
-    color: var(--muted);
-  }
-  article {
-    max-width: 740px;
-    margin: 40px auto 80px;
-    padding: 0 24px;
-  }
-  article p {
-    margin-bottom: 1.4em;
-  }
-  article h3 {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 2em 0 0.8em;
-  }
-  article p:last-child {
-    font-style: italic;
-    border-top: 1px solid var(--border);
-    padding-top: 1.2em;
-    margin-top: 2em;
-  }
-  .back-link {
-    display: inline-block;
-    margin: 32px 24px 0;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .back-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
-<nav class="site-nav">
-  <a href="../index.html">The Salon</a>
-  <span class="nav-divider">|</span>
-  <a href="../salon-index.html">Archive</a>
-  <span class="nav-divider">|</span>
-  <a href="../voices.html">Voices</a>
-  <span class="nav-divider">|</span>
-  <a href="index.html">Long Form</a>
-</nav>
 
-<a class="back-link" href="index.html">← Long Form</a>
-
-<header class="episode-header">
-  <div class="rubric">Long Form Essay</div>
-  <div class="persona-row">
-    ${portraitEl}
-    <span class="persona-name">${name}</span>
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
   </div>
-  <h1 class="episode-title">${displaySubject || "An Essay"}</h1>
-  <div class="episode-date">${dateStr}</div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
 </header>
 
-<article>
-${body}
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    ${portraitEl}
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · ${category}</span>
+      <h1 class="episode-title">${displaySubject || "An Essay"}</h1>
+      <div class="episode-byline">${byline}</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+${bodyHtml}
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
 </article>
 
+<footer>The Salon · Long Form · ${name} · ${dateStr}</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
 </body>
 </html>`;
 }

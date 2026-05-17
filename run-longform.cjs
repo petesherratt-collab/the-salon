@@ -591,8 +591,11 @@ ${items}
     ? `<img src="${portrait}" alt="" />`
     : "";
 
-  console.log(`\n  ── Paste into longform/index.html ──────────────────────────`);
-  console.log(`
+  // Auto-insert card into longform/index.html
+  const indexFile = path.join(longformDir, "index.html");
+  let indexHtml = fs.readFileSync(indexFile, "utf8");
+
+  const card = `
     <a class="episode-card" href="${filename}">
       <div class="card-portrait-wrap"><div class="card-portrait">${portraitTag}</div></div>
       <div class="card-content">
@@ -601,7 +604,25 @@ ${items}
         <p class="card-byline">${persona.name} · ${dateStr}</p>
       </div>
       <span class="card-arrow">→</span>
-    </a>`);
-  console.log(`\n  Also update the episode count in the page-count and footer lines.`);
-  console.log(`  ────────────────────────────────────────────────────────────\n`);
+    </a>`;
+
+  // Insert after the opening <div class="episodes-list"> tag
+  indexHtml = indexHtml.replace(
+    /(<div class="episodes-list">)/,
+    `$1\n${card}`
+  );
+
+  // Bump episode count in page-count and footer
+  indexHtml = indexHtml.replace(
+    /(\d+)( episodes? in the archive)/,
+    (_, n, rest) => `${+n + 1}${rest}`
+  );
+  indexHtml = indexHtml.replace(
+    /(The Salon · Long Form · )(\d+)( episodes?)/,
+    (_, pre, n, suf) => `${pre}${+n + 1}${suf}`
+  );
+
+  fs.writeFileSync(indexFile, indexHtml, "utf8");
+  console.log(`  Index   : longform/index.html (updated)`);
+  console.log(`\n  Push to GitHub when ready.\n`);
 })();

@@ -577,5 +577,31 @@ ${items}
   const wordCount = text.split(/\s+/).length;
   console.log(`\n  Done. ~${wordCount} words.`);
   console.log(`  Episode : longform/${filename}`);
-  console.log(`\n  Add the entry manually to longform/index.html, then push.\n`);
+
+  // Extract display subject (needed if persona self-nominated)
+  let displaySubject = subject;
+  if (!subject) {
+    const match = text.match(/^SUBJECT:\s*(.+)\n/);
+    if (match) displaySubject = match[1].trim();
+  }
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const dateStr = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+  const category = PERSONA_CATEGORIES[personaId] || "Long Form";
+  const portraitTag = portrait
+    ? `<img src="${portrait}" alt="" />`
+    : "";
+
+  console.log(`\n  ── Paste into longform/index.html ──────────────────────────`);
+  console.log(`
+    <a class="episode-card" href="${filename}">
+      <div class="card-portrait-wrap"><div class="card-portrait">${portraitTag}</div></div>
+      <div class="card-content">
+        <span class="card-eyebrow">The Salon — Long Form · ${category}</span>
+        <h2 class="card-title">${displaySubject || "An Essay"}</h2>
+        <p class="card-byline">${persona.name} · ${dateStr}</p>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>`);
+  console.log(`\n  Also update the episode count in the page-count and footer lines.`);
+  console.log(`  ────────────────────────────────────────────────────────────\n`);
 })();

@@ -544,13 +544,8 @@ ${items}
   const episodeHtml = buildEpisodeHtml(personaId, subject, text, date, portrait);
   fs.writeFileSync(outFile, episodeHtml, "utf8");
 
-  // Rebuild index
-  const indexFile = path.join(longformDir, "index.html");
-  fs.writeFileSync(indexFile, buildIndex(longformDir), "utf8");
-
   const wordCount = text.split(/\s+/).length;
   console.log(`\n  Done. ~${wordCount} words.`);
   console.log(`  Episode : longform/${filename}`);
-  console.log(`  Index   : longform/index.html`);
-  console.log(`\n  Push to GitHub when ready.\n`);
+  console.log(`\n  Add the entry manually to longform/index.html, then push.\n`);
 })();

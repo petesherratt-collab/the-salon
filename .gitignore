@@ -1,3 +1,54 @@
+# Environment / secrets
 .env
-.columnist-state.json
+.env.local
+.env.*.local
+*.key
+api-keys.txt
+
+# Local generation scripts and configuration
+# (The runtime scripts live outside the repo; this stops accidental commits
+# of the local working copy that has the OpenRouter key embedded.)
+run-judgements.js
+run-judgements.cjs
+run-judgements.bat
+run-longform.js
+run-longform.cjs
+run-longform.bat
+Topics.csv
+
+# Persona working files — drafts only, finalised personas go in /personas
+/_drafts/
+*.draft.md
+*.draft.rtf
+
+# Node
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel
+.vercel/
+
+# Logs and temp output
+*.log
+/tmp/
+/temp/
+*.tmp
+
+# Office lock files
+~$*

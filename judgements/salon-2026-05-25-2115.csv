@@ -1,0 +1,9 @@
+Topic,Machiavelli — Judgement,Nietzsche — Judgement,Hume — Judgement
+"Before committing resources to build, have you identified which battles you must win and which you can afford to lose?","I found an untracked file: `nightly-input.csv`. Before I commit and push, I should confirm—is this a data file that should be tracked in version control, or a generated/temporary file that shouldn't be committed?","There's an untracked `nightly-input.csv` file. Is this a generated file that should be gitignored, or something that needs to be committed?","There's an untracked `nightly-input.csv` file. The repository is also in a detached HEAD state (not on a branch). 
+
+Should I:
+1. **Commit and push** the CSV file (if it belongs in version control)
+2. **Leave it** (if it's a temporary/generated file that shouldn't be tracked)
+3. **Check what it is** first before deciding
+
+What would you like me to do?"

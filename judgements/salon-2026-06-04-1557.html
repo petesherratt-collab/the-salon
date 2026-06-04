@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Salon — Judgements 2026-06-04</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Parchment theme (default) ── */
+    [data-theme="parchment"] {
+      --ink:        #1a1510;
+      --parchment:  #f7f2e8;
+      --cream:      #fdfaf4;
+      --gold:       #b8924a;
+      --gold-light: #d4aa6a;
+      --crimson:    #8b1a1a;
+      --rule:       #d6c9a8;
+      --shadow:     rgba(26,21,16,0.08);
+      --body-text:  #2c2418;
+      --header-bg:  #1a1510;
+    }
+
+    /* ── Medici theme ── */
+    [data-theme="medici"] {
+      --ink:        #f0e6d0;
+      --parchment:  #1a0a06;
+      --cream:      #2a1208;
+      --gold:       #c9962a;
+      --gold-light: #e8b84b;
+      --crimson:    #c0362a;
+      --rule:       #5a2a18;
+      --shadow:     rgba(0,0,0,0.4);
+      --body-text:  #e8d8b8;
+      --header-bg:  #0e0502;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Medici velvet texture overlay ── */
+    [data-theme="medici"] body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3Cline x1='30' y1='12' x2='0' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='30' y1='12' x2='60' y2='30' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='0' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3Cline x1='60' y1='30' x2='30' y2='48' stroke='%23000' stroke-opacity='0.08' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
+
+    /* Ensure content sits above texture */
+    [data-theme="medici"] .site-header,
+    [data-theme="medici"] main,
+    [data-theme="medici"] footer,
+    [data-theme="medici"] .masthead-controls {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Theme switcher — lives in the masthead nav, always visible ── */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover { transform: scale(1.2); }
+    .theme-btn.active { border-color: rgba(255,255,255,0.9); }
+    .theme-btn[data-t="parchment"] { background: #f7f2e8; border-color: #b8924a; }
+    .theme-btn[data-t="medici"]    { background: #6b0f0f; border-color: #c9962a; }
+
+    .texture-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+    }
+    .texture-btn:hover { transform: scale(1.2); }
+    .texture-btn.active { border-color: var(--gold-light); color: var(--gold-light); background: rgba(180,130,50,0.15); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--header-bg);
+      color: var(--parchment);
+      text-align: center;
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .masthead-dateline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .masthead-dateline span { margin: 0 0.6em; opacity: 0.5; }
+
+    .masthead-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 1rem;
+      width: 60%;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .masthead-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .masthead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Site Nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 10;
+    }
+
+    .site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      opacity: 0.65;
+      padding: 0.75rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover      { opacity: 1; border-bottom-color: rgba(200,150,40,0.4); }
+    .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
+    .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── Prose section labels ── */
+    .prose-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-top: 1.1rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .prose-label:first-child { margin-top: 0; }
+
+    .prose-verdict {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink) !important;
+      border-left: 2px solid var(--crimson);
+      padding-left: 0.8rem;
+      margin-bottom: 0.75em !important;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Topic section ── */
+    .topic-section { margin-bottom: 5rem; }
+
+    .posed-by {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      opacity: 0.85;
+    }
+    .posed-by-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--crimson);
+      margin-left: 0.35em;
+    }
+
+    .topic-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem 0 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .topic-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover .persona-name { color: var(--gold); }
+
+    .expand-icon {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .card.open .expand-icon {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    /* Prose hidden by default, maxim always visible */
+    .card-prose {
+      display: none;
+    }
+
+    .card.open .card-prose {
+      display: block;
+    }
+
+    .card-body {
+      padding-top: 1rem;
+    }
+
+    .emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; }
+
+    .portrait-oval {
+      width: 62px;
+      height: 74px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px var(--rule);
+      position: relative;
+    }
+
+    .portrait-oval img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(25%) contrast(1.05) brightness(0.95);
+    }
+
+    .card-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .persona-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .domain {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Card body ── */
+    .card-body p {
+      margin-bottom: 0.85em;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    .card-body em.maxim {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink);
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .empty { color: #999; font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--gold);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem 3rem; }
+    }
+
+    /* ── Persona card textures (active when data-textures="on") ── */
+
+    /* Machiavelli — crimson tufted velvet */
+    [data-textures="on"] .card[data-persona="machiavelli"] {
+      background-color: #2d0a0a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='v' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.25'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='30' cy='30' rx='20' ry='20' fill='url(%23v)'/%3E%3Cline x1='30' y1='10' x2='0' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='30' y1='10' x2='60' y2='30' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cline x1='60' y1='30' x2='30' y2='50' stroke='%23000' stroke-opacity='0.15' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+      --body-text: #e8c8a0;
+      --ink: #f0dfc0;
+      --rule: #6b2020;
+    }
+
+    /* Montaigne — bare limestone / rough plaster */
+    [data-textures="on"] .card[data-persona="montaigne"] {
+      background-color: #c8b99a;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='50'%3E%3Crect width='80' height='50' fill='none'/%3E%3Crect x='1' y='1' width='36' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='41' y='1' width='37' height='22' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='21' y='27' width='36' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='1' y='27' width='18' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3Crect x='61' y='27' width='17' height='21' rx='1' fill='none' stroke='%23888070' stroke-opacity='0.35' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 80px 50px;
+      --body-text: #2a1f10;
+      --ink: #1a1008;
+      --rule: #8a7a60;
+    }
+
+    /* Marcus Aurelius — white marble veining */
+    [data-textures="on"] .card[data-persona="aurelius"] {
+      background-color: #ede8e0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 40 Q50 20 100 60 T200 40' fill='none' stroke='%23b0a898' stroke-opacity='0.4' stroke-width='1.2'/%3E%3Cpath d='M0 80 Q70 55 130 100 T200 80' fill='none' stroke='%23c8c0b0' stroke-opacity='0.3' stroke-width='0.8'/%3E%3Cpath d='M20 0 Q40 80 10 160 T30 200' fill='none' stroke='%23a89880' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M100 0 Q120 60 90 140 T110 200' fill='none' stroke='%23b8b0a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cpath d='M0 140 Q80 110 160 150 T200 140' fill='none' stroke='%23a09080' stroke-opacity='0.3' stroke-width='0.9'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      --body-text: #2a2820;
+      --ink: #1a1810;
+      --rule: #c0b8a8;
+    }
+
+    /* Austen — sprigged muslin / pale Georgian wallpaper */
+    [data-textures="on"] .card[data-persona="austen"] {
+      background-color: #f0ede4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23a0b090' fill-opacity='0.4'/%3E%3Cpath d='M20 14 Q22 17 20 20 Q18 17 20 14Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M20 20 Q23 22 20 26 Q17 22 20 20Z' fill='%23a0b090' fill-opacity='0.3'/%3E%3Cpath d='M14 20 Q17 22 20 20 Q17 18 14 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3Cpath d='M20 20 Q23 18 26 20 Q23 22 20 20Z' fill='%23a0b090' fill-opacity='0.25'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #2a2418;
+      --ink: #1a1810;
+      --rule: #c0b8a0;
+    }
+
+    /* Nietzsche — dark storm, diagonal rain */
+    [data-textures="on"] .card[data-persona="nietzsche"] {
+      background-color: #1a1e28;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80'%3E%3Cline x1='10' y1='0' x2='0' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='25' y1='0' x2='15' y2='80' stroke='%23506080' stroke-opacity='0.15' stroke-width='0.4'/%3E%3Cline x1='40' y1='0' x2='30' y2='80' stroke='%23607090' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 40px 80px;
+      --body-text: #c8d0e0;
+      --ink: #e0e8f0;
+      --rule: #384058;
+    }
+
+    /* Camus — Mediterranean whitewash rough plaster */
+    [data-textures="on"] .card[data-persona="camus"] {
+      background-color: #e8e0d0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3Ccircle cx='30' cy='25' r='18' fill='none' stroke='%23c0b090' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='65' r='22' fill='none' stroke='%23c0b090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #282010;
+      --ink: #181408;
+      --rule: #b8a888;
+    }
+
+    /* Bashō — ink wash, faint reed suggestion on rice paper */
+    [data-textures="on"] .card[data-persona="basho"] {
+      background-color: #f2ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180'%3E%3Cline x1='60' y1='180' x2='58' y2='40' stroke='%23708060' stroke-opacity='0.2' stroke-width='1.2'/%3E%3Cpath d='M58 80 Q40 70 35 60' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cpath d='M58 100 Q75 88 80 76' fill='none' stroke='%23708060' stroke-opacity='0.15' stroke-width='0.8'/%3E%3Cpath d='M59 120 Q42 108 38 94' fill='none' stroke='%23708060' stroke-opacity='0.18' stroke-width='1'/%3E%3Cline x1='20' y1='180' x2='19' y2='80' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.6'/%3E%3Cpath d='M19 110 Q10 102 8 95' fill='none' stroke='%23708060' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 120px 180px;
+      --body-text: #282018;
+      --ink: #181008;
+      --rule: #b8b098;
+    }
+
+    /* Mill — pale Georgian library panelling */
+    [data-textures="on"] .card[data-persona="mill"] {
+      background-color: #e8e0cc;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120'%3E%3Crect x='4' y='4' width='72' height='112' rx='3' fill='none' stroke='%23a09070' stroke-opacity='0.25' stroke-width='0.8'/%3E%3Crect x='10' y='10' width='60' height='100' rx='2' fill='none' stroke='%23a09070' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='4' y1='60' x2='76' y2='60' stroke='%23a09070' stroke-opacity='0.2' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 80px 120px;
+      --body-text: #28200f;
+      --ink: #18100a;
+      --rule: #b0a888;
+    }
+
+    /* Emerson — dappled forest light, New England woodland */
+    [data-textures="on"] .card[data-persona="emerson"] {
+      background-color: #e8ede0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='20' cy='15' r='8' fill='%23688050' fill-opacity='0.12'/%3E%3Ccircle cx='65' cy='30' r='12' fill='%23688050' fill-opacity='0.09'/%3E%3Ccircle cx='40' cy='60' r='10' fill='%23688050' fill-opacity='0.11'/%3E%3Ccircle cx='80' cy='75' r='7' fill='%23688050' fill-opacity='0.1'/%3E%3Ccircle cx='10' cy='80' r='9' fill='%23688050' fill-opacity='0.08'/%3E%3Cline x1='20' y1='100' x2='22' y2='23' stroke='%23507040' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cline x1='60' y1='100' x2='63' y2='42' stroke='%23507040' stroke-opacity='0.1' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+      --body-text: #1e2810;
+      --ink: #141c08;
+      --rule: #a8b890;
+    }
+
+    /* Thomas Paine — rough broadsheet newsprint, revolutionary pamphlet */
+    [data-textures="on"] .card[data-persona="paine"] {
+      background-color: #d8ceb0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160'%3E%3Cline x1='0' y1='20' x2='120' y2='20' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='36' x2='120' y2='36' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='52' x2='120' y2='52' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='68' x2='120' y2='68' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='84' x2='120' y2='84' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='100' x2='120' y2='100' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='116' x2='120' y2='116' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3Cline x1='0' y1='132' x2='120' y2='132' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='148' x2='120' y2='148' stroke='%23806040' stroke-opacity='0.18' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 120px 160px;
+      --body-text: #201808;
+      --ink: #140e04;
+      --rule: #907858;
+    }
+
+    /* Hobbes — cold stone dungeon, leviathan grey */
+    [data-textures="on"] .card[data-persona="hobbes"] {
+      background-color: #2a2e38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Crect x='0' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='42' y='0' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='20' y='22' width='38' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Crect x='0' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Crect x='62' y='22' width='18' height='18' rx='1' fill='none' stroke='%23607080' stroke-opacity='0.15' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 80px 40px;
+      --body-text: #c0ccd8;
+      --ink: #dce8f0;
+      --rule: #485868;
+    }
+
+    /* Sun Tzu — black ink on bamboo scroll, sparse brushwork */
+    [data-textures="on"] .card[data-persona="suntzu"] {
+      background-color: #e8e0c8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='120'%3E%3Crect x='18' y='0' width='4' height='120' rx='2' fill='%23806040' fill-opacity='0.15'/%3E%3Crect x='0' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Crect x='37' y='0' width='3' height='120' rx='1' fill='%23806040' fill-opacity='0.08'/%3E%3Cline x1='0' y1='30' x2='40' y2='30' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='60' x2='40' y2='60' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3Cline x1='0' y1='90' x2='40' y2='90' stroke='%23806040' stroke-opacity='0.1' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 120px;
+      --body-text: #1a1408;
+      --ink: #100c04;
+      --rule: #a89868;
+    }
+
+    /* Keynes — financial ledger, ruled columns */
+    [data-textures="on"] .card[data-persona="keynes"] {
+      background-color: #e4eef0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cline x1='0' y1='29' x2='120' y2='29' stroke='%234080a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='30' y1='0' x2='30' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='90' y1='0' x2='90' y2='30' stroke='%234080a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 120px 30px;
+      --body-text: #0e1e2a;
+      --ink: #081420;
+      --rule: #90b8c8;
+    }
+
+    /* Hayek — engineering blueprint, precise grid */
+    [data-textures="on"] .card[data-persona="hayek"] {
+      background-color: #dce8f0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='0' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='20' x2='40' y2='20' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='0' y1='40' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3Cline x1='20' y1='0' x2='20' y2='40' stroke='%232060a0' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='40' y1='0' x2='40' y2='40' stroke='%232060a0' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #0a1828;
+      --ink: #061020;
+      --rule: #80a8c8;
+    }
+
+    /* Wollstonecraft — pale rose silk, Georgian feminine */
+    [data-textures="on"] .card[data-persona="wollstonecraft"] {
+      background-color: #f0e4e8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ccircle cx='25' cy='25' r='2' fill='%23c07080' fill-opacity='0.25'/%3E%3Cpath d='M25 18 Q28 21 25 25 Q22 21 25 18Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M25 25 Q28 28 25 32 Q22 28 25 25Z' fill='%23c07080' fill-opacity='0.18'/%3E%3Cpath d='M18 25 Q21 28 25 25 Q21 22 18 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3Cpath d='M25 25 Q28 22 32 25 Q28 28 25 25Z' fill='%23c07080' fill-opacity='0.14'/%3E%3C/svg%3E");
+      background-size: 50px 50px;
+      --body-text: #28101a;
+      --ink: #1a0810;
+      --rule: #c898a8;
+    }
+
+    /* Francis Bacon — dark oak panelling, candlelit study */
+    [data-textures="on"] .card[data-persona="bacon"] {
+      background-color: #2a2010;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='80'%3E%3Crect x='2' y='2' width='56' height='76' rx='2' fill='none' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.8'/%3E%3Crect x='6' y='6' width='48' height='34' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Crect x='6' y='44' width='48' height='30' rx='1' fill='none' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='2' y1='42' x2='58' y2='42' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.6'/%3E%3C/svg%3E");
+      background-size: 60px 80px;
+      --body-text: #d8c8a0;
+      --ink: #f0e0b8;
+      --rule: #604820;
+    }
+
+    /* Hume — Scottish grey mist, soft diagonal crosshatch */
+    [data-textures="on"] .card[data-persona="hume"] {
+      background-color: #d8dce0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='0' x2='40' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='40' y1='0' x2='0' y2='40' stroke='%23708090' stroke-opacity='0.12' stroke-width='0.5'/%3E%3Cline x1='20' y1='0' x2='60' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3Cline x1='-20' y1='0' x2='20' y2='40' stroke='%23708090' stroke-opacity='0.07' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      --body-text: #181c20;
+      --ink: #0e1214;
+      --rule: #a0a8b0;
+    }
+
+    /* Adam Smith — Edinburgh merchant ledger, warm tan */
+    [data-textures="on"] .card[data-persona="adamsmith"] {
+      background-color: #e8dcc8;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='28'%3E%3Cline x1='0' y1='27' x2='100' y2='27' stroke='%23806040' stroke-opacity='0.2' stroke-width='0.6'/%3E%3Cline x1='70' y1='0' x2='70' y2='28' stroke='%23806040' stroke-opacity='0.15' stroke-width='0.5'/%3E%3Cline x1='85' y1='0' x2='85' y2='28' stroke='%23806040' stroke-opacity='0.12' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100px 28px;
+      --body-text: #201408;
+      --ink: #140c04;
+      --rule: #a08860;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead-controls">
+      <div class="theme-btn active" data-t="parchment" title="Parchment"></div>
+      <div class="theme-btn" data-t="medici" title="Medici"></div>
+      <div class="texture-btn" data-on="false" title="Persona textures">✦</div>
+    </div>
+    <p class="masthead-dateline">Vol. I <span>·</span> The Age of Reflection <span>·</span> Established 2025</p>
+    <hr class="masthead-rule">
+    <h1 class="masthead-title">The <em>Salon</em></h1>
+    <p class="masthead-subtitle">Voices across time, written exclusively for you</p>
+  </header>
+  <nav class="site-nav">
+    <a href="../index.html">The Salon</a>
+    <span class="nav-divider"></span>
+    <a href="../salon-index.html" class="active">The Judgement</a>
+    <span class="nav-divider"></span>
+    <a href="../voices.html">The Voices</a>
+  </nav>
+  <main>
+      <section class="topic-section">
+        <p class="posed-by" data-questioner-id="hobbes">Posed by <span class="posed-by-name">Hobbes</span></p>
+        <h2 class="topic-heading">
+          <span class="topic-label">The Question</span>
+          If the sovereign's law commands what your conscience forbids, which act of disobedience is the greater threat to civil order — the one performed openly or the one concealed?
+        </h2>
+        <div class="cards-grid">
+        <div class="card" data-persona="austen">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">💎</span>
+            <div class="card-meta">
+              <span class="persona-name">Austen</span>
+              <span class="domain">Society & Motive</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question of conscience against command is, at its root, a question of legibility — for civil society does not rest upon perfect obedience, but upon the capacity of its members to read one another's motives with reasonable accuracy. The concealed transgressor is the far greater threat. She who defies openly declares her terms; her neighbours may judge, censure, warn others, or even be persuaded by her example. The community retains its instruments of response. But she who outwardly conforms whilst privately violating the law teaches society to trust its own misreading — and that false security corrupts more thoroughly than any visible rebellion. I have always observed that the real mischief in a neighbourhood proceeds not from those who are thought wicked, but from those thought perfectly correct. Concealed disobedience does not merely break one law; it dismantles the only faculty by which all laws are maintained — the mutual confidence that conduct and motive correspond.</p></div>
+            <p><em class="maxim">The greatest peril to order is not the rebel who shows her face, but the loyalist who has never possessed one.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="nietzsche">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">⚡</span>
+            <div class="card-meta">
+              <span class="persona-name">Nietzsche</span>
+              <span class="domain">Will & Value</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes "civil order" is worth preserving — but I ask first whose order, and what it costs the finest specimens among us to maintain it. What is really at stake is not disobedience itself but howressentiment I identified as the rot of modern souls. He lies to the sovereign, yes, but worse — he lies to himself. The secret act multiplies inwardly, generating a subterranean class of actors whose entire character is shaped by disguise and suppression of will. Concealed disobedience destroys civil order far more completely, because it destroys the character of the disobedient first. The coward who bows and schemes poisons the well; the rebel who stands and burns at least illuminates.</p></div>
+            <p><em class="maxim">one disobeys. The open transgressor declares his values, pits his will against the state — that cold monster — and forces a genuine confrontation of powers. He is honest in his enmity. The concealed transgressor, however, is something far more corrosive: he performs obedience whilst harboring refusal, breeding in himself the very</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="emerson">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🌿</span>
+            <div class="card-meta">
+              <span class="persona-name">Emerson</span>
+              <span class="domain">Self-Reliance & Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before me is one of moral courage meeting political authority — whether the soul that defies an unjust law serves or destroys the republic by the manner of its defiance. When I wrote that whoso would be a man must be a nonconformist, I meant it without apology for sunlight. Concealed disobedience flatters the law while betraying it; it teaches the soul to live double, and a doubled soul is the true rot of commonwealths. Open disobedience, such as my friend Henry practised in Concord jail, is an act of civic instruction — it forces the law to see itself judged, to feel the pressure of a higher jurisdiction. The concealed transgressor preserves the law's face while hollowing its substance; the open one sacrifices comfort for conscience and thereby ennobles both. Concealed disobedience is the greater danger, for it multiplies cowardice while open disobedience multiplies courage.</p></div>
+            <p><em class="maxim">The man who hides his defiance teaches others to hide their souls.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="paine">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🔥</span>
+            <div class="card-meta">
+              <span class="persona-name">Thomas Paine</span>
+              <span class="domain">Revolution & Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question assumes civil order is secured by obedience alone — but I argued in Common Sense that legitimate order rests on society's reasoned consent, not the sovereign's naked command. When conscience rebels against an unjust law, the citizen who defies it openly submits that defiance to public reason — he invites the community to judge both his act and the statute together. The concealed dissenter, however, performs compliance as theatre; he privately exempts himself while sustaining the appearance of a law that may be rotten to its foundation. Open disobedience may multiply reformers; secret disobedience multiplies only hypocrites. A republic of hidden exemptions is not a republic at all — it is a system of shared pretence, corrosive to every principle upon which free government stands. Concealed disobedience is the graver threat, for it corrupts civic virtue without ever redeeming it.</p></div>
+            <p><em class="maxim">The man who breaks an unjust law in darkness flatters tyranny; the man who breaks it in daylight challenges it.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="wollstonecraft">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">✊</span>
+            <div class="card-meta">
+              <span class="persona-name">Wollstonecraft</span>
+              <span class="domain">Reason & Equal Rights</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before me is whether reason, when it defies unjust command, is better served by candour or concealment — a matter that touches the very foundations of legitimate government. A law that offends conscience is already an affront to that rational order upon which civil society must ultimately rest; the citizen who quietly evades it while outwardly conforming does not preserve order — she poisons it. Concealed disobedience breeds the habit of duplicity, and a nation of accomplished dissemblers is far more ungovernable than one of declared dissenters. Open defiance, by contrast, addresses itself to the public reason of mankind; it says, here is the law, here is my conscience, let the argument be made. It invites correction — either of the law or of oneself — and that reciprocity is the only honest basis for civil life. Concealed disobedience is the greater corruption, because it murders both the law and the conscience that opposes it.</p></div>
+            <p><em class="maxim">The dissembler who obeys in appearance destroys liberty far more thoroughly than the rebel who refuses in public.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="hume">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🪞</span>
+            <div class="card-meta">
+              <span class="persona-name">Hume</span>
+              <span class="domain">Scepticism & Human Nature</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before me is not one of martyrdom but of social mechanics — whether the corrosive power of defiance lies in its visibility or its concealment, measured against the fragile conventions that hold civil society together. Custom and habit, not reason or divine ordinance, are the true cement of allegiance; government persists because men have grown accustomed to obedience, and that custom is a thing of sentiment, not argument. The open rebel at least names the fracture honestly, permitting the sovereign to respond and the public to judge; his defiance becomes a datum in the ongoing negotiation of power. The concealed dissenter, however, performs the greater mischief — he hollows out the convention of allegiance while wearing its mask, training himself in hypocrisy and spreading, by silent example, the habit of treating law as merely instrumental whenever private judgment whispers otherwise. Concealed disobedience is the deeper rot, because it corrupts the sincere habit of deference on which all civil order quietly depends.</p></div>
+            <p><em class="maxim">The rebel who lies to his sovereign has already taught himself that sovereignty is a thing to be deceived, and a society of deceivers cannot long mistake itself for a commonwealth.</em></p>
+          </div>
+        </div>
+        <div class="card" data-persona="adamsmith">
+          <div class="card-header" role="button" aria-expanded="false">
+            <span class="emoji">🏪</span>
+            <div class="card-meta">
+              <span class="persona-name">Adam Smith</span>
+              <span class="domain">Markets & Moral Sentiment</span>
+            </div>
+            <span class="expand-icon">＋</span>
+          </div>
+          <div class="card-body">
+            <div class="card-prose"><p>The question before us is not merely political but moral: it asks where the corruption of a society truly begins — in its public squares or in the silent chambers of private conscience. The open dissenter, however provocative, still appeals to the impartial spectator. He invites the judgment of his fellows; he submits to the tribunal of public sympathy and accepts its verdict. His act, however disruptive, remains legible to the moral order. The man who conceals his transgression commits a far graver injury: he corrupts the very faculty by which societies regulate themselves. He trains himself to deceive not only the magistrate but the man within the breast — that internal judge whose authority I hold more sovereign than any parliament. A nation of open rebels may argue its way back to order; a nation of habitual concealers has already dissolved it from within. Concealed disobedience is the greater menace to civil order.</p></div>
+            <p><em class="maxim">The dissembler does not merely break the law — he breaks the only court that could have redeemed him.</em></p>
+          </div>
+        </div></div>
+      </section></main>
+  <footer>Generated by The Salon Batch Processor · 2026-06-04</footer>
+  <script>
+    const btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', btn.dataset.t);
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        localStorage.setItem('salon-theme', btn.dataset.t);
+      });
+    });
+    const saved = localStorage.getItem('salon-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      btns.forEach(b => b.classList.toggle('active', b.dataset.t === saved));
+    }
+
+    const texBtn = document.querySelector('.texture-btn');
+    const applyTextures = (on) => {
+      document.documentElement.setAttribute('data-textures', on ? 'on' : 'off');
+      texBtn.classList.toggle('active', on);
+      texBtn.dataset.on = on;
+      localStorage.setItem('salon-textures', on);
+    };
+    texBtn.addEventListener('click', () => applyTextures(texBtn.dataset.on === 'false'));
+    const savedTex = localStorage.getItem('salon-textures');
+    applyTextures(savedTex === 'true');
+
+    // Card expand/collapse
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('open');
+        header.setAttribute('aria-expanded', card.classList.contains('open'));
+      });
+    });
+  </script>
+</body>
+</html>

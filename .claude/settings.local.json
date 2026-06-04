@@ -43,7 +43,9 @@
       "mcp__Claude_in_Chrome__browser_batch",
       "mcp__Claude_in_Chrome__computer",
       "Bash(node post-to-substack-notes.js _draft.json)",
-      "mcp__scheduled-tasks__update_scheduled_task"
+      "mcp__scheduled-tasks__update_scheduled_task",
+      "Bash(rm /home/user/the-salon/.claude/settings.json)",
+      "Bash(git -C /home/user/the-salon status --short)"
     ]
   }
 }

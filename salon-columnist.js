@@ -7,7 +7,7 @@
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { ALL_PERSONAS } from './personas.js';
+import { ALL_PERSONAS, HOUSE_STYLE } from './personas.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const STATE_FILE = join(__dirname, '.columnist-state.json');
@@ -32,7 +32,7 @@ const researchContent = readFileSync(researchPath, 'utf8');
 console.log(JSON.stringify({
   id:             persona.id,
   name:           persona.name,
-  voiceGuide:     persona.voiceGuide,
+  voiceGuide:     `${persona.voiceGuide}\n\n${HOUSE_STYLE}`,
   researchPath,
   researchContent
 }));

@@ -121,6 +121,26 @@ async function runSentinel(messages, protocolContent, sentinelPrompt, apiKey) {
   return JSON.parse(raw);
 }
 
+// ── PERSONA STORE (server-side) ───────────────────────────────────────────────
+// The persona prompts live in api/*.json, NOT in the client. The browser sends a
+// personaId; the server resolves the prompt. This kills prompt-swapping (the server
+// never trusts a client system prompt) and removes the prompts from page source.
+function loadJson(name) {
+  try { return JSON.parse(readFileSync(join(__dir, name), 'utf-8')); } catch { return {}; }
+}
+function resolvePersona(personaId, mode) {
+  if (!personaId) return null;
+  if (mode === 'longform') {
+    const lf = loadJson('personas-longform.json');
+    if (lf[personaId]) return lf[personaId];
+    const names = loadJson('persona-names.json');
+    return names[personaId]
+      ? `You are ${names[personaId]}. Write a longform piece on the subject given. No imposed structure. No word limit. Write in your full voice until the thought is complete.`
+      : null;
+  }
+  return loadJson('personas.json')[personaId] || null;
+}
+
 // ── MAIN HANDLER ─────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -155,6 +175,22 @@ export default async function handler(req, res) {
 
   const { model, messages, max_tokens } = req.body;
 
+  // ── Persona resolution. Non-token (browser) requests must send a personaId and may
+  //    NOT supply a system prompt; the server builds it. Token-authenticated callers
+  //    (the batch scripts) are trusted and keep sending their own messages. ──
+  let finalMessages = Array.isArray(messages) ? messages : [];
+  if (!hasToken) {
+    const suppliedSystem = req.body.system !== undefined || finalMessages.some(m => m.role === 'system');
+    if (suppliedSystem) {
+      return res.status(403).json({ error: 'Client-supplied system prompts are not accepted; send a personaId.' });
+    }
+    const sys = resolvePersona(req.body.personaId, req.body.mode);
+    if (!sys) {
+      return res.status(400).json({ error: `Unknown or missing personaId "${req.body.personaId ?? ''}".` });
+    }
+    finalMessages = [{ role: 'system', content: sys }, ...finalMessages];
+  }
+
   // Load the registry and verify every enabled CAD against its published anchor
   const registry = loadRegistry();
   const cads      = loadGovernance(registry);
@@ -185,7 +221,7 @@ export default async function handler(req, res) {
     if (!c.content || !c.sentinelPrompt) continue;
     try {
       const result = await runSentinel(
-        messages,
+        finalMessages,
         c.content,
         c.sentinelPrompt,
         process.env.OPENROUTER_API_KEY
@@ -232,7 +268,7 @@ export default async function handler(req, res) {
           'HTTP-Referer':  REFERER,
           'X-Title':       'The Salon'
         },
-        body: JSON.stringify({ model: 'anthropic/claude-sonnet-4.5', messages, ...(max_tokens && { max_tokens }) })
+        body: JSON.stringify({ model: 'anthropic/claude-sonnet-4.5', messages: finalMessages, ...(max_tokens && { max_tokens }) })
       });
       responseData = await personaRes.json();
     }

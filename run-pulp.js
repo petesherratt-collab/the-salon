@@ -32,7 +32,8 @@ function chat(systemPrompt, messages) {
     const body = JSON.stringify({ model: MODEL, max_tokens: 3000, messages, system: systemPrompt });
     const req  = https.request(
       { hostname: PROXY, path: '/api/chat', method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) } },
+        headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body),
+                   'X-Salon-Token': process.env.SALON_PROXY_TOKEN || '' } },
       res => {
         let raw = '';
         res.on('data', c => raw += c);

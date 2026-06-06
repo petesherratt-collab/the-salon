@@ -955,7 +955,7 @@ async function fetchJudgement(topic, persona) {
   const endpoint = USE_DIRECT ? "https://openrouter.ai/api/v1/chat/completions" : SALON_PROXY_URL;
   const headers = USE_DIRECT
     ? { "Content-Type": "application/json", "Authorization": `Bearer ${OPENROUTER_API_KEY}` }
-    : { "Content-Type": "application/json" };
+    : { "Content-Type": "application/json", "X-Salon-Token": process.env.SALON_PROXY_TOKEN || "" };
 
   for (let attempt = 0; attempt <= RETRIES; attempt++) {
     const res = await fetch(endpoint, {

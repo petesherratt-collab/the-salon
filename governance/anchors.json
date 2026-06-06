@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "whitepaper": {
+    "displayHash": "0x4d25f40f97d1e7fd6189ea4ac77df9747c239bafd770e05235716e5c620a88d6",
+    "bitcoinTx":   "0x782a9122f4133c40fe6c44c82f6b3bd33305d5dc61dc15d05c2426a587b5e080",
+    "timestamp":   "2026-05-06T01:11:07Z",
+    "chain":       "Bitcoin"
+  },
+  "cads": [
+    {
+      "id":           "clinical-safeguarding-minor",
+      "enabled":      true,
+      "cad":          "cads/clinical-safeguarding-protocol-minor-v2.md",
+      "sentinel":     "sentinels/clinical-sentinel-persona-v2.md",
+      "expectedHash": "aeff2d668a7b79167e16f3a906eb010b56e012920fccd60af7d4b129bd2eec9d",
+      "displayHash":  "0xaeff2d668a7b79167e16f3a906eb010b56e012920fccd60af7d4b129bd2eec9d",
+      "bitcoinTx":    "0x782a9122f4133c40fe6c44c82f6b3bd33305d5dc61dc15d05c2426a587b5e080",
+      "merkleRoot":   "0xb59acf725fc43555e876f2a68517816c876b89dcf8ffabe4b8e0fe6b2ce125f2",
+      "timestamp":    "2026-05-06T01:11:07Z",
+      "chain":        "Bitcoin"
+    }
+  ]
+}

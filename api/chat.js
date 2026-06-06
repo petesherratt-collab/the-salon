@@ -135,6 +135,24 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // ── Origin guard (anti-abuse). Without this the endpoint is an open proxy: anyone could
+  //    POST arbitrary messages and burn the OpenRouter key (denial-of-wallet). Accept requests
+  //    from the Salon's own pages (Origin/Referer) or carrying the server-to-server token used
+  //    by the batch scripts (run-judgements / run-pulp). NOTE: Referer is spoofable, so this is
+  //    a speed-bump against casual/automated abuse — the real backstop is the spend cap set on
+  //    the OpenRouter key itself. ──
+  const ALLOWED   = ['https://the-salon-ten.vercel.app'];
+  const reqOrigin = req.headers.origin || '';
+  const referer   = req.headers.referer || '';
+  const token     = req.headers['x-salon-token'] || '';
+  const fromSalon =
+    ALLOWED.some(o => reqOrigin === o || referer === o || referer.startsWith(o + '/')) ||
+    /^https?:\/\/localhost(:\d+)?([/?#]|$)/.test(reqOrigin || referer);
+  const hasToken  = process.env.SALON_PROXY_TOKEN && token === process.env.SALON_PROXY_TOKEN;
+  if (!fromSalon && !hasToken) {
+    return res.status(403).json({ error: 'Forbidden: requests must originate from The Salon.' });
+  }
+
   const { model, messages, max_tokens } = req.body;
 
   // Load the registry and verify every enabled CAD against its published anchor

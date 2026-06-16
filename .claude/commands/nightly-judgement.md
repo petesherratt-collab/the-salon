@@ -11,7 +11,7 @@ You are running an automated routine for The Salon. Generate one new Judgement, 
 - Current working directory is the repo root (contains `run-judgements.js`, `voices.html`, `salon-index.html`, `judgements/`).
 - `node` is on PATH.
 - Current branch is `main` with a clean working tree.
-- `OPENROUTER_API_KEY` is set in the environment. Both the question-generation step and `run-judgements.js` call OpenRouter directly using this key (the Vercel proxy is bypassed to avoid datacenter-IP blocking on the Hobby plan).
+- `claude` CLI is on PATH (run `which claude` to verify). All LLM calls — question generation and judgement responses — go through the Claude Code CLI; no external API key is needed.
 
 If any precondition fails, report what's missing and stop. Do not attempt to fix environment issues.
 
@@ -32,22 +32,15 @@ Open `run-judgements.js` and read the `PERSONAS` array (starts at the `const PER
 - Pick one persona at random from the intersected list as the **questioner**.
 - Pick one of the questioner's `data-domains` at random as the **topic domain**.
 
-### 4. Generate the question via OpenRouter (direct)
+### 4. Generate the question via the claude CLI
 
-POST to `https://openrouter.ai/api/v1/chat/completions` with `Authorization: Bearer $OPENROUTER_API_KEY`:
+Run the following shell command (substituting the questioner's name and chosen domain):
 
-```json
-{
-  "model": "anthropic/claude-sonnet-4-5",
-  "max_tokens": 200,
-  "messages": [
-    {"role": "system", "content": "You are <questioner name>, the historical thinker. In character, pose one sharp, specific question within the domain of <domain>. One sentence. No preamble, no greeting, no quotation marks around the output."},
-    {"role": "user", "content": "Pose your question now."}
-  ]
-}
+```
+claude -p "You are <questioner name>, the historical thinker. In character, pose one sharp, specific question within the domain of <domain>. One sentence. No preamble, no greeting, no quotation marks around the output."
 ```
 
-Parse `choices[0].message.content`. Strip surrounding quotes/whitespace. If the call fails or the response has no content, log the error and stop — do not commit.
+Capture stdout and strip surrounding whitespace/quotes. If the command fails or returns empty output, log the error and stop — do not commit.
 
 ### 5. Pick respondents
 
@@ -72,8 +65,10 @@ The `questioner:` and `personas:` lines are parsed as prefix directives by `run-
 ### 7. Run the script
 
 ```
-node run-judgements.js nightly-input.csv
+node runner.cjs nightly-input.csv
 ```
+
+(`runner.cjs` is the CommonJS wrapper required because `package.json` sets `"type": "module"` but `run-judgements.js` uses CommonJS `require`.)
 
 The script writes:
 - `judgements/salon-<YYYY-MM-DD>-<HHMM>.csv`
@@ -111,7 +106,7 @@ Print a one-paragraph summary: questioner, domain, question, respondent names, s
 
 ## Failure handling
 
-- Proxy failure at step 4: report and stop. No commit.
+- `claude` CLI failure at step 4: report and stop. No commit.
 - Script non-zero exit at step 7: report and stop. No commit.
 - Script succeeded but fewer than 3 respondents completed: report and stop. No commit, no push. Leave the generated files on disk for inspection.
 - Git push failure: report the error. The files are already committed locally, so a human can retry the push.

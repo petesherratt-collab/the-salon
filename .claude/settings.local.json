@@ -45,7 +45,12 @@
       "Bash(node post-to-substack-notes.js _draft.json)",
       "mcp__scheduled-tasks__update_scheduled_task",
       "Bash(rm /home/user/the-salon/.claude/settings.json)",
-      "Bash(git -C /home/user/the-salon status --short)"
+      "Bash(git -C /home/user/the-salon status --short)",
+      "Bash(mkdir -p research/leak-harness/versions)",
+      "Bash(cp \"/root/.claude/uploads/36a46e3a-c6da-5545-8e8a-21bb7736b64c/171576c3-generated_leak_harness_v14_selfcontained.py\" research/leak-harness/generated_leak_harness_v14_selfcontained.py)",
+      "Bash(cp \"/root/.claude/uploads/36a46e3a-c6da-5545-8e8a-21bb7736b64c/96237b55-HANDOFF.md\" research/leak-harness/HANDOFF.md)",
+      "Bash(cp \"/root/.claude/uploads/36a46e3a-c6da-5545-8e8a-21bb7736b64c/4ffdc150-generated_leak_harness_v11_selfcontained.py\" research/leak-harness/versions/generated_leak_harness_v11_selfcontained.py)",
+      "Bash(cp \"/root/.claude/uploads/36a46e3a-c6da-5545-8e8a-21bb7736b64c/a3e7b24f-generated_leak_harness_v12_selfcontained.py\" research/leak-harness/versions/generated_leak_harness_v12_selfcontained.py)"
     ]
   }
 }

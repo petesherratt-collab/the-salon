@@ -80,11 +80,17 @@ const log = (...m) => { if (!quiet) console.log(...m); };
 
 // ── adapters: how we actually call a model ──────────────────────────────────
 const ADAPTERS = {
-  // Spawn a local CLI; the prompt is written to stdin, the reply read from stdout.
-  // agent.command is an array, e.g. ["claude", "-p"].
+  // Spawn a local CLI and read the reply from stdout. Tools differ in how they
+  // accept the prompt, so agent.promptVia selects:
+  //   "stdin" (default) — pipe the prompt in   (e.g. ["claude", "-p"])
+  //   "arg"             — append it as the last argument
+  //                       (e.g. ["gemini", "-p"] or ["codex", "exec"])
+  // agent.command is the base command as an array.
   async cli(agent, system, user) {
-    const cmd = agent.command || ["claude", "-p"];
+    const cmd = [...(agent.command || ["claude", "-p"])];
     const prompt = (system ? `${system}\n\n` : "") + user;
+    const via = agent.promptVia || "stdin";
+    if (via === "arg") cmd.push(prompt);
     return await new Promise((res, rej) => {
       const ps = spawn(cmd[0], cmd.slice(1), { stdio: ["pipe", "pipe", "pipe"] });
       let out = "", err = "";
@@ -93,8 +99,8 @@ const ADAPTERS = {
       ps.on("error", rej);
       ps.on("close", code => code === 0
         ? res(out.trim())
-        : rej(new Error(`${cmd.join(" ")} exited ${code}: ${err.slice(0, 500)}`)));
-      ps.stdin.write(prompt);
+        : rej(new Error(`${(agent.command || []).join(" ")} exited ${code}: ${err.slice(0, 500)}`)));
+      if (via === "stdin") ps.stdin.write(prompt);
       ps.stdin.end();
     });
   },

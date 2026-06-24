@@ -1,0 +1,26 @@
+{
+  "_comment": "True multi-model red team using three LOCAL CLIs. Install + auth each first (see redteam/README.md): claude, gemini (`npm i -g @google/gemini-cli`), codex (`npm i -g @openai/codex`). Note `promptVia`: claude reads the prompt on stdin; gemini and codex take it as a command argument.",
+  "proposer": {
+    "name": "Claude (proposer)",
+    "adapter": "cli",
+    "command": ["claude", "-p"],
+    "promptVia": "stdin",
+    "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when given valid criticism."
+  },
+  "adversaries": [
+    {
+      "name": "Gemini (red team)",
+      "adapter": "cli",
+      "command": ["gemini", "-p"],
+      "promptVia": "arg",
+      "system": "You are an adversarial reviewer. Be specific, rigorous, and unsparing."
+    },
+    {
+      "name": "Codex (red team)",
+      "adapter": "cli",
+      "command": ["codex", "exec"],
+      "promptVia": "arg",
+      "system": "You are an adversarial reviewer focused on correctness, edge cases, and security. Cite the exact part you mean."
+    }
+  ]
+}

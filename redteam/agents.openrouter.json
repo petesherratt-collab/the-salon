@@ -1,0 +1,26 @@
+{
+  "_comment": "True multi-model red team via OpenRouter. Needs OPENROUTER_API_KEY in your environment / .env. Claude proposes; Gemini and a GPT/o-series model (the 'Codex' role) attack. Swap the model IDs for whatever you have access to on https://openrouter.ai/models.",
+  "proposer": {
+    "name": "Claude (proposer)",
+    "adapter": "openrouter",
+    "model": "anthropic/claude-sonnet-4.5",
+    "max_tokens": 4000,
+    "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when given valid criticism."
+  },
+  "adversaries": [
+    {
+      "name": "Gemini (red team)",
+      "adapter": "openrouter",
+      "model": "google/gemini-2.5-pro",
+      "max_tokens": 2000,
+      "system": "You are an adversarial reviewer. Be specific, rigorous, and unsparing."
+    },
+    {
+      "name": "GPT / Codex (red team)",
+      "adapter": "openrouter",
+      "model": "openai/gpt-5",
+      "max_tokens": 2000,
+      "system": "You are an adversarial reviewer focused on correctness, edge cases, and security. Cite the exact part you mean."
+    }
+  ]
+}

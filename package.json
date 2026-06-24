@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "scripts": {
-    "redteam": "node redteam/orchestrate.mjs"
-  },
   "dependencies": {
     "dotenv": "^17.4.2"
   }

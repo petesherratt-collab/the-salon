@@ -1,3 +1,0 @@
-# Transcripts are local run output, not source
-*.md
-!.gitkeep

@@ -91,8 +91,12 @@ const ADAPTERS = {
     const prompt = (system ? `${system}\n\n` : "") + user;
     const via = agent.promptVia || "stdin";
     if (via === "arg") cmd.push(prompt);
+    // On Windows the CLIs are .cmd shims, which require a shell to launch.
+    // (Prefer promptVia "stdin" there: a piped prompt is immune to the
+    // argument mangling cmd.exe does to multi-line strings.)
+    const useShell = process.platform === "win32";
     return await new Promise((res, rej) => {
-      const ps = spawn(cmd[0], cmd.slice(1), { stdio: ["pipe", "pipe", "pipe"] });
+      const ps = spawn(cmd[0], cmd.slice(1), { stdio: ["pipe", "pipe", "pipe"], shell: useShell });
       let out = "", err = "";
       ps.stdout.on("data", d => (out += d));
       ps.stderr.on("data", d => (err += d));

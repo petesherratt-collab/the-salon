@@ -54,15 +54,18 @@ codex login                      # ChatGPT account, or set OPENAI_API_KEY
 node redteam/orchestrate.mjs --task "..." --config redteam/agents.cli.json
 ```
 
-| CLI | install | non-interactive call | auth |
-|-----|---------|----------------------|------|
-| Claude | (this tool) | `claude -p` (stdin) | already signed in |
-| Gemini | `npm i -g @google/gemini-cli` | `gemini -p "<prompt>"` | `gemini` login or `GEMINI_API_KEY` |
-| Codex  | `npm i -g @openai/codex` | `codex exec "<prompt>"` | `codex login` or `OPENAI_API_KEY` |
+| CLI | install | how it's invoked | auth |
+|-----|---------|------------------|------|
+| Claude | (this tool) | `claude -p`, prompt on stdin | already signed in |
+| Gemini | `npm i -g @google/gemini-cli` | `gemini`, prompt on stdin | `gemini` login or `GEMINI_API_KEY` |
+| Codex  | `npm i -g @openai/codex` | `codex exec`, prompt on stdin | `codex login` or `OPENAI_API_KEY` |
 
-> Note: these CLIs take the prompt as a command **argument**, while `claude -p`
-> reads **stdin**. The config handles this with `"promptVia"` (`"arg"` vs the
-> default `"stdin"`) — see `agents.cli.json`.
+> **Prompt delivery.** `agents.cli.json` feeds every tool the prompt on **stdin**
+> (`"promptVia": "stdin"`) — the most portable form, and the only safe one on
+> **Windows**, where these CLIs are `.cmd` shims and a multi-line prompt can't be
+> passed as a command argument. If a tool ignores stdin on your platform, switch
+> that agent to `"promptVia": "arg"` and append its prompt flag (e.g.
+> `["gemini", "-p"]`). On Windows the launcher runs through the shell automatically.
 
 ## Options
 

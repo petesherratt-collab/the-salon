@@ -1,5 +1,5 @@
 {
-  "_comment": "True multi-model red team using three LOCAL CLIs. Install + auth each first (see redteam/README.md): claude, gemini (`npm i -g @google/gemini-cli`), codex (`npm i -g @openai/codex`). Note `promptVia`: claude reads the prompt on stdin; gemini and codex take it as a command argument.",
+  "_comment": "True multi-model red team using three LOCAL CLIs. Install + auth each first (see redteam/README.md): claude, gemini (`npm i -g @google/gemini-cli`), codex (`npm i -g @openai/codex`). All three are fed the prompt on stdin (promptVia: stdin) — the most portable form, and required on Windows where multi-line prompts can't be passed safely as arguments. If a tool ever ignores stdin on your platform, switch that agent to `\"promptVia\": \"arg\"` and append the prompt flag (e.g. command [\"gemini\",\"-p\"]).",
   "proposer": {
     "name": "Claude (proposer)",
     "adapter": "cli",
@@ -11,15 +11,15 @@
     {
       "name": "Gemini (red team)",
       "adapter": "cli",
-      "command": ["gemini", "-p"],
-      "promptVia": "arg",
+      "command": ["gemini"],
+      "promptVia": "stdin",
       "system": "You are an adversarial reviewer. Be specific, rigorous, and unsparing."
     },
     {
       "name": "Codex (red team)",
       "adapter": "cli",
       "command": ["codex", "exec"],
-      "promptVia": "arg",
+      "promptVia": "stdin",
       "system": "You are an adversarial reviewer focused on correctness, edge cases, and security. Cite the exact part you mean."
     }
   ]

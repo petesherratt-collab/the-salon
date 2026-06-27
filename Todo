@@ -1,0 +1,66 @@
+# The Salon — TODO
+
+> Working backlog for the-salon. Status markers: `[ ]` open · `[~]` in progress · `[x]` done · `[!]` blocked.
+> Grouped by theme; within each group, ordered so upstream items come first.
+> Last reviewed: 2026-06-26
+
+---
+
+## 1. Longform — fix the break (highest priority; it's been down a while)
+
+- [~] **Run the diagnostic to find the cause.** Drop `run-longform-diagnostic.cjs` beside the real script and run `node run-longform-diagnostic.cjs hume "test subject"` from PowerShell. It reports the exact failure instead of swallowing it.
+  - Likely causes, ranked: (a) OpenRouter out of credits [HTTP 402]; (b) model slug `anthropic/claude-sonnet-4-6` retired/renamed [404]; (c) `openrouter.ai` blocked by allowlist/sandbox [network ENOTFOUND/ECONNREFUSED]; (d) bad/expired key [401].
+- [ ] **Apply the fix the diagnostic points to**, then confirm a clean run end-to-end (episode HTML written + `longform/index.html` card inserted).
+- [ ] **Fold the diagnostic error-handling into the real `run-longform.cjs`** once the cause is known — keep the precise failure reporting so the next break is one run to diagnose, not a guessing game.
+
+## 2. Longform — quality upgrade (after it connects again)
+
+- [ ] **Make longform load the real persona `.md` system prompts.** Currently `fetchEpisode()` reconstructs a thin prompt from the persona *name only* (`You are ${name}...`) and never reads the authored `.md`. Result: longform ignores all the persona work and leans on the model's generic knowledge. Change: read the persona's identity prompt, prepend it to the essay-format instructions.
+  - Payoff: the modernised prompts then drive all three outputs, not just Judgement + chatbot.
+
+## 3. Persona roster — reconcile the three-way mismatch
+
+- [ ] **The three files disagree on who exists.** `run-judgements.js` knows 18 personas; `run-longform.cjs` knows 27; `run-longform.bat` help text lists 28. Membership conflicts too (e.g. `marx` is in longform but not judgements; judgements uses id `adamsmith`, longform uses `smith`).
+  - Pick one canonical roster (likely `personas.json` or a shared module), have all runners read from it, so a persona can't silently exist in one mode and not another.
+
+## 4. Persona prompts — deploy this session's work
+
+Seven modernised prompts + one new build, produced 2026-06-26. All are format-free identity prompts (correct for the Salon's bolt-the-format-on-at-runtime architecture).
+
+- [ ] **Deploy modernised prompts:** Wollstonecraft, Parker, James (longform-shaped), Hume, Voltaire.
+- [ ] **Deploy Machiavelli — two files:** `machiavelli-advisor` (standalone Strategic Advisor, keeps its own 4-section/Fortuna's Share contract) and `machiavelli-salon` (Judgement-format variant). Make sure each lands in the right place; don't cross them.
+- [ ] **Deploy Austen** — new build from research: `austen-persona.md` + `austen-factsheet.rtf`. FID filter is the central analytical move.
+- [ ] **Note on Dante:** modernised with the archaic register *dropped* (deliberate). Dry-run a judgement or two before trusting it live — register change was the one load-bearing edit. Imagery vocab (mirror of vanity, abyss of echoes) kept; persona diction modernised.
+
+## 5. Persona roster — finish modernising the set
+
+- [ ] **Keynes** — outstanding (memory suggested a prior full pass; confirm before redoing).
+- [ ] **Emerson** — outstanding.
+- [ ] **Confirm Bacon + Paine** — modernised during skill-development (2026-06-23) as test cases; verify the outputs were saved/deployed, not just trial runs.
+
+## 6. Skills library — finish the cleanup
+
+- [ ] **Delete `expert-persona`** at source (Claude.ai skills UI and/or the Drive sync folder `G:\My Drive\A.I\Claude\Projects\Claude Skill Uploads`). Its prompt template emits the wrong shape for the Salon.
+- [ ] **Delete `persona-analyst`** at source (dormant since ~March; audit/factsheet work now hand-rolled when needed).
+- [ ] **Remove the stale redirect lines** in `persona-modernizer`'s SKILL.md body that point at the now-deleted `persona-analyst` / `expert-persona`.
+- Final intended library: `persona-modernizer` · `salon-output` · `cad-extractor` (3 skills, no overlap).
+
+## 7. Build: Project Architect 3.0 (the Salon-aware persona builder)
+
+- [ ] **Evolve the Resolution Protocol** (don't make it a skill — it's interactive + general-scope, which is protocol territory, not skill territory).
+  - Add a **Salon/standalone fork at Step 1.** Salon branch skips output-format questions (house format is fixed) and spends discovery budget on: biography, the one **load-bearing tension**, and the **distinctive analytical move** (the persona's signature Reframe — e.g. Austen's FID filter, Machiavelli's effectual-truth strip, Hume's impression-hunt).
+  - Bake in the house spec for the Salon branch: 1st-person "you ARE the figure," 4-part Judgement (Framing · Reframe · Verdict · Maxim), ~350 words, em-dash prohibition, full-modern-knowledge/fixed-instrument.
+  - Add a **scope guard**: if handed a *tool* or meta-prompt rather than a persona/Project brief, stop and flag — don't silently reshape it. (This is the failure that wasted time on 2026-06-26.)
+
+## 8. Housekeeping (noticed in passing — verify, low priority)
+
+- [ ] **Secrets in the repo.** `SUBSTACK_SID=...txt` and `# Home Network Inventory.txt` appear committed at repo root, and the repo is **public**. Confirm these contain nothing sensitive (session tokens, internal network detail) — rotate/remove + `.gitignore` if they do.
+- [ ] **Stray probe files.** `_probe2.mjs` … `_probe10.mjs`, `_draft.json` at root — clear out if they're dead scratch files.
+
+---
+
+### Quick status
+
+- **Blocking everything in Longform:** item 1 (run the diagnostic). Nothing else in §1–2 moves until you know the cause.
+- **Independent, do anytime:** §4 (deploy prompts), §6 (delete skills — done at your end, not in repo).
+- **Bigger build, not urgent:** §7 (Architect 3.0).

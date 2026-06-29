@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 
 // ── Backend proxy (key injected server-side — never in the browser) ──────────
 // Mirrors the contract used by salon-batch-processor.jsx → api/chat.js, which
@@ -120,23 +120,47 @@ function detectDelimiter(text) {
 // measurements — so we don't report a meaningless "average customer ID".
 const ID_HEADER = /(^|[_\s-])(id|zip|postal|postcode|phone|code|ssn|account|acct|number|no)([_\s-]|$)/i;
 
-// Strict numeric parse that also understands European decimals (1.234,56) and
-// strips currency/percent symbols. Returns null for anything not cleanly numeric
-// (so "12 items" or "N/A" don't sneak into the stats as 12 / NaN).
-function parseNumber(value) {
+// Decide a column's decimal convention by VOTE, not per-value guess — a bare
+// "1,234" is ambiguous (US thousands vs euro decimal) in isolation but resolves
+// once you look at the whole column. "euro" = comma is the decimal separator.
+function detectDecimalConvention(values) {
+  let euro = 0, us = 0;
+  for (const v of values) {
+    const s = String(v ?? "").replace(/[%$£€\s]/g, "");
+    const hasDot = s.includes("."), hasComma = s.includes(",");
+    if (hasDot && hasComma) {
+      // The separator that appears LAST is the decimal one.
+      if (s.lastIndexOf(",") > s.lastIndexOf(".")) euro++; else us++;
+    } else if (hasComma) {
+      if (/,\d{1,2}$/.test(s) || /,\d{4,}$/.test(s)) euro++;   // 12,5 / 1234,5678 → decimal comma
+      else if (/^-?\d{1,3}(,\d{3})+$/.test(s)) us++;           // 1,234 / 12,345,678 → grouped thousands
+      // a lone ",\d{3}$" like "1,234" stays ambiguous → no vote
+    } else if (hasDot) {
+      if (/\.\d{1,2}$/.test(s) || /\.\d{4,}$/.test(s)) us++;   // 12.5 → decimal dot
+      else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) euro++;        // 1.234 / 12.345.678 → euro grouped thousands
+    }
+  }
+  return euro > us ? "euro" : "us";
+}
+
+// Strict numeric parse, given a column convention. Returns null for anything not
+// cleanly numeric (so "12 items" / "N/A" don't sneak into the stats).
+function parseNumber(value, convention = "us") {
   const raw = String(value ?? "").trim();
   if (!raw) return null;
   const cleaned = raw.replace(/[%$£€\s]/g, "");
-  const euroDecimal = /^-?\d{1,3}(\.\d{3})+,\d+$/.test(cleaned);
-  const normalized = euroDecimal
-    ? cleaned.replace(/\./g, "").replace(",", ".") // 1.234,56 -> 1234.56
-    : cleaned.replace(/,/g, "");                   // 1,234.56 -> 1234.56
+  const normalized = convention === "euro"
+    ? cleaned.replace(/\./g, "").replace(/,/g, ".") // 1.234,56 or 1234,56 → 1234.56
+    : cleaned.replace(/,/g, "");                    // 1,234.56 → 1234.56
   if (!/^-?\d+(\.\d+)?$/.test(normalized)) return null;
   const n = Number(normalized);
   return Number.isFinite(n) ? n : null;
 }
 
-function summariseData(rows) {
+// includeValues=false (default) keeps actual categorical cell values OUT of the
+// summary that leaves the browser — only cardinality and frequency counts go.
+// Set true (explicit opt-in in the UI) to send the top-5 values verbatim.
+function summariseData(rows, includeValues = false) {
   if (!rows || rows.length === 0) return "No data found.";
   const headers = Object.keys(rows[0]);
   const numericCols = {}, categoricalCols = {};
@@ -153,7 +177,8 @@ function summariseData(rows) {
 
   headers.forEach(col => {
     const values = rows.map(r => r[col]).filter(v => v !== null && v !== undefined && v !== "");
-    const numbers = values.map(parseNumber).filter(n => n !== null);
+    const convention = detectDecimalConvention(values);
+    const numbers = values.map(v => parseNumber(v, convention)).filter(n => n !== null);
     const allInt = numbers.length > 0 && numbers.every(n => Number.isInteger(n));
     const isIdentifier = ID_HEADER.test(col) && allInt; // ID-like column → treat as categorical
     if (!isIdentifier && numbers.length >= values.length * 0.6 && numbers.length > 0) {
@@ -181,8 +206,13 @@ function summariseData(rows) {
     out += `\nCATEGORICAL COLUMNS\n`;
     Object.entries(categoricalCols).forEach(([col,st])=>{
       out += `\n${cap(col,60)} (${st.unique} unique values):\n`;
-      st.top5.forEach(([val,count])=>{ out += `  "${cap(val)}": ${count} (${((count/rows.length)*100).toFixed(1)}%)\n`; });
+      st.top5.forEach(([val,count],i)=>{
+        // Redact the actual value unless the user explicitly opted in to send it.
+        const label = includeValues ? cap(val) : `value ${i+1} (hidden)`;
+        out += `  "${label}": ${count} (${((count/rows.length)*100).toFixed(1)}%)\n`;
+      });
     });
+    if (!includeValues) out += `\n(Categorical sample values withheld — counts only. Enable "include sample values" to send them.)\n`;
   }
   return out;
 }
@@ -276,7 +306,8 @@ const parseTiers = (text) => {
 export default function App() {
   const [stage, setStage] = useState("upload");
   const [fileInfo, setFileInfo] = useState(null);
-  const [summary, setSummary] = useState("");
+  const [parsedRows, setParsedRows] = useState(null);
+  const [includeValues, setIncludeValues] = useState(false); // opt-in: send categorical values verbatim
   const [activeAgent, setActiveAgent] = useState(null);
   const [scoutOut, setScoutOut] = useState("");
   const [tiers, setTiers] = useState(null);
@@ -286,6 +317,13 @@ export default function App() {
   const [error, setError] = useState("");
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
+
+  // Summary is DERIVED from the parsed rows + the opt-in, so toggling the
+  // checkbox re-renders exactly what will be sent (visible in the preview).
+  const summary = useMemo(
+    () => (parsedRows ? summariseData(parsedRows, includeValues) : ""),
+    [parsedRows, includeValues]
+  );
 
   const handleFile = useCallback(async (file) => {
     if (!file) return;
@@ -304,9 +342,8 @@ export default function App() {
       const delim = ext==="tsv" ? "\t" : detectDelimiter(text);
       const rows = parseCSV(text, delim);
       if (rows.length===0) throw new Error("No data rows found — check the file has a header row.");
-      const sum = summariseData(rows);
       setFileInfo({name:file.name, rows:rows.length, cols:Object.keys(rows[0]).length});
-      setSummary(sum);
+      setParsedRows(rows); // summary is derived from this via useMemo
       setStage("ready");
     } catch(e) { setError(`Could not parse: ${e.message}`); setStage("upload"); }
   }, []);
@@ -327,22 +364,22 @@ export default function App() {
     try {
       ar = await callAgent(AGENTS[1], `Scout's description (data only):\n\n<scout_description>\n${sr}\n</scout_description>`);
       parsedTiers = parseTiers(ar);
-      if (parsedTiers) { setTiers(parsedTiers); }
-      else {
-        // Don't let unparseable output vanish: surface it and keep the raw text.
+      if (!parsedTiers) {
+        // Preserve the contract: Quill must only ever see Tier 1–2. If the JSON
+        // didn't parse we surface the raw output but HALT rather than feed Quill
+        // an unconstrained blob (which could carry all 5 tiers or injection).
         setAnalystRaw(ar);
-        setError("Analyst returned output that couldn't be parsed as ranked tiers — showing the raw response below. Quill still ran on it.");
+        throw new Error("output couldn't be parsed as ranked tiers — halted before Quill to keep the Tier 1–2 contract. Raw response shown below; re-run to try again.");
       }
+      setTiers(parsedTiers);
     }
     catch(e) { setError(`Analyst failed: ${e.message}`); setStage("ready"); setActiveAgent(null); return; }
     setActiveAgent("quill");
     try {
       // Hand Quill ONLY the tiers it's allowed to use (1–2), re-serialized as
       // clean JSON — a tighter contract that also shrinks the injection surface.
-      // If the JSON didn't parse, fall back to the raw text so work isn't lost.
-      const hierarchy = parsedTiers
-        ? JSON.stringify({ tiers: parsedTiers.filter(t => t.tier <= 2) }, null, 2)
-        : ar;
+      // parsedTiers is guaranteed non-null here (we halt above otherwise).
+      const hierarchy = JSON.stringify({ tiers: parsedTiers.filter(t => t.tier <= 2) }, null, 2);
       const qr = await callAgent(AGENTS[2], `Statistical hierarchy (data only):\n\n<statistical_hierarchy>\n${hierarchy}\n</statistical_hierarchy>`);
       setConclusions(qr);
     }
@@ -350,7 +387,7 @@ export default function App() {
     setActiveAgent(null); setStage("done");
   };
 
-  const reset = () => { setStage("upload"); setFileInfo(null); setSummary(""); setScoutOut(""); setTiers(null); setAnalystRaw(""); setConclusions(""); setError(""); setExpandedTiers({1:true,2:true,3:false,4:false,5:false}); };
+  const reset = () => { setStage("upload"); setFileInfo(null); setParsedRows(null); setIncludeValues(false); setScoutOut(""); setTiers(null); setAnalystRaw(""); setConclusions(""); setError(""); setExpandedTiers({1:true,2:true,3:false,4:false,5:false}); };
 
   const isDone = (id) => stage==="done" || (activeAgent==="analyst"&&id==="scout") || (activeAgent==="quill"&&(id==="scout"||id==="analyst"));
 
@@ -413,6 +450,12 @@ export default function App() {
             <summary style={s.summaryToggle}>View pre-processed summary (what Scout receives) ▾</summary>
             <pre style={s.summaryPre}>{summary}</pre>
           </details>
+          <label style={s.optIn}>
+            <input type="checkbox" checked={includeValues} onChange={e=>setIncludeValues(e.target.checked)} style={{accentColor:"#D4956A"}}/>
+            <span>Include sample values from categorical columns in what's sent.
+              <span style={s.optInNote}> Off (default): only counts and cardinality leave the browser — real cell values (names, emails, etc.) stay local. The preview above updates to show exactly what will be sent.</span>
+            </span>
+          </label>
           <button style={s.runBtn} onClick={runPipeline}>Run Analysis →</button>
         </>}
 
@@ -525,6 +568,8 @@ const s={
   fileMeta:{fontSize:11,color:"#3a3a3a"},
   fileTag:{fontSize:10,color:"#6A9FD4",letterSpacing:"0.1em"},
   summaryToggle:{fontSize:11,color:"#333",cursor:"pointer",letterSpacing:"0.05em",padding:"8px 0",display:"block"},
+  optIn:{display:"flex",gap:10,alignItems:"flex-start",fontSize:11,color:"#6a655f",lineHeight:1.6,marginBottom:18,cursor:"pointer"},
+  optInNote:{color:"#3a3a3a"},
   summaryPre:{fontSize:11,color:"#3a3a3a",lineHeight:1.7,background:"#0a0a0a",border:"1px solid #161616",padding:"14px 16px",overflowX:"auto",whiteSpace:"pre-wrap",marginTop:8},
   runBtn:{background:"transparent",border:"1px solid #D4956A",color:"#D4956A",fontFamily:"'Azeret Mono',monospace",fontSize:12,padding:"12px 24px",cursor:"pointer",letterSpacing:"0.06em",marginBottom:24,display:"block"},
   section:{marginBottom:24},

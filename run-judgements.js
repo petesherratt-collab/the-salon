@@ -7,9 +7,11 @@ const fs   = require("fs");
 const path = require("path");
 
 // ── Config ──────────────────────────────────────────────────────────────────
-// Call mode: uses the `claude` CLI (Claude Code) to generate responses.
-// Falls back to proxy if SALON_PROXY_URL is set and claude CLI is unavailable.
+// Call mode: uses OpenRouter when OPENROUTER_API_KEY is set, otherwise claude CLI.
 const SALON_PROXY_URL    = process.env.SALON_PROXY_URL || "https://the-salon-ten.vercel.app/api/chat";
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
+const OPENROUTER_URL     = "https://openrouter.ai/api/v1/chat/completions";
+const OPENROUTER_MODEL   = "anthropic/claude-sonnet-4.5";
 const RETRIES            = 3;
 
 const { execSync } = require("child_process");
@@ -948,15 +950,39 @@ function buildHtml(topics, results, date, personas, portraits, questioner) {
 
 // ── API call ─────────────────────────────────────────────────────────────────
 async function fetchJudgement(topic, persona) {
-  const prompt = `${SYSTEM_PROMPT(persona)}\n\n${topic}`;
+  const systemPrompt = SYSTEM_PROMPT(persona);
 
   for (let attempt = 0; attempt <= RETRIES; attempt++) {
     try {
-      const result = execSync(`claude -p ${JSON.stringify(prompt)}`, {
-        encoding: "utf8",
-        timeout: 60000,
-      });
-      return result.trim();
+      if (OPENROUTER_API_KEY) {
+        const res = await fetch(OPENROUTER_URL, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+            "Content-Type":  "application/json",
+            "HTTP-Referer":  "https://the-salon-ten.vercel.app",
+            "X-Title":       "The Salon"
+          },
+          body: JSON.stringify({
+            model:      OPENROUTER_MODEL,
+            messages:   [
+              { role: "system", content: systemPrompt },
+              { role: "user",   content: topic }
+            ],
+            max_tokens: 400
+          })
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error.message || "OpenRouter error");
+        return data.choices[0].message.content.trim();
+      } else {
+        const prompt = `${systemPrompt}\n\n${topic}`;
+        const result = execSync(`claude -p ${JSON.stringify(prompt)}`, {
+          encoding: "utf8",
+          timeout: 60000,
+        });
+        return result.trim();
+      }
     } catch (err) {
       if (attempt < RETRIES) {
         const wait = 2000 * (attempt + 1);
@@ -964,7 +990,7 @@ async function fetchJudgement(topic, persona) {
         await new Promise(r => setTimeout(r, wait));
         continue;
       }
-      throw new Error(err.message || "claude CLI failed");
+      throw new Error(err.message || (OPENROUTER_API_KEY ? "OpenRouter call failed" : "claude CLI failed"));
     }
   }
   throw new Error("Max retries exceeded");
@@ -1353,7 +1379,7 @@ async function runPool(tasks, concurrency, onDone) {
   }
 
   console.log(`\nSalon Batch Processor`);
-  console.log(`  Mode     : claude CLI`);
+  console.log(`  Mode     : ${OPENROUTER_API_KEY ? `OpenRouter (${OPENROUTER_MODEL})` : "claude CLI"}`);
   console.log(`  Topics   : ${topics.length}`);
   console.log(`  Personas : ${activePersonas.length}${personaIds ? ` (selected: ${activePersonas.map(p => p.name).join(", ")})` : ""}`);
   if (questioner) console.log(`  Posed by : ${questioner.name}`);

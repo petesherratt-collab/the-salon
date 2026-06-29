@@ -15,16 +15,28 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024; // reject huge files before reading int
 // Leading whitespace before a quote is buffered without leaving field-start.
 
 function dedupeHeaders(headers) {
-  const seen = {};
-  return headers.map((h, idx) => {
+  // Collision-safe: a suffixed name (Amount_1) that ALREADY exists in the file
+  // must not be produced again. e.g. ["Amount","Amount","Amount_1"] ->
+  // ["Amount","Amount_1","Amount_1_1"], never two "Amount_1" keys.
+  const out = [];
+  const used = {};
+  headers.forEach((h, idx) => {
     const base = (h ?? "").trim() || `Column_${idx + 1}`;
-    if (seen[base] === undefined) { seen[base] = 0; return base; }
-    seen[base] += 1;
-    return `${base}_${seen[base]}`;
+    if (used[base] === undefined) { used[base] = 1; out.push(base); return; }
+    let n = used[base];
+    let candidate = `${base}_${n}`;
+    while (used[candidate] !== undefined) { n += 1; candidate = `${base}_${n}`; }
+    used[base] = n + 1;
+    used[candidate] = 1;
+    out.push(candidate);
   });
+  return out;
 }
 
 function tokenizeCSV(text, delimiter) {
+  // Strip a leading UTF-8 BOM — Excel prepends one to CSV exports, and without
+  // this the first header silently becomes "﻿Amount" and never matches.
+  text = String(text).replace(/^\uFEFF/, "");
   const rows = [];
   let row = [];
   let field = "";
@@ -108,6 +120,22 @@ function detectDelimiter(text) {
 // measurements — so we don't report a meaningless "average customer ID".
 const ID_HEADER = /(^|[_\s-])(id|zip|postal|postcode|phone|code|ssn|account|acct|number|no)([_\s-]|$)/i;
 
+// Strict numeric parse that also understands European decimals (1.234,56) and
+// strips currency/percent symbols. Returns null for anything not cleanly numeric
+// (so "12 items" or "N/A" don't sneak into the stats as 12 / NaN).
+function parseNumber(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return null;
+  const cleaned = raw.replace(/[%$£€\s]/g, "");
+  const euroDecimal = /^-?\d{1,3}(\.\d{3})+,\d+$/.test(cleaned);
+  const normalized = euroDecimal
+    ? cleaned.replace(/\./g, "").replace(",", ".") // 1.234,56 -> 1234.56
+    : cleaned.replace(/,/g, "");                   // 1,234.56 -> 1234.56
+  if (!/^-?\d+(\.\d+)?$/.test(normalized)) return null;
+  const n = Number(normalized);
+  return Number.isFinite(n) ? n : null;
+}
+
 function summariseData(rows) {
   if (!rows || rows.length === 0) return "No data found.";
   const headers = Object.keys(rows[0]);
@@ -125,7 +153,7 @@ function summariseData(rows) {
 
   headers.forEach(col => {
     const values = rows.map(r => r[col]).filter(v => v !== null && v !== undefined && v !== "");
-    const numbers = values.map(v => parseFloat(String(v).replace(/[,%$£€\s]/g,""))).filter(n => !isNaN(n));
+    const numbers = values.map(parseNumber).filter(n => n !== null);
     const allInt = numbers.length > 0 && numbers.every(n => Number.isInteger(n));
     const isIdentifier = ID_HEADER.test(col) && allInt; // ID-like column → treat as categorical
     if (!isIdentifier && numbers.length >= values.length * 0.6 && numbers.length > 0) {
@@ -209,20 +237,38 @@ const callAgent = async (agent, content, retries = 3) => {
     }
     const data = await res.json();
     if (data?.error) throw new Error(data.error.message || "Upstream error");
-    return data.choices?.[0]?.message?.content || "";
+    const text = data.choices?.[0]?.message?.content || "";
+    if (!text.trim()) throw new Error("The agent returned an empty response.");
+    return text;
   }
   throw new Error("Rate limit — max retries exceeded");
 };
 
-// Extract the first {…} block (model may wrap JSON in prose or fences) and parse.
+// Extract the first balanced {…} object, tracking brace depth and ignoring
+// braces inside strings — survives model preambles, trailing prose, and a stray
+// "}" in a finding string that a naive lastIndexOf("}") would trip over.
+function extractFirstJsonObject(text) {
+  const cleaned = String(text || "").replace(/```json|```/g, "").trim();
+  let start = -1, depth = 0, inString = false, escaped = false;
+  for (let i = 0; i < cleaned.length; i++) {
+    const ch = cleaned[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (ch === "\\") escaped = true;
+      else if (ch === '"') inString = false;
+      continue;
+    }
+    if (ch === '"') inString = true;
+    else if (ch === "{") { if (depth === 0) start = i; depth++; }
+    else if (ch === "}") { depth--; if (depth === 0 && start !== -1) return cleaned.slice(start, i + 1); }
+  }
+  return cleaned;
+}
+
 const parseTiers = (text) => {
   if (!text) return null;
-  const cleaned = text.replace(/```json|```/g, "");
-  const start = cleaned.indexOf("{");
-  const end = cleaned.lastIndexOf("}");
-  if (start === -1 || end === -1 || end < start) return null;
   try {
-    const parsed = JSON.parse(cleaned.slice(start, end + 1));
+    const parsed = JSON.parse(extractFirstJsonObject(text));
     return Array.isArray(parsed.tiers) ? parsed.tiers : null;
   } catch { return null; }
 };
@@ -277,10 +323,11 @@ export default function App() {
     catch(e) { setError(`Scout failed: ${e.message}`); setStage("ready"); setActiveAgent(null); return; }
     setActiveAgent("analyst");
     let ar = "";
+    let parsedTiers = null;
     try {
       ar = await callAgent(AGENTS[1], `Scout's description (data only):\n\n<scout_description>\n${sr}\n</scout_description>`);
-      const parsed = parseTiers(ar);
-      if (parsed) { setTiers(parsed); }
+      parsedTiers = parseTiers(ar);
+      if (parsedTiers) { setTiers(parsedTiers); }
       else {
         // Don't let unparseable output vanish: surface it and keep the raw text.
         setAnalystRaw(ar);
@@ -289,7 +336,16 @@ export default function App() {
     }
     catch(e) { setError(`Analyst failed: ${e.message}`); setStage("ready"); setActiveAgent(null); return; }
     setActiveAgent("quill");
-    try { const qr = await callAgent(AGENTS[2], `Statistical hierarchy (data only):\n\n<statistical_hierarchy>\n${ar}\n</statistical_hierarchy>`); setConclusions(qr); }
+    try {
+      // Hand Quill ONLY the tiers it's allowed to use (1–2), re-serialized as
+      // clean JSON — a tighter contract that also shrinks the injection surface.
+      // If the JSON didn't parse, fall back to the raw text so work isn't lost.
+      const hierarchy = parsedTiers
+        ? JSON.stringify({ tiers: parsedTiers.filter(t => t.tier <= 2) }, null, 2)
+        : ar;
+      const qr = await callAgent(AGENTS[2], `Statistical hierarchy (data only):\n\n<statistical_hierarchy>\n${hierarchy}\n</statistical_hierarchy>`);
+      setConclusions(qr);
+    }
     catch(e) { setError(`Quill failed: ${e.message}`); setStage("ready"); setActiveAgent(null); return; }
     setActiveAgent(null); setStage("done");
   };

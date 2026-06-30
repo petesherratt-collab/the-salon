@@ -56,7 +56,9 @@ Seven modernised prompts + one new build, produced 2026-06-26. All are format-fr
 
 - [ ] **Secrets in the repo.** `SUBSTACK_SID=...txt` and `# Home Network Inventory.txt` appear committed at repo root, and the repo is **public**. Confirm these contain nothing sensitive (session tokens, internal network detail) — rotate/remove + `.gitignore` if they do.
 - [ ] **Stray probe files.** `_probe2.mjs` … `_probe10.mjs`, `_draft.json` at root — clear out if they're dead scratch files.
-
+## 9. Mobile format odd on the right hand of the screen
+## 10. Navigation in the Judgements page wrong
+## 11. Update persona prompts
 ---
 
 ### Quick status

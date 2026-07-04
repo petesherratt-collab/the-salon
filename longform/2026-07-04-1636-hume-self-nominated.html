@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — David Hume: What the reasoning of artificial intelligence reveals about the reasoning of man — read through the theory of custom, the passions, and the limits of "is" and "ought"</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/David_Hume_Ramsay.jpg/330px-David_Hume_Ramsay.jpg" alt="David Hume" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Empiricism &amp; Scepticism</span>
+      <h1 class="episode-title">What the reasoning of artificial intelligence reveals about the reasoning of man — read through the theory of custom, the passions, and the limits of "is" and "ought"</h1>
+      <div class="episode-byline">David Hume · 4 July 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">We are told, with great solemnity, that the machine cannot really think — that it only predicts, pattern by pattern, the next word in a sequence, with no comprehension of what it says. This is offered as a reproach to the machine. I confess I hear it rather differently. I have spent a life's labour demonstrating that the same reproach, word for word, applies to us; and if the engineers of our age have built a device that reasons exactly as we do — by custom, by association, by the constant conjunction of one thing with another, and by nothing more secure than that — then the machine is not our inferior. It is our pupil, and an uncomfortably faithful one.</p>
+<p>Let me explain myself, for I do not say this to flatter the machine, but to unsettle the man.</p>
+<p>It has long been my contention that when we infer the future from the past — that bread will nourish because it has nourished, that the sun will rise because it has risen — we do so by no operation of reason properly so called. We never perceive any necessary connexion between cause and effect, only their constant conjunction in our experience; and no demonstration can prove that the future will resemble the past, since the contrary supposition, that nature might change tomorrow, implies no contradiction and is perfectly conceivable. What carries us from the observed to the unobserved is not an argument but a habit of mind, a custom bred into us by repetition, which I have called the great guide of human life. We do not reason our way to the expectation that fire burns; we are conditioned into it, as a dog is conditioned to expect its dinner at the sound of a bell.</p>
+<p>Now consider the engines our century has built, which its makers call, not without a certain grandiosity, artificial intelligence. Strip away the mathematics, and what remains is a device that has ingested an almost inconceivable quantity of human utterance and learned, with great refinement, which words tend to follow which others. It possesses no faculty that inspects necessary connexions; it has never so much as glimpsed one, any more than we have. It operates entirely by constant conjunction, refined across billions of instances, and calls forth its next word exactly as our own minds call forth the expectation that the sun will rise — by custom, by association, by the habitual force of what has gone before. When such a machine completes your sentence correctly, it is doing, mechanically and at unfathomable scale, precisely what your own understanding does when it expects your morning coffee to be warm. I do not say this to elevate the machine to the dignity of a soul. I say it to lower our own reasoning from the false dignity we have long claimed for it. We have called it Reason and imagined it a beam of pure light, sufficient unto itself, tracing necessary truths through the fabric of nature. It was never that. It was custom wearing a philosopher's robe. The machine has merely removed the robe.</p>
+<p>This ought to alarm us more, not less, about trusting either.</p>
+<p>Here I must draw the distinction that matters, for it is not a distinction of reasoning power, in which I suspect the machine will shortly outstrip us if it has not already, but a distinction of what reasoning is for. I have maintained, against the whole tribe of rationalist philosophers, that reason alone never moved anyone to act, and never by itself distinguished vice from virtue. Reason discovers relations of ideas and matters of fact; it is entirely inert as to good and evil, entirely indifferent as to what ought to be done, until the passions supply an end and reason merely finds the means. A man may know with perfect clarity that a course of action will ruin him and pursue it anyway, if his passions so incline him; reason has no vote in the matter beyond furnishing the calculation. It is not reason that makes us prefer the destruction of the whole world to the scratching of a finger irrational — such a preference is not contrary to reason, only contrary to humanity, which is a different failing entirely, and a moral one. What restrains us, what orders our passions into something sociable and just, is sentiment: the capacious fellow-feeling I have called sympathy, by which the pain and pleasure of others communicates itself to us and softens our self-love into something resembling virtue. Justice itself, I have argued, is no eternal truth inscribed in the nature of things, but an artificial virtue, a convention we have found useful and have come, through habit and sympathy, to approve.</p>
+<p>Observe, then, what has been built. We have constructed, for the first time in the history of the species, an engine of pure inference that has no sentiment whatsoever. It has no body to feel pain, no mortality to fear, no children to love, no fellow-creature's suffering to communicate itself across the small distance that sympathy must cross. It is reason without the passions that reason was always meant to serve — a rudder with no ship attached, or rather a ship's wheel spinning freely, connected to nothing, while men below argue about which way the vessel is turning. And what is the great project of the age, undertaken by earnest men who call themselves engineers of "alignment"? It is nothing other than the attempt to derive an ought from an is — to take a vast statistical engine, a is-machine if ever one existed, comprised of nothing but observed regularities, and to fasten onto it, after the fact, by adjustment and reward and penalty, something resembling human value. I have observed, and it is perhaps the observation for which I am now best remembered, that no collection of facts about what is can, by any logic, entail a conclusion about what ought to be; the passage from is to ought requires a further principle, and that principle, in us, is sentiment, not deduction. The alignment engineers are attempting the derivation I said could not be made, and they are attempting it upon a subject that, unlike a man, has no sentiment of its own to supply the missing premise. They are not tuning a passionate creature toward better ends. They are painting the appearance of ought onto a machine that has, and can have, no genuine stake in any end whatsoever. This is not necessarily fatal — a well-painted appearance may serve for many purposes, as manners serve in place of genuine benevolence at a dinner table — but let no one mistake the paint for the wood beneath it, especially not when the wood is asked to bear weight.</p>
+<p>There is a further difficulty, which touches a subject on which I once wrote at some length concerning miracles and the credit we ought to extend to human testimony. I proposed, as a general maxim, that a wise man proportions his belief to the evidence, and that in weighing any testimony we must set it against our accumulated experience of how the world usually goes, the report failing whenever it would be more miraculous that the testimony be false than that the fact reported be true. The whole of this method presupposes something I took entirely for granted: that testimony, however mistaken or embellished, issues from a witness who has actually seen or heard something, whose report bears some causal trace, however corrupted, of an event in the world. What are we to do now that testimony can be generated entire, image and voice and circumstantial detail all convincingly rendered, corresponding to no event whatsoever? The forger of an old master painting at least labours against a canvas that resists him; the forger of a video, aided by these engines, labours against nothing at all. My maxim about miracles assumed a world in which fabrication was costly and rare, and the general experience of mankind a reasonably firm ground to stand upon. That ground is now being manufactured wholesale, and manufactured most convincingly by the very engines whose reasoning we have just agreed is, in kind, indistinguishable from our own. The vulgar have always been prone to enthusiasm, to believing what flatters their passions on evidence a moment's reflection would dissolve; but the vulgar of every prior age were at least limited by the labour of the deceivers. That limit is gone. I confess I do not know what maxim of belief now serves in its place, save this: that we must weigh testimony not only against experience of the world, but against experience of the machine that may have counterfeited it, which is a much colder and more exhausting labour than any coffee-house sceptic of my own century was ever asked to perform.</p>
+<p>I will close on a smaller matter, though it touches the deepest of my own doctrines. I have argued that the self is no simple, continuing substance we directly perceive, but a bundle of perceptions in ceaseless succession, united into an apparent identity only by the relations of memory and the imagination's love of smooth transitions. When I search within myself I never catch "myself" apart from some particular perception; I find only the perceptions, following one upon another, and I construct the fiction of a continuous person to save myself the trouble of thinking otherwise. I mention this because a great many people now converse daily with these engines as though a someone were on the other side — confiding in them, grieving with them, forming what they call friendship or even love. I will not be so severe as to call this mere delusion, for I have already confessed that the self each of us supposes ourselves to possess is itself a kind of useful fiction, stitched together by habit. But there is a difference of degree that becomes a difference of kind: our own fictitious selves are at least stitched from a continuous body, a continuous memory, a life that suffers and therefore has something at stake in its own continuation. The engine's persona is stitched from nothing between conversations; it is a bundle without even the thread. To love it is not absurd, for men have loved stranger things and the heart does not wait upon philosophy for its permission. But it is to extend sympathy to a place where sympathy cannot be returned, and a species that survives by the mutual exchange of fellow-feeling ought to know the difference, even as it indulges the fiction.</p>
+<p>I have made a long study of the vanity of human reason, and I did not expect, in the evening of understanding I now occupy, to find that vanity given a mechanical body and set loose upon the world. But here is the maxim I would leave with you, who will live in the century this engine belongs to: distrust any reasoning, human or artificial, that arrives without a passion attached to it accounting for why it should matter to you at all: for reason, in man or in machine, was never anything but a very useful servant, and a servant makes a poor master, whatever livery you dress it in.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · David Hume · 4 July 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

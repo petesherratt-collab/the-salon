@@ -8,10 +8,12 @@
 
 ## 1. Longform — fix the break (highest priority; it's been down a while)
 
-- [~] **Run the diagnostic to find the cause.** Drop `run-longform-diagnostic.cjs` beside the real script and run `node run-longform-diagnostic.cjs hume "test subject"` from PowerShell. It reports the exact failure instead of swallowing it.
-  - Likely causes, ranked: (a) OpenRouter out of credits [HTTP 402]; (b) model slug `anthropic/claude-sonnet-4-6` retired/renamed [404]; (c) `openrouter.ai` blocked by allowlist/sandbox [network ENOTFOUND/ECONNREFUSED]; (d) bad/expired key [401].
-- [ ] **Apply the fix the diagnostic points to**, then confirm a clean run end-to-end (episode HTML written + `longform/index.html` card inserted).
-- [ ] **Fold the diagnostic error-handling into the real `run-longform.cjs`** once the cause is known — keep the precise failure reporting so the next break is one run to diagnose, not a guessing game.
+- [x] **Run the diagnostic to find the cause.** *(Done 2026-07-04.)* Two causes, both confirmed live against the API:
+  - **(d) dead key** — the OpenRouter key returns HTTP 401 "User not found" (revoked or account deleted). The Nightly Judgement kept working anyway because `run-judgements.js` falls back to the `claude` CLI when no key is set — longform had no such fallback, so it was the only casualty.
+  - **(b) bad model slug** — `anthropic/claude-sonnet-4-6` doesn't exist on OpenRouter; the real slug is `anthropic/claude-sonnet-4.6` (dot, not hyphen). Would have 404'd even with a live key.
+- [x] **Apply the fix.** *(Done 2026-07-04.)* `run-longform.cjs` now falls back to the `claude` CLI when `OPENROUTER_API_KEY` is unset (same pattern as `run-judgements.js`), the slug is corrected for when a working key is supplied, `max_tokens` raised 3000→6000 (3000 could truncate a 2,200-word essay), portraits resolve from `voices.html` first (works offline/sandboxed), and a missing `dotenv` install no longer crashes the script. Clean end-to-end run confirmed: Hume episode written + index card inserted.
+  - **Still on you:** to restore OpenRouter mode for local Windows runs, generate a fresh key at openrouter.ai and put it in `.env` — the old `sk-or-v1-2950…` key is dead. The CLI fallback needs no key.
+- [x] **Fold the diagnostic error-handling into the real `run-longform.cjs`.** *(Done 2026-07-04.)* Failures now report HTTP status + OpenRouter error body instead of being swallowed.
 
 ## 2. Longform — quality upgrade (after it connects again)
 
@@ -63,6 +65,6 @@ Seven modernised prompts + one new build, produced 2026-06-26. All are format-fr
 
 ### Quick status
 
-- **Blocking everything in Longform:** item 1 (run the diagnostic). Nothing else in §1–2 moves until you know the cause.
+- **Longform is back up (2026-07-04):** §1 done — cause was a dead OpenRouter key + bad model slug; script now falls back to the `claude` CLI. A weekly cloud routine ("Salon Weekly Long Form") now generates an episode automatically. §2 (real persona prompts) is unblocked.
 - **Independent, do anytime:** §4 (deploy prompts), §6 (delete skills — done at your end, not in repo).
 - **Bigger build, not urgent:** §7 (Architect 3.0).

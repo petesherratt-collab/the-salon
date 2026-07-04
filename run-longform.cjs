@@ -11,18 +11,21 @@ const https = require("https");
 
 // Locate .env in the git repo root — works from any worktree
 (function loadEnv() {
+  let dotenv;
+  try { dotenv = require("dotenv"); } catch { return; } // not installed — use process env as-is
   const { execSync } = require("child_process");
   try {
     const gitCommonDir = execSync("git rev-parse --git-common-dir", { cwd: __dirname, encoding: "utf8" }).trim();
     const repoRoot = path.resolve(__dirname, gitCommonDir, "..");
-    require("dotenv").config({ path: path.join(repoRoot, ".env") });
+    dotenv.config({ path: path.join(repoRoot, ".env") });
   } catch {
-    require("dotenv").config();
+    dotenv.config();
   }
 })();
 const API_KEY  = process.env.OPENROUTER_API_KEY;
-const MODEL    = "anthropic/claude-sonnet-4-6";
+const MODEL    = "anthropic/claude-sonnet-4.6";
 const BASE_URL = "https://openrouter.ai/api/v1";
+const { execSync } = require("child_process");
 
 // ── Persona roster ────────────────────────────────────────────────────────────
 
@@ -86,11 +89,34 @@ function httpGet(url) {
   });
 }
 
-async function fetchPortrait(wikiSlug) {
+function portraitFromVoices(name) {
   try {
-    const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiSlug)}`;
-    const body   = await httpGet(apiUrl);
-    const json   = JSON.parse(body);
+    const html = fs.readFileSync(path.join(__dirname, "voices.html"), "utf8");
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const m = html.match(new RegExp(`<img src="([^"]+)" alt="${escaped}"`));
+    return m ? m[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchPortrait(wikiSlug, name) {
+  // Prefer the portrait already curated in voices.html — works offline and in
+  // sandboxed environments where Wikipedia is unreachable
+  if (name) {
+    const local = portraitFromVoices(name);
+    if (local) return local;
+  }
+  const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiSlug)}`;
+  try {
+    const body = await httpGet(apiUrl);
+    const json = JSON.parse(body);
+    return json.thumbnail ? json.thumbnail.source : null;
+  } catch {}
+  // https.get ignores HTTPS_PROXY; in proxied cloud environments retry via curl, which honours it
+  try {
+    const body = execSync(`curl -sL ${JSON.stringify(apiUrl)}`, { encoding: "utf8", timeout: 30000 });
+    const json = JSON.parse(body);
     return json.thumbnail ? json.thumbnail.source : null;
   } catch {
     return null;
@@ -131,13 +157,23 @@ The essay should:
 Begin with one line that states the subject you have chosen, formatted as: SUBJECT: [your chosen subject]
 Then begin the essay immediately on the next line.`;
 
+  // No OpenRouter key — fall back to the local claude CLI, same as run-judgements.js
+  if (!API_KEY) {
+    const result = execSync(`claude -p ${JSON.stringify(systemPrompt)}`, {
+      encoding: "utf8",
+      timeout: 300000,
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return result.trim();
+  }
+
   const payload = JSON.stringify({
     model: MODEL,
-    max_tokens: 3000,
+    max_tokens: 6000,
     messages: [{ role: "user", content: systemPrompt }]
   });
 
-  const data = await new Promise((resolve, reject) => {
+  const { status, body } = await new Promise((resolve, reject) => {
     const req = https.request({
       hostname: "openrouter.ai",
       path: "/api/v1/chat/completions",
@@ -151,14 +187,23 @@ Then begin the essay immediately on the next line.`;
     }, res => {
       let body = "";
       res.on("data", c => body += c);
-      res.on("end", () => resolve(JSON.parse(body)));
+      res.on("end", () => resolve({ status: res.statusCode, body }));
     });
     req.on("error", reject);
     req.write(payload);
     req.end();
   });
 
-  if (data.error) throw new Error(data.error.message);
+  let data;
+  try {
+    data = JSON.parse(body);
+  } catch {
+    throw new Error(`OpenRouter returned non-JSON (HTTP ${status}): ${body.slice(0, 200)}`);
+  }
+  if (data.error) throw new Error(`OpenRouter HTTP ${status}: ${data.error.message} (code ${data.error.code ?? status})`);
+  if (status !== 200 || !data.choices || !data.choices[0]) {
+    throw new Error(`OpenRouter HTTP ${status}: unexpected response: ${body.slice(0, 200)}`);
+  }
   return data.choices[0].message.content;
 }
 
@@ -532,11 +577,6 @@ ${items}
     process.exit(1);
   }
 
-  if (!API_KEY) {
-    console.error("Error: OPENROUTER_API_KEY not found in .env");
-    process.exit(1);
-  }
-
   const persona = PERSONAS[personaId];
   const date    = new Date();
   const ds      = dateStamp(date);
@@ -553,10 +593,11 @@ ${items}
   console.log(`  ${"─".repeat(40)}`);
   console.log(`  Persona  : ${persona.name}`);
   console.log(`  Subject  : ${subject || "(persona chooses)"}`);
+  console.log(`  Mode     : ${API_KEY ? `OpenRouter (${MODEL})` : "claude CLI"}`);
 
   // Fetch portrait
   process.stdout.write(`  Portrait : `);
-  const portrait = await fetchPortrait(persona.wiki);
+  const portrait = await fetchPortrait(persona.wiki, persona.name);
   console.log(portrait ? "found" : "not found (using placeholder)");
 
   // Generate episode

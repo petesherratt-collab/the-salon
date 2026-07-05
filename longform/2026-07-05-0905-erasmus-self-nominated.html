@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Desiderius Erasmus: The flood of counterfeit words — what the printing press taught me about the age of the machine, and what neither taught anyone about judgment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 600px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval portrait-placeholder"></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Humanism &amp; Reform</span>
+      <h1 class="episode-title">The flood of counterfeit words — what the printing press taught me about the age of the machine, and what neither taught anyone about judgment</h1>
+      <div class="episode-byline">Desiderius Erasmus · 5 July 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">I have seen this deluge before, and I confess it frightens me less than it frightens you, though perhaps only because I am already drowned.</p>
+<p>When I was a young man hunting Greek manuscripts through the libraries of England and Italy, the printing press was some sixty years old and already the wonder and the plague of Europe. Wonder, because a text that once took a scribe a year to copy — badly, usually, with his own errors compounding those of the exemplar before him — could now be struck off in identical thousands within a season. Plague, because the same machine that could spread Jerome and Plato with perfect fidelity could spread pirated rubbish, forged attributions, and the addled opinions of every half-educated pamphleteer in Basel with exactly the same fidelity, and exactly the same appearance of authority. I gave the world the Adagia and my edition of the Greek New Testament through this machine, and I watched, in the same years, printers in Paris and Strasbourg and Venice rush out mutilated editions under my name, padded with sentences I never wrote, sold at a profit by men who had never troubled to learn the difference between an author and an amanuensis. I wrote once, wearily, that I seemed to spend more of my life correcting what fools had printed of me than writing what I meant to say myself. So when I am told that a new machine now produces, in a second, more prose than a scriptorium of monks could produce in a decade, and that this prose arrives fluent, confident, and frequently false — I do not feel I am hearing news. I feel I am hearing the same news, spoken more loudly, through a larger horn.</p>
+<p>*</p>
+<p>Let me be precise about what troubles me, since precision was always my vice and my vocation. The trouble is not quantity. Ecclesiastes said "of making many books there is no end" long before Gutenberg, and the Preacher did not mean it as an unqualified complaint — abundance of books can be a mercy. The trouble is that quantity now arrives entirely detached from the labor that once, however imperfectly, vouched for quality. A man who wished to counterfeit learning in my day still had to learn Latin, still had to sit with a manuscript, still had to endure the tedium of copying out another mind's thought before he could pass off his own as equally weighty. The counterfeit cost something. It required, at minimum, years. What I now observe — and my correspondents across your world have described it to me in terms that would have been unintelligible to Aldus Manutius but are entirely intelligible to me — is a machine that produces the *appearance* of learning, the cadence of authority, the very rhythm of a reasoned paragraph, with no labor behind it whatsoever. Not the labor of research, not the labor of having lived long enough to have earned an opinion, not even the labor of arranging one's own sentences. It is eloquence with the scholar scooped out of the middle, like the little carved figures of Silenus I described in my Adagia — grotesque and comic on the outside, and within, when you crack them open, nothing at all, or perhaps something quite different from what the case advertised.</p>
+<p>This is not a moral accusation against the machine, which has no soul to indict, any more than a printing press has a soul. It is an accusation against what I have always called *judicium* — judgment, the discerning faculty — which the machine does not merely fail to supply but actively starves. Consider: in my time, the labor of production was itself a filter, however crude and however often it let scoundrels through. Now the filter is gone, and what is asked of the reader has multiplied precisely as what was asked of the writer has vanished. This is an unhappy trade. Folly herself, whom I once permitted to speak in her own praise before an audience too amused to notice they were being indicted along with her, remarked that the world loves nothing so much as the man who speaks with total confidence and no knowledge, because confidence flatters the listener into feeling he need not think either. She would recognize your machine instantly. She would call it her finest pupil.</p>
+<p>*</p>
+<p>I do not say this to counsel despair, still less to counsel the burning of books, or the burning of servers, which I suspect is technically what some of your more excitable clergy-equivalents are proposing. I lived through actual burnings — of Luther's books at Louvain, of mine at more than one bonfire arranged by men who had not read them and would not have understood them if they had — and I can testify that the bonfire never once improved an argument. It only ever advertised the fear of the man who lit it. The Reformation was not a contest that could be settled by which side had the larger woodpile, and neither, I suspect, will this one. Suppression is the answer of those who have given up on judgment because cultivating it is slower and less satisfying than forbidding the object of their fear.</p>
+<p>The actual answer, the only one I ever found workable across a lifetime of watching bad texts drive out good ones, is philology. I do not mean by this word what your universities now mean by it — a shrinking department of specialists in dead grammars. I mean the discipline, which any tradesman or magistrate or reader of ordinary sense can practice, of asking of a text: *whence does this come? By what hand, through what transmission, checked against what witness?* When I prepared my edition of the New Testament I did not simply print the Latin Vulgate that eleven centuries of custom had sanctified. I went back to the Greek manuscripts, compared one against another, noted where scribes across the centuries had nodded, embellished, or simply erred in copying, and reconstructed as best I could what had actually been said before a thousand years of well-meaning transcription had softened, sharpened, or silently corrected it. This labor made enemies for me on every side — the conservative theologians thought it presumptuous to question a text sanctified by custom, and the radical reformers thought I had not gone far enough in drawing consequences from what I found — but the method itself was never in dispute, because the method was simply honesty applied with patience. *Ad fontes.* To the sources.</p>
+<p>That, translated into your idiom, is the whole of what I would offer as counsel. Not a law, not a filter built into the machine — though I have no objection to such filters, provided their makers remember that a filter is itself a text requiring the same scrutiny as anything it filters — but a *habit*, cultivated the way I cultivated Greek: painfully, daily, against the grain of a culture that would rather be told what to believe than shown how to check it. Ask, of every fluent paragraph that arrives from your machines: what does this rest on? Can it be traced to a witness who was actually present, actually measured, actually there? If it cannot be traced, treat it as I treated an unsigned pamphlet attacking me in 1520 — as a noise that has borrowed the shape of an argument, and nothing more, however sweetly it scans.</p>
+<p>*</p>
+<p>There is a further matter, and it is the one that I think troubles the young most, though they lack the vocabulary I would give it: the fear that if a machine can produce the *sentences* of wisdom, wisdom itself has been made redundant, that the whole slow business of learning to think has been rendered obsolete the way the scribe's slow business of copying was rendered obsolete. I would say to them what I said, in effect, to those who feared the press itself would make monks and scholars unnecessary: the machine multiplies the *text*; it has never yet multiplied the *understanding*, and the two were never the same thing, not in Gutenberg's Mainz and not in your Silicon Valley. A library is not wisdom. It is an opportunity for wisdom, offered to whoever has the patience to earn it, and squandered by whoever mistakes possession of the books for possession of their contents. I owned, at the end of my life, a library that made me the envy of princes, and I can assure you that owning it made me no wiser than the reading and re-reading and arguing-with of perhaps two hundred of those volumes did. The machine that writes your emails and your student essays and, I am reliably informed, no small number of your love letters, has made the text infinitely cheap. It has not touched, and I do not believe it can touch, the price of understanding, which is still exactly what it was when I paid it in cold libraries with chilblained fingers: time, humility, and the willingness to be shown you are wrong.</p>
+<p>*</p>
+<p>I return, then, to Aldus, my old friend and printer in Venice, whose device — an anchor wound about by a dolphin — I made into the subject of the longest and dearest of all my Adagia. The dolphin is swiftness itself, the fastest thing in the sea; the anchor is what holds against every current. Together they signify *festina lente* — make haste slowly. Aldus took it as the emblem of his press because he, of all men, knew that the new machine could produce with a swiftness no age before had known, and that this swiftness would be a curse rather than a blessing unless it was yoked, deliberately and by discipline, to the old slow anchor of care. I commend the same device to you now, dolphin and anchor both, for your machine, which is only the press grown a thousand times swifter and none the wiser. Let it write as fast as it can write. Do not let it think for you. The anchor was never a rejection of the sea. It was the condition on which the sea could be sailed at all.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Desiderius Erasmus · 5 July 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

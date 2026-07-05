@@ -353,9 +353,11 @@ function buildEpisodeHtml(personaId, subject, text, date, portrait) {
 
   footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
 
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     .episode-wrap { padding: 2rem 1rem 4rem; }
     .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
   }
 </style>
 </head>

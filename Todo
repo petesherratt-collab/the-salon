@@ -59,7 +59,10 @@ Seven modernised prompts + one new build, produced 2026-06-26. All are format-fr
 - [ ] **Secrets in the repo.** `SUBSTACK_SID=...txt` and `# Home Network Inventory.txt` appear committed at repo root, and the repo is **public**. Confirm these contain nothing sensitive (session tokens, internal network detail) — rotate/remove + `.gitignore` if they do.
 - [ ] **Stray probe files.** `_probe2.mjs` … `_probe10.mjs`, `_draft.json` at root — clear out if they're dead scratch files.
 ## 9. Mobile format odd on the right hand of the screen
+- [x] *(Done 2026-07-05.)* Cause: `.site-nav` is a centred flex row of `white-space: nowrap` links — five links exceed a phone's width and centred overflow spills off *both* edges, widening the whole page. Fixed on all five pages (index, voices, salon-index, longform, longform/index) + the episode template in `run-longform.cjs`: below 640px the nav wraps, dividers hide, link padding tightens, and the masthead dateline gets clearance so the theme dots no longer overlap it. Verified headless at 412px: no horizontal overflow on any page.
+
 ## 10. Navigation in the Judgements page wrong
+- [x] *(Done 2026-07-05.)* `salon-index.html` nav was missing The Long Form and The Archive — added both.
 ## 11. Update persona prompts
 ---
 

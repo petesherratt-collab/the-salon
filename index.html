@@ -178,6 +178,13 @@
   .site-nav a.active     { color: var(--gold-light); border-bottom-color: var(--gold); }
   .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
 
+  @media (max-width: 640px) {
+    .masthead-dateline { padding: 0 4.2rem; }
+    .site-nav { flex-wrap: wrap; }
+    .site-nav a { padding: 0.6rem 0.9rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+
   /* ── HERO FEATURE ── */
   .hero {
     display: grid;

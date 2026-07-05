@@ -62,7 +62,7 @@ Seven modernised prompts + one new build, produced 2026-06-26. All are format-fr
 - [x] *(Done 2026-07-05.)* Cause: `.site-nav` is a centred flex row of `white-space: nowrap` links — five links exceed a phone's width and centred overflow spills off *both* edges, widening the whole page. Fixed on all five pages (index, voices, salon-index, longform, longform/index) + the episode template in `run-longform.cjs`: below 640px the nav wraps, dividers hide, link padding tightens, and the masthead dateline gets clearance so the theme dots no longer overlap it. Verified headless at 412px: no horizontal overflow on any page.
 
 ## 10. Navigation in the Judgements page wrong
-- [x] *(Done 2026-07-05.)* `salon-index.html` nav was missing The Long Form and The Archive — added both.
+- [x] *(Done 2026-07-05.)* `salon-index.html` nav was missing The Long Form and The Archive — added both. Same fix then applied to the individual judgement pages: 27 of 49 had the 3-link nav, all 49 got the mobile nav-wrap CSS, and — critically — both templates inside `run-judgements.js` (episode page + the index builder that *rewrites `salon-index.html` every night*) now emit the 5-link nav with the mobile CSS, so the nightly can't regress it. All 9 longform episode pages patched too. Verified headless at 412px: 0 of 59 episode pages overflow. Note: the six oldest judgement pages (22–25 March) have unstyled navs — plain inline links, functional but plain; left as-is.
 ## 11. Update persona prompts
 ---
 

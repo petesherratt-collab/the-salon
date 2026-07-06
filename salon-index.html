@@ -132,6 +132,13 @@
     .site-nav a.active     { opacity: 1; border-bottom-color: var(--gold); }
     .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; flex-shrink: 0; }
 
+    @media (max-width: 640px) {
+      .masthead-dateline { padding: 0 4.2rem; }
+      .site-nav { flex-wrap: wrap; }
+      .site-nav a { padding: 0.6rem 0.9rem; }
+      .site-nav .nav-divider { display: none; }
+    }
+
     main {
       max-width: 1200px; margin: 0 auto;
       padding: 3rem 2rem 5rem;
@@ -170,13 +177,6 @@
       font-style: italic; color: var(--gold); opacity: 0.5;
       border-top: 1px solid var(--rule); position: relative; z-index: 1;
     }
-
-    @media (max-width: 640px) {
-      .masthead-dateline { padding: 0 4.2rem; }
-      .site-nav { flex-wrap: wrap; }
-      .site-nav a { padding: 0.6rem 0.9rem; }
-      .site-nav .nav-divider { display: none; }
-    }
   </style>
 </head>
 <body>
@@ -204,6 +204,20 @@
     <a href="longform/index.html">The Archive</a>
   </nav>
   <main>
+    <a class="idx-card" href="judgements/salon-2026-07-06-2105.html">
+      <div class="idx-issue">Issue L · 6 July 2026</div>
+      <div class="idx-posed-by">Posed by <span class="idx-posed-by-name">Adam Smith</span></div>
+      <div class="idx-questions"><p class="idx-question">If a woman sells her needlework to feed her children while her heart burns with resentment against the buyer who haggled her down, has she acted virtuously, or merely necessarily?</p></div>
+      
+      <div class="idx-maxim-block">
+        <div class="idx-maxim">"The smoothest virtue is often no virtue at all; true virtue limps, resents, and still does the right thing."</div>
+        <div class="idx-attr">— Montaigne</div>
+      </div>
+      <div class="idx-footer">
+        <div class="idx-dots"><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-dot"></span><span class="idx-voice-count">7 voices</span></div>
+        <span class="idx-read">Read →</span>
+      </div>
+    </a>
     <a class="idx-card" href="judgements/salon-2026-07-03-2106.html">
       <div class="idx-issue">Issue XLIX · 3 July 2026</div>
       <div class="idx-posed-by">Posed by <span class="idx-posed-by-name">Adam Smith</span></div>
@@ -854,7 +868,7 @@
         <span class="idx-read">Read →</span>
       </div>
     </a></main>
-  <footer>The Salon · 49 issues in the archive</footer>
+  <footer>The Salon · 50 issues in the archive</footer>
   <script>
     const themeBtns = document.querySelectorAll('.theme-btn');
     themeBtns.forEach(btn => {

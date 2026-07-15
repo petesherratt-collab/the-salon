@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Carl von Clausewitz: The Vanishing of the People — Why Democracies Have Lost the Capacity to Wage War</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Clausewitz.jpg/330px-Clausewitz.jpg" alt="Carl von Clausewitz" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · War &amp; Strategy</span>
+      <h1 class="episode-title">The Vanishing of the People — Why Democracies Have Lost the Capacity to Wage War</h1>
+      <div class="episode-byline">Carl von Clausewitz · 12 July 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">A war is not lost when the army is broken. It is lost when the political community that sent the army no longer recognizes the war as its own. I learned this at Jena, where a state built by the genius of the Great Elector and Frederick collapsed in a single afternoon not because its regiments forgot how to march in line — they marched beautifully, to their annihilation — but because the Prussia behind those regiments had long since ceased to be a nation in arms and had become an apparatus, a cabinet, a court. The soldiers fought. The people did not. And a state whose people do not fight cannot, in the end, be defended by any quality of soldiering whatsoever. I have spent the years since trying to understand why this is so, and I find the question more urgent now, examining the wars of your century from whatever vantage the dead are permitted, than at any time since I set down my pen at Coblenz.</p>
+<p>I proposed, in the book my wife published after my death, that war is a remarkable trinity: composed of the blind natural force of violence, hatred, and enmity, which belong to the people; the play of chance and probability, in which the commander's genius and the army's courage move; and the element of subordination to reason, as an instrument of policy, which belongs to the government. I insisted that a theory ignoring any one of these three tendencies would immediately find itself in contradiction with reality. I did not intend this as ornament. I intended it as a diagnostic. And the diagnosis I would render on the wars of the present decade is this: two of the three poles are in good order. The third has quietly vanished, and nobody has yet reckoned with what that means.</p>
+<p>Consider Ukraine, since it is the clearest specimen your age has offered me. On one side of that war the trinity is intact and even classical in its proportions — a people defending its home soil feels the primitive violence and hatred I described exactly as I described it; its government subordinates the fighting to a coherent political aim, the survival of the state; its army supplies the genius and the friction, the countless things that go wrong that only courage and improvisation repair. Kyiv in 2022 is as pure an illustration of the trinity in equilibrium as I could have asked a subsequent century to produce for me.</p>
+<p>But turn to the war's other sponsors — the coalition of states that arms, funds, and sustains the Ukrainian effort without which it could not continue — and the trinity does not merely bend, it loses a limb entirely. The government pole functions: ministries deliberate, summits convene, aid packages are debated in the tedious respectable language of appropriations committees. The army-and-chance pole functions too, after its fashion, though now conducted at one remove, through matériel rather than men, through contractors and intelligence-sharing rather than columns on the march. But the people — the actual populations of the donor states, whose sons are not conscripted, whose taxes fund the war as a rounding error alongside a hundred domestic programs, who experience the entire conflict as a sequence of images on a lit rectangle carried in the pocket — this people does not hate, does not suffer, does not sacrifice, and therefore, in the sense that matters to my theory, does not fight. It approves. It disapproves. Its passions rise and subside with the news cycle rather than with the war's actual course, since it has no instrument for perceiving the war's actual course at all, only the version curated for it. This is not a moral failing in these publics; I do not write to scold them. It is a structural fact about how war is now waged by rich, comfortable, professionalized states, and it has consequences that no quantity of precision-guided munitions can offset.</p>
+<p>The consequence is this: a war effort with a healthy government and a healthy army but a dormant people cannot sustain itself across the duration that real, as opposed to absolute, war requires. I distinguished always between war in its abstract, unlimited concept — a duel escalating without friction to its utmost violence — and war as it is actually fought, which is dragged back from that abstraction by the resistances of politics, of cost, of exhaustion. What supplies the endurance to survive those resistances, across the years a serious war demands, is precisely the passion of a people that believes the war is its own. Where that passion is absent, endurance must be manufactured artificially, through the discipline of institutions alone — and institutions fatigue. You have watched this happen in real time: the slow attrition of "Ukraine fatigue" in parliaments and electorates that never bled for the cause in the first place, the annual scramble to renew appropriations as though a war were a subscription service up for cancellation. A people that has never been asked to suffer for a war cannot be relied upon to sustain it once the mere approving of it becomes tedious. This is not cynicism. It is the logic of the trinity working itself out precisely as it must.</p>
+<p>Now set beside this the war in Gaza, which furnishes the inverted case and is, if anything, more instructive. Here the passion is not absent but has become unmoored from the other two poles entirely. It rages — in Israel, in Gaza, and remarkably, in the streets of London and Berlin and university quadrangles thousands of miles from either combatant, among people with no capacity whatsoever to convert their passion into policy or their outrage into strategy. This is the mirror image of the Western malady I have just described, and it is no healthier. A people's passion, in my conception, is meant to be harnessed by government to policy and disciplined by the army's conduct of operations; it is one leg of a stool, not the whole structure. What we observe instead in the age of the illuminated rectangle is a passion that has globalized itself, detached from citizenship, responsibility, or any mechanism of translation into political effect. Millions feel the war intensely who bear no relation to the trinity that is actually fighting it. This is not the reappearance of the people as a check on policy, of the kind I described and welcomed. It is something new and considerably less governable: an emotion market, sentiment without sovereignty, outrage that can topple a minister's poll numbers but cannot be asked to sit in the assembly and vote supply. I did not anticipate this fourth thing, because in my century passion required proximity — a father, a son, a burned village nearby. Your century has manufactured passion without proximity, at scale, and I confess it puzzles me more than any weapon your armies have devised.</p>
+<p>Which brings me to the weapons themselves, and here I will state plainly the conclusion toward which all of this has been moving. The great seduction of the drone, the precision strike, the autonomous system, is that it promises war without friction — my old adversary, the accumulation of small resistances, fatigue, error, fog, that makes war in practice so different from war on paper. Remove the soldier's fear, remove the commander's uncertainty, let the machine see and strike with a clarity no scout ever possessed, and you believe you have improved war. I would say instead that you have removed the very mechanism by which war is compelled to remain an instrument of policy rather than a runaway machine. Friction is not merely an obstacle to be engineered away; it is, in practice, one of the forces that keeps the extremities of violence in check, that makes commanders cautious, that makes governments reckon costs before they commit, that makes peoples feel the weight of what is being done in their name. A war that costs a rich state no blood and very little treasure, conducted by machines against people who have no reciprocal machines, does not become more moral for being cleaner. It becomes unmoored from the political calculation that alone justifies it, because the ordinary check on adventurism — the question "is this worth what it will cost us?" — has been quietly answered "almost nothing" before the question is even asked. This is how a democracy finds itself, twenty years on, still conducting drone campaigns across half a dozen countries it could not locate on a map, campaigns nobody voted for and nobody can quite say when they will end, because no constituency ever felt them enough to demand their ending. Afghanistan did not end because the American people tired of it in the way Prussia tired of subsidizing coalitions against Bonaparte — with grief, with mourning, with an accounting of the fallen in every parish. It ended, decades late, because a government finally decided, on its own reasoning, that the accounting no longer balanced. The people were never truly asked. They were never truly there.</p>
+<p>I return, then, to Jena, because I think the lesson is the same one, wearing modern dress. A state can possess an excellent government and a magnificent army and still be strategically hollow if its people have become spectators to their own wars. The remedy I would counsel — and I offer it knowing full well how unwelcome it will sound to a comfortable age — is not more efficient machinery of war but a restoration of the cost of it: a citizenry that feels, in some measurable way, what its government commits it to, whether through the old and unfashionable instrument of shared service or through a political culture honest enough to insist that wars fought at a distance still be debated, funded, and ended by the public in whose name they are conducted, rather than administered indefinitely by ministries that have learned no one is watching closely enough to object. A war that costs its sponsoring people nothing will eventually be sustained by nothing, precisely when sustaining it matters most.</p>
+<p>War that no longer touches the people who authorize it is not war perfected. It is policy that has forgotten it is still, in the end, answerable to the graveyard.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Carl von Clausewitz · 12 July 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

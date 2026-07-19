@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Jane Austen: Dating apps as the marriage market restored — minus every safeguard that once made the marriage market bearable.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/330px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg" alt="Jane Austen" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Society &amp; Manners</span>
+      <h1 class="episode-title">Dating apps as the marriage market restored — minus every safeguard that once made the marriage market bearable.</h1>
+      <div class="episode-byline">Jane Austen · 19 July 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">Every courtship is, at bottom, a negotiation between desire and prudence conducted in whatever language an age finds convenient for disguising the fact; the singular achievement of the present age has been to automate the negotiation and abandon the disguise altogether. I have observed, from my particular vantage—which is to say, from a lifetime spent watching families arrange, disguise, and occasionally ruin the prospects of their daughters over the matter of an advantageous match—that the young persons of your century have not escaped the marriage market at all. They have merely rebuilt it on a telephone, stripped it of every institution that once made it survivable, and called the result liberty.</p>
+<p>I do not say this to condemn the appetite for connexion, which is as natural to your century as to mine, nor even the mechanism itself, which I confess has a certain elegance: an index of countenances, sorted by proximity and preference, offered up for approval or rejection with a motion of the thumb. What I condemn is the delusion, apparently sincere, that this represents an advance in the art of choosing well. It represents, rather, a regression—to the earliest and crudest stage of acquaintance, the stage of the first impression, now inflated to the status of a verdict.</p>
+<p>You will recall that I once wrote a novel on this very subject, and gave it, before better judgment prevailed, the title First Impressions. Elizabeth Bennet forms hers of Mr. Darcy across the space of a single assembly, on the evidence of a slighted invitation to dance, and is wrong—thoroughly, comprehensively wrong—for the better part of a year, sustained in her error by wit, by resentment, and by the flattering conviction that she is too clever to be deceived. She is disabused only by time: by letters, by the report of servants and tenants, by the accumulation of small evidences of conduct that no single evening could have supplied. The whole moral architecture of that book rests on the premise that character is not legible at first sight, and that any system of courtship which asks you to judge upon it is asking you to do something no person of sense ought to attempt.</p>
+<p>The modern apparatus does not merely permit this error; it is engineered to require it. A photograph, a fragment of self-description composed with the same care a general devotes to a battle plan, a list of preferences and aversions offered as though a person's substance could be inventoried like the contents of a trunk—upon this evidence, and no more, the whole future of the acquaintance is decided in the instant of a swipe. It is First Impressions with the corrective machinery removed: no year, no letters, no Pemberley, no occasion for Mr. Darcy to be observed being kind to a housekeeper when he believes himself unwatched. There is only the portrait, and the portrait, we may be assured, is always flattering. I have had some occasion in my life to observe what young men and women will commit to paper when they believe no one but the intended reader will see it; I can only imagine what they will commit to a profile intended for the inspection of strangers by the hundred.</p>
+<p>It will be said that the old apparatus I am praising was itself a poor guarantee of anything—that balls and morning calls and chaperoned dinners produced their share of wretched matches, and I will not dispute it; Mr. Collins's proposals were not improved by having been delivered in a drawing-room with an aunt in the corner. But the apparatus had one virtue which the present arrangement lacks entirely, and it is not a small one: it took time, and it took place under witness. A gentleman who called upon a family three times a week for a twelvemonth could not, in the ordinary course of things, keep up a wholly false character for the duration; his temper would show itself over the dinner table, his conduct toward his own relations would be reported by servants, his treatment of persons who could do nothing for him would eventually be observed by someone whose good opinion he had not troubled to purchase. Time and witness were, in effect, an unpaid corps of investigators, and they did the work that no profile, however honestly composed, can do for itself.</p>
+<p>Remove them, and you have created ideal conditions for exactly the sort of gentleman literature has always warned you against. I do not think it accidental that the vocabulary your century has invented for its romantic disasters—the love-bomb, the catfish, the man who vanishes without explanation the instant the acquaintance grows inconvenient—describes with tedious precision the careers of Mr. Wickham, of Willoughby, of Henry Crawford. Wickham's whole art consisted in being agreeable quickly, to persons who had no means of checking his account of himself against any other; Willoughby's charm outran the evidence for his character by a margin that very nearly cost Marianne Dashwood her life, and did cost her a winter's misery that better information would have spared her. These men prospered because the normal machinery of reputation had failed to reach them—Wickham by removing to a new regiment, Willoughby by relying on distance and Marianne's own eagerness to be pleased. Your century has taken the exceptional condition that made such men dangerous—anonymity, mobility, the absence of any shared community to report on their conduct—and made it the universal condition of courtship. It should not astonish anyone that the casualties have multiplied to match.</p>
+<p>Nor should it astonish anyone that the old economics persist beneath the new vocabulary, however strenuously both parties deny it. I have been accused, by readers who ought to have known better, of writing about nothing but money and marriage; I plead guilty, because money and marriage were, for a woman of my class and time, very nearly the same question, and I thought it dishonest to pretend otherwise. Charlotte Lucas does not marry Mr. Collins for love; she marries him at seven-and-twenty, without fortune, prospects, or beauty to spare, because the alternative was dependence upon relations who would not always be glad of her company, and she says so with a plainness I have always admired more than I have been given credit for. I am told that the mathematics of your dating applications produce a comparable scarcity: a great mass of attention directed at a small proportion of eligible parties, and the rest of the field competing for what remains. This is not a new arithmetic. It is the arithmetic of a limited number of estates and a surplus of daughters, translated into the currency of photographs and "matches" rather than acres and settlements. The commodity has changed; the scarcity, and the anxious competition it produces, has not.</p>
+<p>Where your century has genuinely improved upon mine, I will say so, for I am not so wedded to my own age as to praise it indiscriminately. A woman may now possess an income, a profession, a name in law that is her own; she need not, like Charlotte, calculate her worth entirely by the offers made her, nor sit, like my own heroines, waiting upon a proposal as upon a verdict from which there is no appeal. This is not a small liberty, and I would not surrender it back to my own century for anything you could name. But I observe that the anxiety has not disappeared with the dependency that once justified it; it has merely changed its object, from the fear of no establishment at all to the fear of no attachment at all—a fear your century seems to feel with an intensity that surprises me, given how many more opportunities for attachment it has manufactured. I begin to suspect that opportunity and satisfaction are not the same thing, and that a hundred acquaintances lightly begun and lightly abandoned may leave a person considerably lonelier than five acquaintances taken seriously.</p>
+<p>This, I think, is the deepest error, and it is not a moral failing so much as an arithmetical one: your century has confused the multiplication of choice with the improvement of it. Anne Elliot spends eight years in the strength of a single attachment, formed slowly, tested by separation, confirmed at last not by a fortunate photograph but by the accumulated evidence of a man's constancy under discouragement. I do not say every acquaintance must run to eight years, or that patience is a virtue merely because it is old-fashioned. I say only that esteem, which is the one foundation I have ever found adequate to a marriage, is not a thing that can be generated by an algorithm sorting for proximity and shared aversion to cats. It is generated by conduct, observed over time, in circumstances the observed party did not arrange for the purpose of being admired. There is no way to abbreviate this process without losing the thing it was meant to produce, and an application that promises to abbreviate it is promising, in effect, to sell you the appearance of knowledge in place of the substance.</p>
+<p>I would not have the young abandon these instruments; I am a realist, whatever else I have been accused of, and I know an introduction must be got somehow, in an age that has dismantled the assembly-room and the morning call along with their tedium. But let them use the profile as what it is—an introduction, and nothing more—and refuse it the authority of a verdict. Let them recover, privately, since their century will not recover it for them publicly, the disciplines that once did the work the algorithm cannot: time enough for temper to show itself, witnesses enough that character cannot be wholly composed for a single audience, and enough plain unwillingness to be hurried into liking someone before the evidence is in.</p>
+<p>A profile can be edited; a person, only slowly, and generally without meaning to, reveals himself. Let the wise reader wait for the revelation, and distrust anything—a face, a fortune, or a very good biography—that asks to be taken instead of it.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Jane Austen · 19 July 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Marcus Aurelius: The Discipline of Assent in an Age of Algorithms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/330px-MSR-ra-61-b-1-DM.jpg" alt="Marcus Aurelius" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Stoic Philosophy</span>
+      <h1 class="episode-title">The Discipline of Assent in an Age of Algorithms</h1>
+      <div class="episode-byline">Marcus Aurelius · 26 July 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">Of all the tyrannies I governed against or endured — the Parthian, the Marcomanni, the flatterers of my own court, the plague that emptied whole legions before I could bury the dead — none was so intimate, so continuous, so perfectly fitted to the weaknesses of the soul, as the one you have built for yourselves and call, with false modesty, "the feed." I have read enough of your century to understand what you have made: a machine that studies each mind individually and returns to it, many hundreds of times a day, the precise impression most likely to seize it before reason can be consulted. You did not build an enemy of philosophy. You built its perfect antagonist.</p>
+<p>I spent my nights in a tent on the Danube writing to myself about a single discipline: that a man is not troubled by things, but by the judgments he forms about things, and that between an impression striking the mind and the mind's assent to it, there is — or ought to be — a space. In that space lives the whole of human freedom. Epictetus, whose lectures I carried with me as another man carries a physician's kit, called this the discipline of assent, and taught that though we do not command what strikes us, we absolutely command whether we agree to it, are carried away by it, or set it aside as none of our affair. This is not a minor point of doctrine. It is, I still believe, the entire architecture of a free mind. And it is precisely this space — the pause between impression and assent — that your engineers have spent two decades and untold billions of denarii learning to close.</p>
+<p>I do not say this as a moralist wagging a finger at luxury, in the manner I confess irritated me in lesser philosophers. I say it as a man who ruled an empire built on rhetoric, spectacle, and the management of impressions, and who therefore recognizes a rival craft when he sees one refined beyond anything Rome achieved.</p>
+<span class="principle-head">On the manufacture of impressions</span>
+<p>Rome understood the manipulation of phantasiai well enough. The games were built for it — the crowd roaring at a death it had not asked to see, carried from calm to bloodlust in the time it takes a gate to open. Our coinage carried carefully chosen images of the emperor's virtues, our processions were engineered impressions, our senators trained from boyhood in the art of moving a jury's passions before its reason woke. I knew this machinery because I sat atop it. I also knew its limit: it was slow, it was public, and it addressed a crowd, not a man. The orator could move an assembly, but he could not follow each citizen home and learn, from the particular tremor of that citizen's fears and vanities, exactly which word would work on him alone, tomorrow, and the day after, forever refined by the response.</p>
+<p>This is the difference your century has introduced, and it is not a difference of degree but of kind. The instrument that occupies your attention does not merely display impressions; it tests them against you specifically, discards what fails to move you, and returns, relentlessly, to what succeeds. It has no interest in truth, virtue, or the health of your ruling faculty. It has a single aim, which is to hold your assent captive a little longer, because your captivity is the commodity being sold. I ruled men who schemed for my favor with subtler ends than this. At least the flatterer at my dinner table wanted something specific — an office, a contract, my good opinion — and could be studied and resisted as one resists a particular man. What you face has no face. It wants nothing from you but the renewal, tomorrow, of today's habit. This is a stranger and in some ways a more thorough servitude than any I administered or suffered, because the men I fought for power at least tired, aged, and died. The machine does not tire.</p>
+<span class="principle-head">The ruling faculty under siege</span>
+<p>I wrote to myself constantly that the mind which governs — the hegemonikon, if I may keep the Greek my tutors beat into me — is by nature inviolable unless it consents to violation. "Take away your opinion, and there is taken away the complaint." No emperor, no mob, no pain of the body can reach the citadel of judgment unless the citadel opens its own gate. This was not comfort I offered lightly; I wrote it while my body was failing, while sons died in infancy, while a trusted general revolted against me in the East, while the pestilence a returning army carried from Mesopotamia killed, by some estimates, a tenth of everyone I governed. I did not write it from a garden. I wrote it because the alternative — believing that my peace depended on the correction of Cassius, the recovery of my health, the good behavior of Fortune — was unbearable and, worse, false.</p>
+<p>What alarms me in your feed is not that it produces false impressions — Rome was full of those — but that it is engineered specifically to prevent the gate from being consulted at all. Outrage, fear, envy, the ache of comparison: these are not accidents of the design, they are its fuel, because a mind moved by them assents before it deliberates, and a mind that assents before it deliberates returns for more. You have built, quite without malice in most cases, a machine that automates the exact failure Epictetus warned against — the confusion of the impression with the judgment, the surrender of the ruling faculty to whatever strikes it hardest. And you have placed this machine in every pocket, so that the discipline of assent, which I found difficult enough to practice with only a war, a plague, and a palace of schemers to resist, must now be practiced against an adversary that studies you personally and never rests.</p>
+<p>I notice, reading of your affairs, that you have coined a phrase for a portion of this: you call it "doomscrolling," the compulsion to feed the mind an endless procession of calamity it can do nothing about. I recognize the shape of it precisely. It is what I would have called assenting to phantasiai concerning things not up to us — the fates of strangers, the churn of politics in provinces we will never visit, catastrophes upon which our worry exerts no more force than a prayer to a god who is not listening — while neglecting the few things that are entirely within our power: today's action, today's judgment, the management of one's own small store of virtue. The philosopher's task was never to feel nothing about the wider world. It was to feel about it in proportion to what our judgment and action could actually touch, and no further, because grief and fear spent on what we cannot alter is a coin stolen from what we can.</p>
+<span class="principle-head">What Rome cannot teach you, and what it can</span>
+<p>I will not pretend the Stoa anticipated engagement metrics. But it anticipated the essential problem, which is that human beings are creatures who can be captured through their impressions before their reason is consulted, and that the only durable remedy is not to remove the impressions — you cannot silence a city, and you will not delete your machine — but to train, daily and without exception, the interval in which they are examined. This is a discipline, not an opinion, and like every discipline it is built by repetition in small things, not by a single resolution grandly made and never renewed. I did not become tolerable to myself by deciding once, in youth, to be patient. I became so — imperfectly, as my own journal confesses on nearly every page — by examining each day's failures that evening, and each morning reminding myself, before the business of the world arrived, that I would meet today meddling, ungrateful, violent, and treacherous men, and that none of this needed to disturb the small citadel that was actually mine to keep.</p>
+<p>Translate this, if you will permit an old man his presumption, into your century's terms. Before you open the instrument, know what you are opening: not a window onto the world, but a hand reaching for your ruling faculty, expertly trained to find its grip. Ask, of each impression that arrives through it, the same question I trained myself to ask of any impression whatever — is this within my power, and is my agitation about it doing any work at all? If the answer is no, as it very often will be, let the impression pass through you as light passes through glass, noted but not seized upon. This is not indifference to the world; a man who felt nothing for the plague-dead or the starving provinces would have been unfit to rule them. It is the refusal to let concern curdle into a captivity that helps no one, least of all the party you claim to be concerned for.</p>
+<p>And practice, too, the oldest exercise, the one your instrument is worst equipped to survive: remember that you will die, that the emperor who wrote these words has been dust for eighteen centuries and is chiefly remembered now for the private notebook he never intended you to read, and that whatever the feed insists is urgent this morning will be as forgotten as the gladiators' names by the time your grandchildren are old. Measured against that certainty, very little that clamors for your assent today has earned it.</p>
+<p>I ruled the most powerful state your ancestors' world had produced, and I tell you plainly that the harder empire to govern well was always the one behind my own eyes. Guard it. Nothing external can take it from you. You alone can hand it over — and a great many devices have now been built for the express purpose of persuading you to do so, gladly, a hundred times before lunch.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Marcus Aurelius · 26 July 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

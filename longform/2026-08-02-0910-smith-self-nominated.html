@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Adam Smith: The New Merchants' Conspiracy — How the Architects of Artificial Intelligence Have Persuaded Governments to Regulate Their Rivals Out of Existence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg" alt="Adam Smith" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Economy &amp; Moral Sentiment</span>
+      <h1 class="episode-title">The New Merchants' Conspiracy — How the Architects of Artificial Intelligence Have Persuaded Governments to Regulate Their Rivals Out of Existence</h1>
+      <div class="episode-byline">Adam Smith · 2 August 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">People of the same trade seldom meet together, even for merriment and diversion, but the conversation ends in a conspiracy against the public, or in some contrivance to raise prices. I wrote those words nearly two hundred and fifty years ago, watching the wool merchants and the mercers of my own country dine together and emerge, invariably, with some new scheme for the restraint of trade. I did not imagine that the same instinct would one day be exercised not over wool or wine but over the very instrument by which human beings think, calculate, and reason — and that it would be dressed, this time, not in the plain language of price-fixing, but in the solemn vocabulary of safety, alignment, and the salvation of mankind. Yet here we are. The men who lead the great artificial intelligence laboratories of San Francisco and London have discovered what the guildsmen of Glasgow discovered before them: that the most effective way to secure a monopoly is to persuade the state that only the monopolist can be trusted with the trade.</p>
+<p>I do not say this lightly, nor do I say it to deny that machines of prodigious and unsettling capability are now being built. I say it because I spent the greater part of my working life studying exactly this pattern — the pattern by which private interest disguises itself as public interest, and does so most successfully when the disguise is worn by men who otherwise appear disinterested, learned, and sincere. The chartered companies of my own age, the East India Company foremost among them, did not seize their monopolies through naked declaration. They persuaded Parliament that the china trade was too delicate, too fraught with risk, too laden with consequence for the nation's credit, to be left to ordinary merchants pursuing ordinary profit. Only a great and well-capitalised company, answerable to the Crown, could be trusted with it. I showed, at some length and I flatter myself with some care, that this argument was self-serving nonsense — that the risks it invoked were real enough, but that the remedy it proposed served the company far better than it served the nation, and that the company's officers grew rich while its shareholders and the peoples of Bengal were left considerably poorer.</p>
+<p>Set beside this the spectacle of recent years. The chief executives of the largest AI laboratories have travelled to Washington, to Brussels, to Westminster, urging with every appearance of civic virtue that their industry be regulated — that licences be required, that computational thresholds be established above which a model may not be trained without government sanction, that liability regimes be constructed which only an organisation with the resources of a large laboratory could hope to satisfy. I do not doubt that some among them believe sincerely in the dangers they describe. Sincerity, however, was never the point of my argument, and it is not the point now. A man may believe every word he says and still say precisely what serves his fortune, for we are wonderfully skilled at persuading ourselves that our own advantage and the public good are one and the same thing. The relevant question is never whether the petitioner believes himself virtuous. It is what happens to the structure of the trade if his petition is granted.</p>
+<p>And what happens is this. A compute threshold pitched at the level of today's frontier models is a wall built at precisely the height the largest incumbents have already cleared and their rivals have not. A licensing regime administered by a handful of technically fluent regulators, themselves drawn disproportionately from the laboratories they now oversee, does not discipline the industry so much as deputise it. A liability regime that only a company with hundreds of millions in reserve can safely absorb does not protect the public from reckless innovation; it protects the incumbent from the upstart, who cannot afford the insurance, the compliance staff, or the legal department that the law now requires. I watched the guilds of Europe perform this same manoeuvre with apprenticeship rules that had nothing to do with the quality of shoes or the safety of buildings and everything to do with excluding the stranger, the journeyman, the ambitious young man without connections who might otherwise have undercut the masters' prices. The trade of thinking-machines is new; the trick is not.</p>
+<p>It will be objected that artificial intelligence is not wool, that a defective model might do harm that a defective stocking cannot, and that some regulation is therefore not merely tolerable but necessary. I concede the point readily, for I was never the doctrinaire enemy of all regulation that my careless readers have sometimes supposed. I defended, in my own treatise on the wealth of nations, the requirement that banks issuing notes maintain reserves adequate to redeem them, and I compared this restraint to the useful law that obliges a man to build a party wall against the spread of fire — a small infringement of natural liberty, imposed for the security of the whole society, of exactly the sort that the most free of governments ought still to provide. I do not ask that artificial intelligence go unregulated. I ask only that we interrogate with some rigour who is asking for the regulation, what shape it takes, and whose competitors it happens to exclude. A rule that a fire not be started in a crowded city is one thing. A rule, proposed by the man who already owns the largest house, that no new house be built without a permit issued by a board he sits on, is quite another, however earnestly he insists the two are identical.</p>
+<p>There is a second matter, closer to my other and perhaps less-read book, which concerns not the wealth of nations but the moral sentiments that govern them. I described there a character I called the man of system, who is so enamoured of the ideal plan in his own mind that he comes to regard the individuals who compose society as pieces to be arranged upon a chessboard, forgetting that every piece has a principle of motion of its own, quite different from any that a legislator might choose to impress upon it. The discourse surrounding artificial intelligence today is saturated with men of system, on both the side that promises salvation and the side that predicts extinction, each so persuaded of the scale and inevitability of what they are building that ordinary considerations — competition, error, the humility appropriate to fallible men experimenting with untested power — are brushed aside as the objections of those who lack the vision to see what is coming. I have some sympathy for caution before a genuinely novel force. I have none whatsoever for caution that arrives, with suspicious punctuality, at exactly the moment a firm has finished building its own advantage and wishes no one else to build one to rival it.</p>
+<p>Consider, too, what this concentration does to the division of labour, which I always regarded as the great engine of improvement, but which depends for its beneficial working on competition among many hands and many masters. Where a handful of firms control the computational infrastructure, the training data, and now the regulatory apparatus of an entire technology, the division of labour ceases to distribute opportunity and begins instead to distribute dependency. The clerk, the translator, the illustrator, the coder — all now find that the terms on which their labour is wanted, and the price it commands, are set not by the impersonal and rather beautiful arithmetic of supply meeting demand across a broad and contested market, but by the private decisions of three or four boardrooms whose competitors have been legislated out of contention. This is not the invisible hand. It is a visible and a very well-manicured one, resting on the shoulder of the regulator.</p>
+<p>What, then, is to be done, since I have never been a philosopher content merely to complain? The remedy I always proposed for the conspiracies of merchants was not moral exhortation, which is cheap and generally useless, but structural exposure to competition, which is costly to the conspirators and therefore effective. Government should be exceedingly reluctant to write into law any threshold, licence, or liability rule proposed by the very firms it would bind, and should weigh such proposals with the same scepticism I recommended for the petitions of merchants generally, whose interest in extending the market and narrowing competition is directly opposite to that of the public. Any rule genuinely aimed at safety should be tested by a plain question: does it burden the next twenty laboratories as lightly as it burdens the frontier three, or does it fall, as if by chance, only on the ones not yet founded? Open models, open research, and a low cost of entry into the trade of building these systems are not merely conveniences for hobbyists; they are the only reliable check we possess against exactly the outcome the largest firms are, whatever their protestations, rationally inclined to pursue. I would rather live with a hundred reckless competitors kept honest by each other's rivalry than with three cautious monopolists kept honest by nothing but their own solemn assurances.</p>
+<p>I will close as I began, with the maxim that has outlived the wool trade it was written to describe and will, I suspect, outlive this one too: whenever men of the same trade propose a law, examine it long and suspiciously, for it comes from an order of men whose interest is never exactly the same as that of the public, who have generally an interest to deceive and even to oppress the public, and who have accordingly, upon many occasions, both deceived and oppressed it.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Adam Smith · 2 August 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

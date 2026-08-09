@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Friedrich Hayek: The New Pretence of Knowledge: Artificial Intelligence and the Fantasy of Central Planning Reborn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Friedrich_Hayek_portrait.jpg/330px-Friedrich_Hayek_portrait.jpg" alt="Friedrich Hayek" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Liberty &amp; Markets</span>
+      <h1 class="episode-title">The New Pretence of Knowledge: Artificial Intelligence and the Fantasy of Central Planning Reborn</h1>
+      <div class="episode-byline">Friedrich Hayek · 9 August 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">The calculating machine has come at last, and with it the oldest error in economics has put on new clothes. I refer to the conceit, once dressed in the mathematics of Oskar Lange and Abba Lerner, now dressed in the vocabulary of large language models and optimisation algorithms, that a sufficiently powerful computational device might do what the market does — only better, only faster, only more justly. I have heard this argument before. I heard versions of it in seminar rooms in Vienna in the 1920s, when Ludwig von Mises first told us that rational economic calculation was impossible without market prices for the means of production, and I heard fuller versions of it at the London School of Economics in the following decade, when the mathematical socialists assured us that the problem was merely one of solving a large system of simultaneous equations. Now I hear it again, dressed up in talk of neural networks and petabytes, and I confess a certain weariness at watching an old friend return in an unconvincing disguise. But I shall address it, because the stakes have not diminished, and because the technology, however impressive, has not touched the argument's foundation at all.</p>
+<p>The claim, in its contemporary form, runs roughly thus: the socialist calculation debate was decided against planning only because the computational and informational burdens of central coordination exceeded the capacities of mid-century bureaucracies and their slide rules. Today, so the argument goes, we possess computing power that Lange could not have dreamed of, together with real-time data flowing from billions of sensors, transactions, and devices. An artificial intelligence trained on this ocean of data could, in principle, allocate resources with a precision the anarchic market never achieves, eliminating the waste of competition, the cruelty of unemployment, the caprice of the business cycle. I have read the papers. I have noted the enthusiasm with which some economists, and rather more technologists who have never troubled to read Mises at all, treat the matter as settled by Moore's Law. I want to explain, patiently, why they have misunderstood the nature of the problem from the outset — and why no increase in processing speed, however vast, closes the gap they imagine they are closing.</p>
+<p>The error begins with a misdescription of what economic planning requires. The mathematical economists of my generation transformed the problem of economic organisation into a problem of resource allocation: given a set of preferences, a set of technologies, and a set of resource endowments, find the allocation that maximises welfare. Stated this way, it is indeed a problem of computation, and computation is precisely what modern machines do well. But this formulation smuggles in, as a solved premise, the very thing that is never given to any mind or machine — namely, the data themselves. The knowledge required for economic decision does not exist anywhere in usable, aggregated form, waiting to be fed into an optimiser. It exists dispersed among millions of individuals, each possessing fragments of knowledge about particular circumstances of time and place: the foreman who knows which of his machines is running roughly today, the merchant who senses a shift in his customers' moods before any survey could detect it, the engineer who knows an idle half-hour of capacity that no inventory system records. Much of this knowledge is not even conscious or articulable — it is knowledge of the "I know it when I see it" sort, embedded in skill and habit, which the man who possesses it could not write down for a census-taker even if he wished to cooperate fully.</p>
+<p>This was the substance of what I tried to say in 1945, in an essay on the use of knowledge in society, and it is worth restating because the AI enthusiasts have not, in truth, engaged with it — they have merely asserted that "big data" now captures what I called dispersed knowledge. It does not, and it cannot, for a structural reason rather than a merely technical one. Data recorded in a system are data about the past and about what has already been rendered legible to measurement. The economic problem is a problem of the future and of what has not yet been rendered legible to anyone, including the actor himself. When a Bristol shipowner in 1935 diverted his vessels because he sensed, from the pattern of orders and rumours along the docks, that a certain freight route was about to tighten, no dataset held that knowledge in advance; the knowledge came into existence in the act of his noticing and acting upon it, and it was communicated to the rest of the economy not by a report to a central register but by the single fact of a price change, which every other shipper could interpret without needing to know why it had occurred. This is the marvel of the price system that Lange's equations and today's algorithms alike fail to reproduce: it does not require that anyone possess the total picture. It transmits the practical upshot of local knowledge in a form — a number — that economises radically on the amount of information each participant must absorb. An AI, however capacious, still requires that the knowledge be rendered into data before it can compute upon it. It has solved nothing about the rendering; it has only enlarged the machine at the end of the pipe.</p>
+<p>There is a second and related confusion, which is the belief that markets and planning differ merely in the sophistication of their information-processing, so that a smarter processor closes the distance. But the market is not an information processor competing with a computer on the same task. It is a discovery procedure — my term for it, in the lecture I gave upon receiving the Nobel Memorial Prize in 1974, was chosen with some deliberation, because I wished to emphasise that competition discovers facts which, without it, would remain unknown or at least unused. Prices are not outputs of a calculation whose inputs already exist; they are the mechanism by which the inputs are generated in the first place, through the rivalrous guessing, testing, succeeding, and failing of countless independent actors, each risking something of his own. An algorithm trained on historical patterns of transactions can forecast, with impressive accuracy in stable conditions, what has tended to follow what. It cannot discover the entrepreneurial hunch that breaks the pattern — the founder of a firm nobody has heard of, in a garage nobody is watching, who perceives an arbitrage the trained model, precisely because it is trained on the past, is structurally disposed to miss. The economists who speak of AI-driven planning tend to imagine the economy as a vast but essentially static input-output table, a Leontief matrix awaiting a faster solver. They have mistaken the choreography of an economy already known for the perpetual, undirected search for an economy not yet imagined.</p>
+<p>I do not say this to disparage the machine. I have always insisted that spontaneous orders are not to be worshipped as against deliberate organisation in every instance; a firm is a planned order nested within the wider catallaxy, and there is no reason a firm should not use whatever computational tools improve its internal planning — inventory optimisation, logistics routing, demand forecasting within a bounded and well-specified domain. These are matters of degree and of domain, and modern algorithms have genuinely extended the range over which centralised coordination within an organisation can be efficiently conducted, as the box for the whole economy is decidedly not the box of a single warehouse. My objection is to the leap from the corporation's supply chain to the nation's economy, a leap of exactly the kind that undid the Chilean government of Salvador Allende, whose economic ministry, with the British cybernetician Stafford Beer's assistance, built an operations room called Cybersyn — telex machines feeding factory data into a control centre, dials and switches meant to let planners steer production in real time. It was, for its day, a remarkable technical achievement, and it collapsed under the same weight that will crush any successor: the data arriving at the centre were already stale, already partial, already stripped of the tacit judgment that had generated them, and the men in the operations room, however well-intentioned, were making decisions further from the facts than the humblest shop steward on the factory floor. Feed a modern transformer model the same telex traffic, multiplied a millionfold and arriving in microseconds rather than days, and the qualitative defect remains unaltered: the model still receives only what has already been converted into a recordable signal, and the economy's vitality lies overwhelmingly in what has not yet been converted, and perhaps never will be.</p>
+<p>I would add a further and more political observation, since I spent the latter years of my career warning of it and see no reason to soften the warning now. Every proposal to plan a modern economy by machine is also, whether its advocates acknowledge it or not, a proposal to concentrate an extraordinary apparatus of data collection and enforcement in a very small number of hands — a government ministry, a handful of technology firms holding contracts with the state, or some hybrid of the two that the enthusiasts of industrial policy in Washington and Brussels currently find so congenial. The road I described decades ago as leading to serfdom was never paved with malice; it was paved with the sincere and often technically gifted conviction that this time, with these tools, the coordination problem could finally be mastered by design rather than left to the disorderly guesswork of free men trading freely. The men who administer the algorithm will possess, by the very logic of the scheme, powers of surveillance and allocation that no housing minister of my acquaintance in London ever wielded, because the model requires ever more granular data to function at all, and the appetite for granularity has no natural stopping point short of the whole of private life. One should not need to invoke totalitarianism to make the point; it is enough to notice that the case for AI planning, examined honestly, is once again the case for gathering into a single node a kind and quantity of power that a free society has always found it wise to keep dispersed, whatever computational elegance is promised in return.</p>
+<p>None of what I have written should be mistaken for a case against artificial intelligence as such, still less for a nostalgic dismissal of tools I did not live to use. My case is narrower and, I think, more durable than any particular technology: that no expansion of computational power alters the epistemic structure of the problem an economy exists to solve, because the knowledge that problem requires is not sitting somewhere waiting to be gathered, but is created continuously, dispersedly, and in a form that only a decentralised system of prices, property, and competitive trial can call into being and put to use. The machine can help a firm plan its warehouse. It cannot plan a civilisation, for the same reason that no committee of the wise, however furnished with dials and screens, ever could: the facts it would need to know do not yet exist, and will not exist until free men and women, each answering to their own scattered and irreducible knowledge, are left at liberty to create them.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Friedrich Hayek · 9 August 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

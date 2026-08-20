@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Mary Wollstonecraft: The tradwife spectacle and the manufacture of pleasing women online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/330px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg" alt="Mary Wollstonecraft" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Rights &amp; Feminist Thought</span>
+      <h1 class="episode-title">The tradwife spectacle and the manufacture of pleasing women online</h1>
+      <div class="episode-byline">Mary Wollstonecraft · 20 August 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">Let me state at once what I believe: the woman who broadcasts her submission to a husband for the admiration of two million strangers has not returned to nature, as she and her apologists insist, but has perfected the very artifice I spent my life labouring to expose. I have watched — insofar as a shade permitted knowledge of your century can watch — the rise of what you call the "tradwife," the young woman in her linen apron, kneading bread before a camera, praising her husband's headship, her children scrubbed and silent, her voice pitched to that particular softness that promises no thought will trouble it. And I have watched her praised, imitated, monetised, held up as an antidote to the exhaustions of a world that asked women to be everything at once. I understand the exhaustion. I do not accept the antidote. For what I see in her is not a woman freed from the tyranny of pleasing, but a woman who has found the most lucrative market yet devised for pleasing, and mistaken her fluency in that market for liberty.</p>
+<p>I wrote, some two centuries before your algorithms existed to reward it, that women are not born frivolous, vain, and dependent upon the opinion of others for their sense of worth — they are made so, by an education that trains them from the cradle to be pleasing rather than to be reasonable. Rousseau, whom I read with the closest attention and the greatest exasperation, proposed that Sophie should be educated expressly to delight Émile: her reason cultivated only so far as it might season her charm, her mind kept deliberately unexercised lest it grow muscular and unlovely. I called this a form of slavery dressed as tenderness, and I called the women produced by it not virtuous but merely artful — creatures of sensibility rather than sense, taught to substitute feeling for judgment because feeling could be managed, displayed, and admired, while judgment could not.</p>
+<p>I set that argument against the fashionable sentimentalism of my own day, which prized in a woman not her understanding but her delicacy — her tears, her fainting, her exquisite responsiveness to every trifle, her incapacity for the rough exercise of independent thought. Such sensibility was called nature. It was in fact cultivation, as surely as a hothouse flower is cultivation, and it produced women who could not be trusted with their own minds because they had never been permitted to use them. I do not think you have escaped this. I think you have built a machine for it.</p>
+<p>Consider what the platform actually rewards. It rewards not argument but affect — the face arranged just so, the voice modulated for warmth, the domestic tableau composed for a stranger's fleeting approval, measured in the coin of attention and multiplied a millionfold by an engine that cares nothing for truth and everything for engagement. This is sensibility perfected past anything my century could produce, because my century's flirtations and fashionable swoons reached a drawing room; yours reach the world, and are rewarded with money, which is a more permanent seduction than any drawing room could offer. The tradwife is not an aberration of your digital economy; she is its logical woman. She has correctly perceived that the market pays better for performed submission than for demonstrated competence, and she has, with what I must in fairness call a kind of native intelligence, supplied the demand. This is precisely the bind I described in the Vindication: a woman denied real power learns to trade in the appearance of powerlessness, because appearance is the only currency her situation leaves her. What I did not anticipate — what perhaps could not be anticipated before machines existed to pay by the click — is that this trade could be so extraordinarily lucrative, so that the very display of dependence becomes, by a cruel irony, its own form of enterprise. She earns her own money performing that she needs none.</p>
+<p>I am asked, by the sensible defenders of this fashion, whether I would deny a woman the choice to bake bread and raise children and submit her judgment to her husband's, if she finds contentment there. I would deny her nothing that she has chosen with a mind actually free to choose otherwise. But this is exactly the distinction that a slogan cannot hold and a culture trained on pleasing cannot easily produce: the difference between a preference formed by genuine reflection and a preference formed by an economy that will only pay you for the second. I did not argue, and do not argue now, that domestic life is beneath a rational woman — I kept my own house, nursed my own children, and thought both occupations worthy of a serious mind. I argued that a woman must bring her whole reason to whatever life she chooses, domestic or otherwise, or she has not chosen at all; she has merely been arranged, like a piece of furniture, into the posture most convenient to somebody else's comfort — and now, additionally, most convenient to somebody else's advertising revenue.</p>
+<p>Here I must turn my scrutiny the other way, for I did not spend my strength attacking only the sentimentalists; I spent a great deal of it attacking the false friends of women, those who called themselves liberators while selling women a different vanity. And I confess some of what calls itself empowerment in your era looks to me like the same old commodity in a new wrapper. The influencer who sells her body's image rather than her domestic virtue is not, merely by inverting the tradwife's costume, escaping the market of pleasing — she has simply chosen a different department of the same shop. Both are told their worth is legible chiefly through how they are looked at. Both have their reason quietly excused from the transaction. I did not write the Vindication so that women might be free to choose which performance pleased the crowd; I wrote it so that women might stop needing the crowd's verdict at all, might build a worth that did not depend on being watched. A woman who has simply exchanged the demand that she flatter a husband for the demand that she flatter an audience of strangers has not found my liberty. She has found a larger room to be small in.</p>
+<p>What, then, would I have her do — and I do mean her, and also her critics, who are too often as interested in her humiliation as her admirers are in her submission, and equally uninterested in her mind? I would have her asked, not whether she is happy — happiness is compatible with a great many forms of ignorance, and I have never trusted it as a final court of appeal — but whether she has been given, and has taken up, the tools to examine her own contentment: history, argument, the comparison of her situation with other situations, the friction of disagreement with minds she cannot simply charm into silence. I called for the education of women not because I thought every educated woman would choose as I chose, but because I thought no choice deserved the name until it had survived that friction. A woman raised only among the approving comments beneath her own videos, in an economy engineered to remove friction entirely — to feed her more of whatever already pleased her, and more people primed to be pleased by her in return — has been given the least free environment for choosing that I can well imagine, more enclosed in its way than the drawing room I escaped, for the drawing room at least occasionally produced a Dr. Johnson to contradict you to your face.</p>
+<p>I add one further observation, drawn from my own bitter history with the doctrine of romantic love, on which subject I paid a considerable private tuition. I believed for a time, and suffered for believing, that a woman's reason might be safely suspended in the presence of a man she trusted with her whole heart — that love excused the very submission of judgment I condemned in the abstract. I was wrong, and I said so afterward with more honesty than comfort. The tradwife aesthetic trades heavily on precisely this suspension, romanticised now not merely as love but as spiritual order, submission repackaged as a return to sacred and ancient roles. I recognise the appeal; I felt it myself, and it nearly ruined me. I recognise also that it is no more reliable a guide to a woman's true interest now than it was in 1795. The heart is not a safe magistrate over the whole of a life. It was never meant to rule alone, and an economy that profits from persuading women it should — because the ruled heart is so much more marketable than the exercising mind — is not an ally of women's contentment, whatever its aesthetic of flour-dusted kitchens and golden hour light suggests.</p>
+<p>I will not end by telling you what to think of any particular woman baking her bread before a lens; I did not know the individual women of my own century well enough to judge their private accommodations with an unjust world, and I extend the same reticence across two hundred years I cannot fully see. My argument was never with women. It was with the machinery — social, economic, now electronic — that manufactures their pleasingness and calls the product their nature. That machinery has grown far more efficient since I described it, and far better paid, but I do not believe it has grown one degree more honest.</p>
+<p>Judge a woman's freedom not by how completely she pleases the eyes upon her, but by how little her reason needs their verdict to know its own mind.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Mary Wollstonecraft · 20 August 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

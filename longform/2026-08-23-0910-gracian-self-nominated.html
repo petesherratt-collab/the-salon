@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Baltasar Gracián: The disappearance of reserve in the age of compulsory transparency — how the modern cult of "authenticity" has abolished the mask, and with it, judgment itself.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Graci%C3%A1n_Graus.jpg/330px-Graci%C3%A1n_Graus.jpg" alt="Baltasar Gracián" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Wisdom &amp; Prudence</span>
+      <h1 class="episode-title">The disappearance of reserve in the age of compulsory transparency — how the modern cult of "authenticity" has abolished the mask, and with it, judgment itself.</h1>
+      <div class="episode-byline">Baltasar Gracián · 23 August 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">There is no vice so fashionable today, nor so fatal to greatness of mind, as the itch to show oneself entire. Call it authenticity, call it transparency, call it "living out loud" — I call it the suicide of the interior man. A century that has made confession into content, and privacy into suspicion, has performed upon itself the one operation a prudent physician never permits: it has removed the skin to prove there is a heart beneath it. The patient does not survive the demonstration.</p>
+<p>I spent my life at courts where a man's face was his fortune and his fortune depended on never letting the face be read entire. I wrote, under my brother's name because my own order forbade me the vanity of authorship, that the greatest of all arts is the art of concealment — *saber disimular*, to know how to withhold. This was not counsel in deceit, whatever the shallow moralists of my day accused me of; deceit shows a false thing as true. Discretion shows a true thing only in part, and reserves the rest for those occasions, and those persons, that merit it. The fool discloses because he cannot help it; the knave conceals everything because he has only vice to hide; the discreet man reveals by measure, as a physician doses medicine — enough to do good, never so much as to do harm. Between the glass palace and the locked one, wisdom keeps a house with shutters that open and close at will. It is the shutter, not the wall and not the window, that constitutes the art.</p>
+<p>Observe now what your century has done with the shutter. It has torn it from its hinges and called the demolition honesty.</p>
+<span class="principle-head">The tyranny of the visible</span>
+<p>Every court I served had its vulgo — the mass of the unreflecting, whose judgment is quick, loud, and worth nothing, because it possesses appetite without discernment. The whole science of worldly wisdom I set down was in large part a science of surviving the vulgo's gaze without being devoured by it: giving it spectacle enough to satisfy its hunger while keeping one's true counsel in a chamber it could never enter. The courtier's genius lay precisely in this partition between the face shown to the antechamber and the mind kept for the cabinet.</p>
+<p>You have abolished the antechamber. Your vulgo — multiplied a millionfold, and armed now with a memory that does not decay and a voice that carries instantly to every corner of the earth — has been invited, by the very architecture of your instruments, directly into the cabinet. The device in every pocket is a confessional with no priest, no absolution, and no discretion of its own; it only records, and having recorded, publishes, and having published, judges. What I called the mob's applause, fickle but at least forgetful, has become an archive: fickle in its enthusiasms, permanent in its condemnations. A single unguarded utterance, a single face caught in an unworthy instant, is preserved forever and produced at the hour of maximum damage — which the ancients would have called the operation of Fortune, except that Fortune at least had the decency to be blind. Your machine is not blind. It has been trained to find precisely the moment you most needed concealed.</p>
+<p>And what does the age demand in response to this danger? Not more discretion — less. It demands that you get ahead of exposure by performing your own vulnerability first, that you disclose your therapy, your grief, your failures, your face without its paint, on the theory that the candid man cannot be caught out because he has already caught himself out. This is not the recovery of virtue; it is surrender dressed as strategy, and worse, it teaches the young that the self has value only insofar as it is broadcast. I have known no doctrine more efficient at producing shallow men. The well is drawn from before it has had time to fill.</p>
+<span class="principle-head">The counterfeit of authenticity</span>
+<p>Here is the deeper deception, and it is one my age would have recognized instantly, though yours prides itself on having invented sincerity: the loudest performers of "authenticity" are, almost without exception, the most calculating persons alive. The influencer who weeps prettily into the lens for the algorithm's reward, the executive whose "vulnerable" memoir was drafted by three publicists and tested on focus groups before a single tear reached the page, the politician whose spontaneous remark was rehearsed forty times in a mirror — these are not the death of dissimulation. They are dissimulation grown so skilled it now wears the mask of having no mask at all. This is the connoisseur's move, and I confess a grudging admiration for its cunning even as I despise its effect: for it takes the very appetite the age has for unguarded truth and manufactures the appearance of it at industrial scale, more falsely than any painted courtier of my century, because the courtier's paint was at least understood by all to be paint. Your performed authenticity is paint sold as skin.</p>
+<p>The tragedy is not that such counterfeiters exist — knaves have always existed, and always will, being the permanent tax nature levies on the honest. The tragedy is that in a climate where everyone is exhorted to disclose everything, the plain, unschooled, actually sincere person — who has no genius for stage-managed candor — discloses artlessly, and is destroyed for it, while the skilled counterfeiter discloses strategically, and is rewarded. You have built an arena that punishes real vulnerability and pays out on performed vulnerability, and then wonder why your public men seem simultaneously more exposed and less trustworthy than ever before. It is because you have inverted the correct order of operations. Reserve should be the default and disclosure the considered exception; you have made disclosure the default and reserve the object of suspicion, as though the man who keeps his own counsel must have something monstrous to hide, rather than simply — as is almost always the case — something private, which is not the same crime.</p>
+<span class="principle-head">What judgment requires that spectacle destroys</span>
+<p>My whole method rested on a distinction between *ingenio* — quickness, cleverness, the gift of wit — and *juicio* — judgment, the slower and rarer faculty that knows when to deploy the first and when to sheath it. Judgment cannot be exercised in public in real time; it requires the antechamber I have described, the private room where a thought is turned over, tested, doubted, revised, before it is permitted to become an act. What your feeds, your notifications, your instant replies have destroyed is not merely privacy in the narrow legal sense — it is this room itself. A mind that broadcasts its first reaction has no interval in which judgment can operate; it has only reflex, dressed up, after the fact, as conviction. I watched enough hasty courtiers ruin themselves with the quick retort to know where this leads: not to more truth, but to more regret, publicly filed and permanently searchable.</p>
+<p>Nor is it only the individual who suffers. A polity composed of people who have lost the capacity for the private, unspoken, provisional thought — who must perform every opinion the instant it is felt, for an audience calibrated to reward extremity — cannot deliberate. Deliberation is discretion practiced collectively; it requires that positions be held loosely, revisable, unpublished, until they are ready. You have built public squares that reward exactly the opposite: the earliest, loudest, least revisable statement wins the most attention. This is not a defect of any particular platform. It is the mathematics of an economy built on the very disclosure I have spent this essay condemning, sold back to you as democratic virtue.</p>
+<span class="principle-head">The remedy, which is not retreat</span>
+<p>I do not counsel the cave. The hermit who shows nothing is as useless to his age as the exhibitionist who shows everything; both have simply chosen different forms of self-indulgence, one starving the world of his gifts, the other flooding it with his undigested self. What I counsel is the recovery of the interval — the deliberate, disciplined restoration of a private chamber between impulse and expression, in which a thought may be examined before it is given a public life it cannot afterward recall. Practically, this means: not every feeling merits an audience. Not every grief needs to be monetized into content, nor every opinion published in the minute of its birth. It means teaching the young, against every incentive their instruments offer them, that the withheld thought is not a lie, and that dignity has always resided more in what a person declines to display than in what they exhibit. It means treating one's own image with the same patient artistry a portraitist gives a sitter — selecting the angle, the light, the moment worth preserving — rather than surrendering to the candid camera's indiscriminate, exhausting totality.</p>
+<p>Above all it means recognizing the trap for what it is: an economy that profits from your exposure has no interest in your dignity, and will dress its extraction in the language of freedom, connection, and truth for as long as you permit it to. The free man in my century was the one whose face gave away only what he chose. That freedom is available still, though the price of it — resisting an entire architecture built to prevent it — is higher than it has ever been.</p>
+<p>He who shows everything has nothing left in reserve; he who reveals by measure is thought, rightly, to hold an inexhaustible store. In an age competing to strip itself bare, the last sovereign act left to any person is the closed door behind which a mind is still, privately, becoming itself.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Baltasar Gracián · 23 August 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

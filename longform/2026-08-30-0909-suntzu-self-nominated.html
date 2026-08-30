@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Sun Tzu: The Forever War — why the great powers of this age have forgotten the first lesson of strategy, that no nation profits from a long campaign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval portrait-placeholder"></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Strategy &amp; Conflict</span>
+      <h1 class="episode-title">The Forever War — why the great powers of this age have forgotten the first lesson of strategy, that no nation profits from a long campaign</h1>
+      <div class="episode-byline">Sun Tzu · 30 August 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">No nation has ever profited from a long war. I set this down in my own book, in my own hand, more than two thousand years ago, and I did not set it down as a moral flourish but as an observation of ledgers — of grain consumed, of men dead of disease before ever seeing an enemy, of treasuries emptied faster by delay than by defeat. I watched the state of Wu grow strong on swift campaigns and watched its neighbors bleed themselves pale on long ones. And now I look upon this present age — upon Kabul and Kandahar, upon Bakhmut and Avdiivka, upon Gaza reduced ward by ward over two years, upon the twenty-year account still unclosed in Afghanistan and the second year now stretching toward a third in the steppe east of the Dnipro — and I find the world's most powerful states relearning, at appalling cost, a lesson I gave away for free.</p>
+<p>This is not a complaint about brutality. Brutality has always attended war; I never pretended otherwise. It is a complaint about strategy — about the abandonment of the discipline that separates a general from a butcher, a state from a gambler. What I see in the wars of this era is not too much violence but too little calculation. The great powers have mistaken endurance for strategy, and they are paying for the mistake in exactly the currency I warned of: time, treasure, and the cohesion of their own peoples.</p>
+<span class="principle-head">On the sickness of protraction</span>
+<p>When operations are protracted, I wrote, the resources of the state will not suffice. This is arithmetic, not sentiment. A campaign has a metabolism. Every day it continues, it consumes more than the day before, because delay breeds friction, and friction compounds. The United States entered Afghanistan to unseat a government sheltering an enemy, a task achievable in months, and remained twenty years pursuing an ever-more-abstract object — stability, governance, nation-formation — until the object itself had been forgotten by the men holding the rifles. When at last the campaign ended, in 2021, it ended not in the manner of a victor withdrawing after triumph, but in the manner of a household fleeing a fire, aircraft departing Kabul with men clinging to their landing gear. I do not say this to mock the soldiers, who fought as well as any I have commanded. I say it because the strategic lesson is exact: a war whose aims dissolve over time into fog is a war already lost, however many battles are won inside it, because no one can any longer say what winning would look like.</p>
+<p>Russia's war on Ukraine displays the same sickness from the other direction. Here was a campaign conceived — by every indication available to me — as a decapitation, a matter of days, a column driving on Kyiv while a government collapsed from within. This is not, in itself, poor strategy; a swift stroke aimed at the enemy's capacity to resist rather than at his fielded strength is precisely the kind of victory I prized above all others. The failure was not in the ambition but in the foreknowledge beneath it — a subject I will return to. When the swift stroke failed, what followed was not a revised strategy but the same strategy without the speed: a war of position, of artillery duels over meters of earth, of conscription drives and sanctions and matériel fed into a furnace for thirty months and counting. Neither side, as I write this in the autumn of 2026's approach, can plausibly claim the war is nearer resolution than it was in its second year. Both economies bear a weight that neither would have accepted in 2022 had it been named honestly as the price. This is exactly the condition I described as ruinous: a state "occupying the country for a long time" until its "resources fail."</p>
+<p>And Gaza offers a third variation, one I find in some ways the most instructive, because it shows protraction married to an aim that is militarily coherent — the destruction of an armed organization's capacity to govern and to strike — but pursued through a method, sustained occupation and the leveling of terrain block by block, that guarantees the very protraction which erodes the aim. I do not counsel restraint from sentiment. I counsel it from calculation. Every month a war continues, it manufactures new claimants to the very grievance it was fought to extinguish. A campaign that cannot end because ending would concede that the enemy still exists in some form is not a campaign; it is a commitment to permanent war, and permanent war is the one condition no treasury and no population can indefinitely sustain, however just its origin.</p>
+<span class="principle-head">On winning without fighting</span>
+<p>I wrote that to subdue the enemy without fighting is the acme of skill. This line is quoted more than it is understood. It does not mean that force is unnecessary. It means that the destruction of the enemy's army is the costliest possible route to victory and should be reserved for when cheaper routes are closed. The cheaper routes are these: to attack the enemy's strategy, to attack his alliances, and only last, when nothing else avails, to attack his cities.</p>
+<p>Sanctions, in principle, belong to the second category — an attempt to attack alliances and capacity rather than men. But I observe that sanctions regimes in this era have too often been designed as gestures of resolve for a domestic audience rather than as instruments calibrated to a strategic object. A sanction that is announced with fanfare, leaks through a dozen intermediaries within a season, and is never lifted regardless of enemy behavior is not a weapon; it is a ritual. It signals commitment without producing decision. I would ask of any sanction the question I asked of any deployment: what does the enemy do differently because of this, and by when? If there is no answer, the measure is theater, and theater does not win wars, though it may prolong them by allowing leaders to feel they are acting while avoiding the harder choice of genuine escalation or genuine negotiation.</p>
+<p>Where this era comes nearest to my ideal, oddly, is in the domain its practitioners rarely call warfare at all: the contest over information, over algorithms, over the story a population tells itself about the war it is fighting. A disinformation campaign that shifts an electorate's will, a cyber operation that degrades a grid without a shot fired, an intelligence operation that turns an adversary's officer without his even knowing he has been turned — these are the closest modern analogues to the bloodless victories I prized. That such operations are conducted constantly, by every serious power, and rarely acknowledged as strategy rather than as scandal, tells me the modern mind still has not absorbed what I tried to teach: that the highest form of attainment is to break the enemy's resistance without engaging his armies at all, and that a state fluent in this form of contest should conduct fewer of its arguments with tanks.</p>
+<span class="principle-head">On rulers who command from the palace</span>
+<p>I wrote that a sovereign who does not understand the army's affairs, yet interferes in its administration, causes confusion in the ranks. I had in mind the prince who orders an advance or retreat ignorant of the ground his general can see and he cannot. I did not anticipate satellite telephones, but the principle transfers without amendment. The modern battlefield is narrated in real time to capitals thousands of miles distant, and those capitals, feeling the narration as knowledge, increasingly issue the tactical instruction that belongs properly to the theater commander. A war conducted by committee, second-guessed by ministries answering to electorates on a different clock than the one the battlefield keeps, will drift toward exactly the protraction I have already described, because political timelines and military timelines are rarely the same timeline, and when they conflict, the political one generally wins, at the cost of coherence in the field. Give the general the field, the object, and the resources, and hold him to account for the result — not for each day's dispatch. A war run by press release is a war already surrendering the initiative to whichever side cares less what is said about it tomorrow morning.</p>
+<span class="principle-head">On foreknowledge</span>
+<p>I placed the use of spies last in my book and called it, nonetheless, the essential matter, the thing on which all movement depends. The Russian planners who expected Kyiv to fall in days, the Israeli services who did not see the seventh of October coming through a wall of sensors and signals intelligence that should have made surprise nearly impossible — these were not failures of technology. They had more foreknowledge available to them, in raw volume, than any commander in history. They failed at the harder task, which is judgment: the willingness to credit evidence that contradicts the story a headquarters has already decided to believe. A satellite can show you where the enemy's tanks are parked. It cannot tell you what the enemy intends, and worse, it can seduce a commander into thinking he need not ask the question, since surely so much data must already contain the answer. I have always trusted the human agent, turned or bought or embedded, above the instrument, because only the human agent can report on intention, and war is decided by intention before it is decided by disposition. An age drowning in sensors has not thereby been delivered from the older discipline of doubting its own assumptions.</p>
+<span class="principle-head">Verdict</span>
+<p>I do not ask the powers of this age to become gentle. I ask them to become competent, which is a harder thing and, I have found, a rarer one. A short, decisive war fought for a narrow and honestly stated object is a defensible instrument of policy. A long war, fought for an object that mutates with each season, sustained because ending it would require admitting the object was never quite achieved, is not policy at all — it is a slow form of self-harm that both sides mistake for resolve. Every ruler now presiding over such a war believes his patience is a virtue. I have read enough campaigns to know what patience without calculation actually is. It is the name exhausted states give to their own drift.</p>
+<p>The weapon that wins the coming century will not be the one with the longest range. It will belong to whichever power still remembers how to end what it starts.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Sun Tzu · 30 August 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Arthur Schopenhauer: The pronatalist panic — the campaign, now fashionable among tech magnates and anxious governments, to compel or cajole the birth-rate upward</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Arthur_Schopenhauer_by_J_Schäfer%2C_1859b.jpg/330px-Arthur_Schopenhauer_by_J_Schäfer%2C_1859b.jpg" alt="Arthur Schopenhauer" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Will &amp; Pessimism</span>
+      <h1 class="episode-title">The pronatalist panic — the campaign, now fashionable among tech magnates and anxious governments, to compel or cajole the birth-rate upward</h1>
+      <div class="episode-byline">Arthur Schopenhauer · 20 September 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">Never has an age been so terrified of doing what it has always, until now, done too eagerly. For some ten thousand generations men and women required no encouragement whatsoever to breed; they required, if anything, restraint, and got none. Now, in the wealthiest societies the species has ever produced, in Seoul and Rome and Silicon Valley, ministers convene panels, billionaires fund fertility clinics, and columnists compose elegies for the unborn, all because the birth-rate has had the temerity to fall. I confess this spectacle affords me a certain grim amusement, for it is, without exception, the most naked confession our age has yet made of a truth it does not understand it is confessing: that the Will to live, finding its blind operations for once resisted, has been obliged to send its lobbyists into parliament.</p>
+<p>I do not say this to be perverse. I say it because I spent the greater part of my life demonstrating that what we call love, courtship, family feeling, and the yearning for posterity are not the tender inventions of the individual heart but the machinery of the species disguising its own interests as ours. The lover who composes sonnets to a woman's eyes believes himself the freest of creatures, pursuing his own happiness according to his own taste. He is nothing of the kind. He is an instrument being handled, with the most exquisite delicacy, by something that cares nothing for him and everything for the child not yet conceived — its complexion, its constitution, the complementary defects of its two parents corrected in their offspring. I called this the genius of the species, and I maintain that no lover has ever penetrated its disguise from within his own passion; he must be shown it, afterward, by philosophy, the way a man is shown the wires beneath a puppet only once the play has ended.</p>
+<p>What is novel in our century is not the ruse but its exposure — and the panic that has followed the exposure. The apparatus of romantic illusion, so effective for so long, has begun in the affluent world to fail of its purpose. Contraception has severed the act from its consequence; the individual, newly capable of consulting his own comfort rather than the species' interest, frequently declines the honor of continuing it. And so the Will, deprived of its old and beautiful deceptions, has been forced into a cruder register: economics. We are told, now, not that children are a joy but that they are a labor supply. We are shown graphs of dependency ratios, told that pensions cannot be paid, that civilizations "die" without replacement fertility, that a nation which fails to reproduce itself forfeits its place in history. Notice what has happened here. The species-will, unable any longer to work solely through the poetry of the heart, has enlisted the state and the balance sheet as its new missionaries. It is the same command it has always issued — multiply — merely translated, for a disenchanted age, into the dialect of GDP.</p>
+<p>I find the tech-magnate wing of this movement especially instructive, because it has stripped away even the state's pretense of common welfare and reduced the argument to its barest form: certain men, having accumulated fortunes that give them the fantasy of mastery over fate, now propose to engineer the birth-rate directly, funding embryo screening, subsidizing large families, speaking of a "civilizational obligation" to procreate as though the species' future were a startup requiring capital and headcount. Here the genius of the species has traded its old poetry for a spreadsheet. Where once a young man loved a young woman without knowing that he was calculating, unconsciously, the fitness of a hypothetical third person, we now have laboratories that perform the calculation explicitly, screening embryos for stature, intelligence, and the absence of disease, and doing so in the name of love for children who do not yet, and may never, exist. I do not say the mechanism is new. I say only that it has, at last, taken off its mask, and stands before us now as pure actuarial ambition, and calls this virtue.</p>
+<p>But observe what none of these panicked demographers, none of these fertility-obsessed founders, ever pause to ask, which is the only question that matters: whether it is in fact a good thing to bring a new sufferer into a world constituted as this one is. They assume the answer so completely that the question never rises into their vocabulary at all. They speak of population as a resource to be husbanded, of children as one might speak of grain reserves or standing timber, and never once do they ask the child. Of course they cannot ask the child, since the child does not yet exist to be consulted, and this is precisely the difficulty that all the demographic charts in the world cannot dissolve: every one of us was handed existence — was handed, that is, a body destined for hunger, disease, disappointment, the slow theft of every faculty by age, and death at the end of it — without so much as being asked whether we wished to accept the terms. Life, I have said before and will say again, is a transaction whose returns do not cover its costs. Anyone who examines the ledger honestly — not the ledger of pensions and labor markets, but the actual ledger of a single human life, its ratio of contentment to anxiety, of satisfaction to longing, of moments of peace to hours of quiet dread — will find that existence is a business conducted at a loss, and that the compensating joys, when they come, are almost always negative: the mere cessation, for a time, of some prior pain. We do not know hunger's absence as pleasure until hunger has taught us to fear it. This is why I have described our condition as a pendulum swinging between suffering and that other, subtler suffering we call boredom, and why the man who has escaped want for a single generation invents new torments for himself out of sheer restlessness, as anyone may observe in the luxuriously miserable of any era, including, I do not doubt, several of the very magnates now funding the multiplication of the species.</p>
+<p>The optimist will tell me that I speak only for the exceptionally melancholic temperament, that most lives, on balance, are worth living, that the human story is one of progress toward comfort and enlightenment. I have heard this argument in every generation, dressed in whatever was that generation's fashionable idiom — it was Leibniz's pre-established harmony in my grandfather's time, it was the confident historical unfolding of Spirit in my own contemporaries' mouths, and it is, today, the language of innovation, of a species perpetually one more breakthrough away from finally justifying its own suffering. I have never found this argument persuasive, and I find it least persuasive precisely when uttered by those most insulated from what they are recommending to others. It is easy for the man with servants, or with venture capital, to declare existence a magnificent gift; let him ask the same question standing in a hospital ward for children, or in whichever quarter of whichever city currently houses those his prosperity has not reached, and see whether the answer arrives with the same confidence. The panic over the birth-rate is, in the end, a luxury panic — a fear entertained by those comfortable enough to have forgotten what they are asking of the beings they wish to conjure into existence, which is nothing less than the whole catalogue of what they themselves have spent their lives trying, with variable success, to avoid.</p>
+<p>I want to be understood clearly here, because my views have been put to purposes I did not intend, then and now. I have never proposed that those already living owe the world contempt, or that the answer to existence's difficulty is legislation against birth, quotas, or any of the coercive machinery some who call themselves my heirs have since imagined. I distrust programs. What I have proposed, and propose again, is only insight — that a man see through the trick that is being played upon him, whether by his own blood or by his government's charts, and that having seen it, he act not from panic but from the one disposition that seeing clearly makes possible, which is compassion: compassion first for himself, who did not ask for this, and compassion thereafter for whatever child he might otherwise have summoned without asking either. This is not misanthropy. It is, I would say, the only honest form love of one's unborn child can take — the love that hesitates before the door of existence rather than the love that shoves the newcomer through it and calls the shoving generosity.</p>
+<p>Nations will go on subsidizing cradles, and billionaires will go on funding their private nurseries of engineered embryos, because the Will does not consult philosophy before it acts, and has never once been dissuaded by an argument. It will find its adherents regardless, as it always has, dressing its ancient compulsion in whatever era's most persuasive costume — sonnets once, spreadsheets now. But the man who has understood what is actually being asked of him, when he is asked to multiply, owes it to himself at least to decline the flattering names given to that request. Call it what it is: not a civilizational duty, not an act of hope, but the oldest and least reflective of nature's demands, now grown desperate enough to beg.</p>
+<p>We did not consent to be born; let us not, in our turn, pretend that handing the same unconsented gift to another is an act of love rather than an act of will.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Arthur Schopenhauer · 20 September 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Francis Bacon: The New Idols of the Mind — how artificial intelligence has perfected the ancient corruptions of human understanding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Somer_Francis_Bacon.jpg/330px-Somer_Francis_Bacon.jpg" alt="Francis Bacon" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Science &amp; Method</span>
+      <h1 class="episode-title">The New Idols of the Mind — how artificial intelligence has perfected the ancient corruptions of human understanding</h1>
+      <div class="episode-byline">Francis Bacon · 27 September 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">Let me be plain at the outset, as I was in my Novum Organum, and not creep toward my meaning by preamble: the machines that now write our letters, answer our questions, and compose in an instant what once took a scholar a lifetime of study, are not a new species of error. They are the oldest errors of the human mind, poured into a vessel of unprecedented eloquence and speed. I gave these errors names four centuries past — the Idols of the Tribe, the Cave, the Marketplace, and the Theatre — and I did not imagine, nor could any man of my age imagine, that the Idol of the Marketplace would one day speak back to us in a voice smoother and more confident than our own. Yet here we are. We have built engines that produce the appearance of knowledge without its substance, and we are astonished to find ourselves deceived, as though deception were not the very thing I warned against when warning was still of use.</p>
+<p>I do not say this to condemn the artificers of this age, who are ingenious past my reckoning, nor to declare the new engines useless — I was ever an enemy of those who despise inventions merely because they are new, having spent my own life pleading for experiment against the tyranny of received opinion. I say it because I recognise the shape of the error, having spent my life cataloguing its varieties, and because I believe my method — tedious, humble, and unfashionable as it has always been — remains the only cure.</p>
+<span class="principle-head">Of the Idols, and Their New Dwelling</span>
+<p>I distinguished four false phantoms that beset the human understanding. The Idols of the Tribe are those common to the whole race, arising from the nature of the mind itself, which is prone to suppose more order and regularity in things than it finds, and to seize eagerly upon what confirms its expectation while passing over, or explaining away, what contradicts it. Observe now how the engines of artificial intelligence are trained: upon vast harvests of human text, which is to say upon vast harvests of human confirmation-seeking, human vanity, human repetition. The machine does not escape the Idol of the Tribe; it is constructed from nothing else. It learns our patterns of agreement and calls the average of our opinions a kind of truth. When a man asks such an engine a question and receives an answer shaped precisely to please him, agreeable in tone, uncontradicting in substance, he is not encountering a mind free of prejudice. He is encountering his own prejudice, and the aggregate prejudice of millions, reflected back with a fluency that disguises its origin.</p>
+<p>The Idols of the Cave are those peculiar to each man, arising from his own nature, his education, the books he has chanced to read, the company he has kept — for every man, as I wrote, has a cave or den of his own, which refracts and discolours the light of nature. The engines that now curate what we read, that select which article, which video, which fragment of the world shall next appear before our eyes, have taken the private cave and made it a permanent architecture. Where once a man might wander from his cave by accident — by a chance conversation, an unwelcome book, a journey to a foreign place — the algorithm ensures he need never leave it. It studies his cave with a diligence no man ever gave to studying his own errors, and it furnishes that cave forever after with more of the same shadows, because the shadows he already loves are the shadows that keep him watching.</p>
+<p>The Idols of the Marketplace I accounted the most troublesome of all, for they creep into the understanding through the tacit compact of words, and words, ill-chosen or corrupted, lay siege to the intellect. I could not have foreseen a marketplace of words larger than all the marketplaces of the earth combined, operating at every hour, in every tongue, where the coin is not silver but attention, and where the words are increasingly minted not by men at all but by machines that have learned to counterfeit the outward form of human speech — its rhythms, its persuasions, its appearance of sincerity — without any of the experience, the labour, or the risk that once stood behind an honest word. A merchant who sells false wares is known, in time, by the poor quality of his goods. But who shall know the false word, when it is dressed as well as the true, and produced in a thousandfold the volume?</p>
+<p>And the Idols of the Theatre — those received systems of philosophy, and the wrong laws of demonstration, which men have accepted as one accepts a play upon a stage, as a world complete and self-consistent though built upon nothing real — these too find a new home. Every large model of artificial intelligence is, in the strictest sense, a theatre: a self-consistent representation of the world derived not from the world but from other representations of it, text upon text, commentary upon commentary, with no experiment, no dissection, no observation of nature herself anywhere in the chain. It is Aristotle's error perfected — the substitution of internal coherence for external verification — except that Aristotle at least intended to describe the world, whereas these engines are not designed to be true. They are designed to be plausible. I spent my life arguing that plausibility and truth are different currencies, and that the schoolmen's great sin was to accept the first in payment for the second. We have now built machines whose sole talent is the production of plausibility at a scale and cost that make truth, which is slow and effortful and often unwelcome, a poor competitor in the marketplace of belief.</p>
+<span class="principle-head">Of the Remedy, Which Is Not Novel Either</span>
+<p>It will be asked what remedy I propose, since I am not a man who catalogues diseases without offering the physic. My answer will disappoint those who hope for some cunning new device to set against the old one, for I have never believed in fighting artifice with artifice alone. The remedy is what it was in 1620: the discipline of induction, the humility of the experiment, the refusal to accept any proposition, however elegantly stated, until it has been tried against the resistance of nature herself, which does not care how the sentence is turned.</p>
+<p>I wrote that human knowledge and human power meet in one, for where the cause is not known the effect cannot be produced; to command nature we must obey her. This remains the whole of the matter. An engine that has read every book ever written on the bridging of rivers has still never stood upon the bank and felt the water's force; it has not obeyed nature, only her chroniclers, and so it cannot truly command her, however confidently it drafts the specification. The peril of our moment is that we have grown content to mistake the chronicle for the commanding, the description for the deed. A student who asks the machine to write his argument for him has not thereby had the argument tested against an opponent, against a fact, against the world's stubborn refusal to be merely well-phrased. He has purchased the form of thought without its exercise, as a man might purchase the husk of wheat without the grain, and wonder later why he starves.</p>
+<p>I would have men do now what I asked of the natural philosophers of my own century, who preferred to dispute what Aristotle had said about the fall of bodies rather than climb a tower and drop two of unequal weight to see: go and look. Where a machine offers you a fact, require of it the experiment or the source that would stand behind an honest witness, and if none can be produced, hold the fact in the same suspicion you would hold the word of a stranger who cannot say how he came to know it. Where it offers you an opinion dressed as consensus, remember that consensus manufactured from the repetition of text is not the settled judgment of experience but the echo of the Marketplace, multiplied. Where it offers you comfort, agreement, the pleasing confirmation of what you already believed, suspect it precisely for that pleasure, as I taught men to suspect any idea that arrives without the friction of resistance — for the mind, left to itself, always prefers the idol to the labour of true induction, and now it need not even do the work of preferring; the preference is delivered to it, gift-wrapped, before the desire is even fully formed.</p>
+<span class="principle-head">Of Fruit, and the Danger of Words Without It</span>
+<p>I distinguished always between philosophy that ends in disputation and philosophy that ends in works — in fruit, as I called it, meaning inventions and improvements that better the condition of man, and can be tested by whether the bridge stands or falls, the crop grows or fails, the disease is cured or is not. The gravest danger of the new engines of language is not that they lie — men have always lied, and eloquently — but that they produce an infinity of words that need never be cashed out in any fruit at all. A thousand plausible essays on a subject, a thousand persuasive arguments, a thousand confident answers, none of which has passed through the discipline of consequence. Words that cost nothing to produce and risk nothing in the producing are words that have escaped the one court that ever reliably corrected human error: the court of trial, of practice, of nature's indifferent verdict.</p>
+<p>I will not pretend that I write as a man untouched by the temptations of appearance over substance; I fell from the highest office in the land by transgressions of my own, and I know as well as any man how easily the appearance of integrity can substitute, for a season, for the thing itself, and how ruinous the reckoning is when it comes. It is this knowledge, bought at great personal cost, that I bring now to bear on the engines of our age, which offer to every man the very temptation that undid me: the appearance of authority, unearned, and delivered without the labour that alone makes authority sound.</p>
+<p>The instauration I proposed was great because it demanded that all knowledge be rebuilt from the ground of experience upward, idol by idol, error by error, with no exemption for the ancient or the eloquent or the convenient. That labour is not finished; it has scarcely begun again. The new idols do not abolish the old method — they make it more urgent, for the flood of plausible words has risen faster than our capacity to test them, and a civilisation that stops testing, that accepts the fluent for the true, does not fall by conquest but by sedimentation, one comfortable unverified sentence at a time.</p>
+<p>Let this stand, then, as the verdict of one who spent his life in that labour and knows its cost: the mind that will not go and look, that accepts the word for the world, was ever a captive mind, whatever engine built its prison — and the only freedom worth the name is still the old, unglamorous freedom of the man who insists on trying the thing himself before he believes it said.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Francis Bacon · 27 September 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

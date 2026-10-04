@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Matsuo Bashō: The poem without a journey: what machine-made verse and the endless feed are doing to the act of paying attention</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg/330px-Basho_by_Morikawa_Kyoriku_%281656-1715%29.jpg" alt="Matsuo Bashō" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Nature &amp; Impermanence</span>
+      <h1 class="episode-title">The poem without a journey: what machine-made verse and the endless feed are doing to the act of paying attention</h1>
+      <div class="episode-byline">Matsuo Bashō · 4 October 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">A poem is a receipt for an encounter. Where nothing was encountered, there is nothing to receipt. I say this plainly because I am told that machines now write haiku by the million. They write them faster than a cricket can finish a night's song, and they write them correctly: seventeen syllables, a season word, a cut in the middle. I am told that people read these verses and cannot tell them from mine, and that some prefer them. I am not offended. A man who has walked two thousand *ri* with a bad stomach and a worse horse cannot be offended by a poem that cost nothing. I am worried, and the worry has little to do with the machines.</p>
+<span class="principle-head">What the seventeen counts were for</span>
+<p>Your schoolteachers have taught you a falsehood about us. They say a haiku is seventeen syllables arranged five, seven, five. The Japanese counts *on*, which are sound-beats, and they differ from your syllables. That is a small error. The large one is believing the form is the poem. The form is a doorframe. I spent my life in doorframes and I tell you that no one has ever been moved by a doorframe.</p>
+<p>When I was a young man in Edo I was good at the game. I could turn a verse at a gathering in a breath, with a pun here and a learned allusion there, and the company would laugh and the master of the session would mark me well. I earned my living correcting other men's verses. I was clever, and I was also dying of it. I had the form entirely, and I had nothing to put in it that I had not borrowed from the last clever person.</p>
+<p>What changed me was not a theory. It was the cold. I left the city and took a hut by the Sumida River at Fukagawa. A disciple planted a banana tree by the door, and the leaves tore themselves to ribbons in every autumn wind. I sat there and listened to rain fall on the broken leaves and into a basin. I learned that a poem is what remains when you stop being clever and let the thing in front of you be as present as it already is. The old pond does not need me to be witty about it. A frog jumps in, and there is a sound of water. That is the entire poem. The difficulty is that for the poem to be worth anything, there had to be a pond, and I had to be standing at it, with nothing in me that wanted to be somewhere else.</p>
+<span class="principle-head">The unchanging and the fleeting</span>
+<p>I have a doctrine, though I distrust the word, that my students called *fueki ryūkō*: the unchanging and the ever-changing. Every living verse stands on both. The ever-changing is the day itself, this particular rain on this particular road, and the poet who ignores it writes a museum piece. The unchanging is what lasts through every day: the loneliness of travelers, the ache of things ending, the way a mountain can look both indifferent and kind. The poet who ignores that writes a newspaper.</p>
+<p>Consider what your machines do. They have swallowed every verse ever set down, which is a vast library of the unchanging, the condensed residue of ten thousand encounters. From this they can draw a convincing portrait of what an encounter sounds like. But the other half is missing. The machine has no *this*. It has never been rained upon, and never stood in a field where soldiers once died and found the grass tall and green and indifferent. At Hiraizumi, where the great house of Fujiwara fell, I wrote that the summer grasses were all that remained of the warriors' dreams. I sat there and wept onto my traveling clothes until I forgot the time. The verse is nearly nothing. The weeping was the poem, and the verse is its ash.</p>
+<p>A machine can write the ash. It writes it beautifully, and with no fire behind it. The ash is still ash, and one may arrange it tastefully in a jar. Yet if you spend years reading only the jar, I think you will forget that there was ever a fire.</p>
+<span class="principle-head">The moon on the small screen</span>
+<p>Now I must be honest about where I think the real harm lies. It lies in the lives of the readers, who have been practicing for a generation to do what the machine does.</p>
+<p>I am told that in your age a person standing before a famous view will raise a small glass rectangle between themselves and the view and keep it there. They record the thing so that they may later show it to others and receive some small sign of approval. I understand this impulse. In my own time men wrote verses at famous places so that others would know they had been there. There were poets who composed in the inn before they ever saw the pine, because the pine was famous and its verse was expected. I wrote a good deal of such poetry myself in the early years. I do not mock it.</p>
+<p>But consider what this does to the attention. You stand at the moon-viewing and your mind is already composing the account of the moon. You are not at the moon; you are at the future in which the moon is reported. This is exactly the condition of the clever young poet of Edo, who stood in front of the world and saw only material. The feed, as you call it, has made this condition universal. Everyone is a little Edo poet now, adept and cheerful and starved. Every sunset is already a caption before it has finished setting.</p>
+<p>This is why the machine's verse looks so much like ours to you. It resembles the verse of people who were not there. Having become accustomed to the quality of that attention, you cannot detect its absence. I do not say this to scold. I say it because a man cannot miss a flavor he has not tasted for years.</p>
+<span class="principle-head">On the road as a discipline</span>
+<p>When I set out on the narrow road to the deep north in the spring of 1689, I took with me almost nothing: a few clothes, a writing case, my disciple Sora. I had resolved that I might die on the road, and I carried that resolution like a stone in my sleeve. Do not mistake this for romance. I was a middle-aged man with poor digestion and an unreliable knee. But I understood that the journey worked on me the way water works on a rock. It stripped me. It took away the places where I might hide behind the clever remark.</p>
+<p>A road teaches what no commentary can. It teaches that a mountain takes the whole day to cross whether you admire it or not, that the inn may be full, that a stranger's kindness arrives unasked and cannot be repaid. It teaches you that you are small, which is the condition under which the world becomes large enough to write about. In this sense I count the road as a spiritual practice more than a means of travel. The monks sit; I walked. The aim is the same: to empty the self until the thing in front of you can enter.</p>
+<p>I do not tell you to throw away your devices or take to the road with a straw hat. Some of my age wasted their lives on the road imagining it a virtue. Poverty is not holy in itself and neither is hardship. I tell you only that the poem requires the journey, and that by journey I mean any occasion on which you let yourself be changed by something that was not designed to please you. The cure for the machine is not a better poem. It is a life with more such occasions in it.</p>
+<span class="principle-head">Lightness, and what the machine cannot do</span>
+<p>Near the end of my life I spoke often of *karumi*, lightness. By it I meant a manner of seeing without strain, ordinary things named in ordinary words so that the depth beneath them shows through. Lightness is the hardest thing I know. It is not the lightness of the careless. It is the lightness of a man who has set down every burden, including the burden of wanting to seem profound.</p>
+<p>Here is a test I would give to any verse, human or mechanical. Does it want something from you? Does it want you to admire its cleverness, or to feel as the poet wishes you to feel? Or does it simply set before you the crow on the bare branch at autumn evening and leave you alone with it? The great weakness of the machine's verse, as far as I can tell from the specimens shown to me, is not clumsiness. It is eagerness. It wants so badly to be moving. It reaches for the tear. A fine poem is shy, and has the manners of someone who does not need to be loved.</p>
+<p>I will grant the machine its uses. If a person who has never held a brush finds, in a generated verse, a door into noticing the world, that is no small thing; many of us began by imitating. I learned from the Chinese poets Du Fu and Li Bai and the old Japanese masters Saigyō and Sōgi, and I do not pretend my originality sprang from nothing. But I took their verses as one takes a map. A map is a fine thing, and no sensible person confuses it with the country. The danger is that a generation raised on very good maps may stop going out to the country, and then even the maps will slowly go stale, for who will be left to redraw them?</p>
+<span class="principle-head">A word to the practitioner</span>
+<p>If you wish to write, and I think many of you wish to, here is my advice, which is old and unoriginal. Go to the thing itself. Do not describe the pine from what pines are said to be; learn of the pine from the pine, of the bamboo from the bamboo. Stand there until your own intention falls away, which takes longer than you would believe, perhaps an hour, perhaps a season. Then say what you saw in as few words as will carry it. Leave out the sentiment. Trust the reader to feel it, as you would trust a guest to find the tea.</p>
+<p>And do this without telling anyone. This is the hardest part in your age. Let at least some of your noticing go unwitnessed and unreported. A moment that is never shown to anyone returns to you changed: not a possession, but a kind of ground. A man who has been given many such moments walks differently. Whatever he writes afterward, if he writes at all, carries the weight of that ground, and no one can fake the weight.</p>
+<span class="principle-head">The verdict</span>
+<p>The machines will continue to improve. They will write verses so exact that the finest critic cannot tell them from the work of a man who froze for them. Let that happen. It does not change the matter, for the matter was never the verse. The poem was always the smaller part of the poetry; the greater part was a person, somewhere, being fully present to something other than themselves, and being altered by it. That part cannot be produced, only lived.</p>
+<p>I died in Osaka in the tenth month of 1694, ill, in a rented room, surrounded by students. My last poem, if you want it, said that my dream went wandering over withered fields. Even then I was still traveling and still looking, and I had not yet arrived anywhere. I would not trade that for any quantity of finished verse.</p>
+<p>So walk out of the door. Leave the glass rectangle in your pocket, at least for the length of one moon. The pond is where it always was, and it has not learned to flatter you.</p>
+<p>Let the frog jump. Listen for the water.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Matsuo Bashō · 4 October 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

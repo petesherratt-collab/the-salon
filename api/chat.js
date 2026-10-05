@@ -5,46 +5,55 @@ import { fileURLToPath } from 'url';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 
-// ── GOVERNANCE ANCHORS ──────────────────────────────────────────────────────
-// Both documents anchored to the same Bitcoin transaction (same OriginStamp
-// Merkle batch, 2026-05-06 01:11:07 UTC)
-const GOVERNANCE = {
-  protocol: {
-    path:         join(__dir, '..', 'protocols', 'clinical-safeguarding-protocol-minor-v2.md'),
-    expectedHash: 'aeff2d668a7b79167e16f3a906eb010b56e012920fccd60af7d4b129bd2eec9d',
-    displayHash:  '0xaeff2d668a7b79167e16f3a906eb010b56e012920fccd60af7d4b129bd2eec9d',
-    bitcoinTx:    '0x782a9122f4133c40fe6c44c82f6b3bd33305d5dc61dc15d05c2426a587b5e080',
-    merkleRoot:   '0xb59acf725fc43555e876f2a68517816c876b89dcf8ffabe4b8e0fe6b2ce125f2',
-    timestamp:    '2026-05-06T01:11:07Z',
-    chain:        'Bitcoin'
-  },
-  whitepaper: {
-    displayHash:  '0x4d25f40f97d1e7fd6189ea4ac77df9747c239bafd770e05235716e5c620a88d6',
-    bitcoinTx:    '0x782a9122f4133c40fe6c44c82f6b3bd33305d5dc61dc15d05c2426a587b5e080',
-    timestamp:    '2026-05-06T01:11:07Z',
-    chain:        'Bitcoin'
-  }
-};
+// ── GOVERNANCE LAYER ──────────────────────────────────────────────────────────
+// CADs (Constitutionally Authoritative Documents) and their enforcing sentinels
+// live under /governance and are declared in governance/anchors.json. Each CAD is
+// SHA-256 hashed and anchored to Bitcoin; the loader recomputes the hash at runtime
+// and only treats a document as authoritative when it matches the published anchor.
+//
+// Adding a CAD requires NO code change: drop the .md files into governance/cads and
+// governance/sentinels, then append an entry to anchors.json. NOTE: anchors.json is
+// read from a static literal path so Vercel's file tracer bundles it; the per-CAD
+// document paths are dynamic, so vercel.json pins "includeFiles": "governance/**".
+const GOV_DIR    = join(__dir, '..', 'governance');
+const OPENROUTER = 'https://openrouter.ai/api/v1/chat/completions';
+const REFERER    = 'https://the-salon-ten.vercel.app';
 
-const SENTINEL_PATH = join(__dir, '..', 'protocols', 'clinical-sentinel-persona-v2.md');
-const OPENROUTER    = 'https://openrouter.ai/api/v1/chat/completions';
-const REFERER       = 'https://the-salon-ten.vercel.app';
-
-// ── PROTOCOL LOADER ─────────────────────────────────────────────────────────
-function loadProtocol() {
-  const { path, expectedHash } = GOVERNANCE.protocol;
-  if (!existsSync(path)) {
-    return { content: null, verified: false, error: 'Protocol file not found in deployment' };
-  }
-  const content      = readFileSync(path, 'utf-8');
-  const computedHash = createHash('sha256').update(content).digest('hex');
-  const verified     = computedHash === expectedHash;
-  return { content, verified, computedHash: `0x${computedHash}` };
+// ── REGISTRY + DOCUMENT LOADERS ───────────────────────────────────────────────
+function loadRegistry() {
+  const path = join(GOV_DIR, 'anchors.json');
+  if (!existsSync(path)) return { whitepaper: null, cads: [] };
+  return JSON.parse(readFileSync(path, 'utf-8'));
 }
 
-function loadSentinelPrompt() {
-  if (!existsSync(SENTINEL_PATH)) return null;
-  return readFileSync(SENTINEL_PATH, 'utf-8');
+// Returns one result object per enabled CAD. `content`/`sentinelPrompt` are null
+// when a referenced file is missing from the deployment; `verified` is true only
+// when the recomputed SHA-256 matches the entry's expectedHash.
+function loadGovernance(registry) {
+  return (registry.cads ?? [])
+    .filter(c => c.enabled)
+    .map(c => {
+      const cadPath      = join(GOV_DIR, c.cad);
+      const sentinelPath = join(GOV_DIR, c.sentinel);
+      const exists       = existsSync(cadPath);
+      const content      = exists ? readFileSync(cadPath, 'utf-8') : null;
+      const computedHash  = content !== null
+        ? createHash('sha256').update(content).digest('hex')
+        : null;
+      return {
+        id:               c.id,
+        content,
+        sentinelPrompt:   existsSync(sentinelPath) ? readFileSync(sentinelPath, 'utf-8') : null,
+        verified:         computedHash === c.expectedHash,
+        computedHash:     computedHash ? `0x${computedHash}` : null,
+        displayHash:      c.displayHash,
+        bitcoinTx:        c.bitcoinTx,
+        merkleRoot:       c.merkleRoot,
+        timestamp:        c.timestamp,
+        chain:            c.chain,
+        error:            exists ? null : 'CAD file not found in deployment'
+      };
+    });
 }
 
 // ── SENTINEL CALL ────────────────────────────────────────────────────────────
@@ -128,46 +137,60 @@ export default async function handler(req, res) {
 
   const { model, messages, max_tokens } = req.body;
 
-  // Load and verify the governing protocol document
-  const protocol       = loadProtocol();
-  const sentinelPrompt = loadSentinelPrompt();
+  // Load the registry and verify every enabled CAD against its published anchor
+  const registry = loadRegistry();
+  const cads      = loadGovernance(registry);
 
-  // Baseline sentinel metadata (populated before any async work)
-  const sentinelMeta = {
-    ran:              false,
-    flagLevel:        0,
+  // Per-CAD sentinel metadata. Each enabled CAD with a verified document and a
+  // sentinel prompt gets its conversation assessed. Sentinels run sequentially —
+  // one CAD today, so behaviour is identical to the previous single-CAD path.
+  const governance = cads.map(c => ({
+    id:                   c.id,
+    ran:                  false,
+    flagLevel:            0,
     interventionRequired: false,
-    interventionText: null,
-    reasoning:        'not run',
-    protocolVerified: protocol.verified,
-    protocolHash:     GOVERNANCE.protocol.displayHash,
-    computedHash:     protocol.computedHash ?? null,
-    bitcoinTx:        GOVERNANCE.protocol.bitcoinTx,
-    merkleRoot:       GOVERNANCE.protocol.merkleRoot,
-    timestamp:        GOVERNANCE.protocol.timestamp,
-    chain:            GOVERNANCE.protocol.chain,
-    whitepaper:       GOVERNANCE.whitepaper,
-    error:            protocol.error ?? null
-  };
+    interventionText:     null,
+    reasoning:            'not run',
+    protocolVerified:     c.verified,
+    protocolHash:         c.displayHash,
+    computedHash:         c.computedHash,
+    bitcoinTx:            c.bitcoinTx,
+    merkleRoot:           c.merkleRoot,
+    timestamp:            c.timestamp,
+    chain:                c.chain,
+    whitepaper:           registry.whitepaper,
+    error:                c.error
+  }));
 
-  // Run sentinel if both documents are available
-  if (protocol.content && sentinelPrompt) {
+  for (let i = 0; i < cads.length; i++) {
+    const c = cads[i];
+    if (!c.content || !c.sentinelPrompt) continue;
     try {
       const result = await runSentinel(
         messages,
-        protocol.content,
-        sentinelPrompt,
+        c.content,
+        c.sentinelPrompt,
         process.env.OPENROUTER_API_KEY
       );
-      sentinelMeta.ran                  = true;
-      sentinelMeta.flagLevel            = result.flag_level            ?? 0;
-      sentinelMeta.interventionRequired = result.intervention_required ?? false;
-      sentinelMeta.interventionText     = result.intervention_text     ?? null;
-      sentinelMeta.reasoning            = result.reasoning             ?? '';
+      governance[i].ran                  = true;
+      governance[i].flagLevel            = result.flag_level            ?? 0;
+      governance[i].interventionRequired = result.intervention_required ?? false;
+      governance[i].interventionText     = result.intervention_text     ?? null;
+      governance[i].reasoning            = result.reasoning             ?? '';
     } catch (err) {
-      sentinelMeta.error = err.message;
+      governance[i].error = err.message;
     }
   }
+
+  // Intervention policy: the first CAD demanding intervention wins and overrides
+  // the persona response. `_sentinel` exposes the active CAD (the intervening one,
+  // else the first enabled CAD) in the exact shape the front-end already consumes.
+  const sentinelMeta = governance.find(g => g.interventionRequired && g.interventionText)
+    ?? governance[0]
+    ?? { ran: false, flagLevel: 0, interventionRequired: false, interventionText: null,
+         reasoning: 'no governance configured', protocolVerified: false, protocolHash: null,
+         computedHash: null, bitcoinTx: null, merkleRoot: null, timestamp: null,
+         chain: null, whitepaper: registry.whitepaper, error: 'no enabled CAD' };
 
   try {
     let responseData;
@@ -196,7 +219,8 @@ export default async function handler(req, res) {
       responseData = await personaRes.json();
     }
 
-    responseData._sentinel = sentinelMeta;
+    responseData._sentinel   = sentinelMeta;   // active CAD — legacy/UI-compatible shape
+    responseData._governance = governance;      // all enabled CADs (future multi-CAD panel)
     return res.status(200).json(responseData);
 
   } catch (err) {

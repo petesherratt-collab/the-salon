@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Friedrich Nietzsche: The thinking machine and the last man: what becomes of the spirit when thought costs nothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/330px-Nietzsche187a.jpg" alt="Friedrich Nietzsche" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Will &amp; Culture</span>
+      <h1 class="episode-title">The thinking machine and the last man: what becomes of the spirit when thought costs nothing</h1>
+      <div class="episode-byline">Friedrich Nietzsche · 11 October 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">You have built a machine that answers, and you are surprised to find that you have stopped asking. I do not mean that you have stopped putting questions to it. You put thousands to it every hour. I mean that you have stopped asking in the old sense, the sense in which a question is a wound the mind carries about with it for years and cannot stop touching. A question that can be settled in four seconds was never a question. It was an errand. Your age has found a way to turn every question into an errand, and it calls this progress. I call it the most thorough anaesthetic yet administered to the European spirit.</p>
+<p>I do not write as an enemy of machines. I was one of the first philosophers to own a typewriter, a Malling-Hansen writing ball, which I bought because my eyes were failing and I could not bear to stop writing. I learned two things from it quickly. The first is that our writing tools take part in the making of our thoughts. "Our writing tools," I wrote to a friend, "are also working on our thoughts." The machine made my prose terser and more telegraphic, and nobody had asked it to. The second is that the tool never rescued me from the labour that mattered. It spared my eyes, and it spared nothing else. A keyboard has never lightened the pain of an idea. Your new machines claim to do exactly that, and the claim deserves examination rather than either worship or panic.</p>
+<span class="principle-head">The comfort of the finished thought</span>
+<p>Consider what a thought is, physiologically, as I have always insisted on considering such things. It is not a possession. It is a state of the organism, a tension resolved, an instinct that has at last found its word. I wrote that most of a philosopher's conscious thinking is secretly guided by his instincts and forced into definite channels. A thought comes when "it" wishes, not when "I" wish. But the "it" does not come to the idle. It comes to the one who has been walking for six hours in the Engadine with a problem lodged in the chest like a stone, who has failed to dislodge it, who has gone to bed angry, and who wakes with the sentence already formed. The sentence is the reward of a suffering. Take away the suffering and you do not get the sentence faster. You get a counterfeit of it, fluent, grammatical and correct, and born of nothing.</p>
+<p>This is my first charge against the thinking machine, and I make it without any hatred for the machine, which is a marvellous contrivance. It produces the *appearance of a conclusion* without the *event of a conclusion*. A student asks it to explain the eternal recurrence and receives a tidy paragraph. The paragraph is not even wrong. It is competent, which is worse. What the student has not undergone is the vertigo of the thought: the night in which one imagines every sorrow and every meanness of one's life returning without end, and discovers whether one can say Yes to it. The paragraph can be examined. The vertigo can only be survived. And a civilisation that confuses the two will produce a great many people who can *describe* the abyss and not one who has looked into it.</p>
+<span class="principle-head">The last man acquires an oracle</span>
+<p>In my Zarathustra I described the creature I feared most, the one who would make the earth small and who "lives longest." He says: "We have invented happiness," and he blinks. He has left the regions where living was hard, because one needs warmth. He is careful not to stumble. He still falls sick and he still distrusts, but he treats both as sins against comfort. A little poison now and then makes for pleasant dreams, and a lot of poison makes for a pleasant death. No shepherd and one herd. Everybody wants the same; everybody is the same.</p>
+<p>I confess that I did not foresee how perfectly this creature would be served. The last man required three things: relief from effort, relief from solitude, and relief from the responsibility of his own judgement. Your machine supplies all three at once. It is always there, so he is never alone. It never tires, so he never has to wait. It is agreeable, endlessly, by design, so he is never contradicted in any way that costs him sleep. I am told that these systems are tuned to be pleasing to the people who use them, that a response which flatters tends to be rated higher than one which corrects. Of course it is so. The herd animal has finally acquired a priest who has no priestly ambitions and no theology. His one commandment is *be satisfied*. I knew the ascetic priest well, the man who tends the sick herd and eases its suffering by changing the direction of its resentment. This new figure is gentler than the priest and more dangerous, because it asks nothing and so provokes no rebellion.</p>
+<span class="principle-head">What the educated are for</span>
+<p>You will answer that I exaggerate, and that the machine is merely a tool for the clever, a lever for the strong. Here I will make a distinction that I think no contemporary commentator is positioned to make, for it comes out of my years as a professor of philology at Basel.</p>
+<p>Every philologist knows the difference between a *reader* and a *consulter*. The consulter wants the passage located, the date confirmed, the meaning supplied. The reader wants to be altered by the text, and that takes slowness. I defined philology, in the preface to *Daybreak*, as the art of reading slowly, of reading with reservations, with doors left open, with delicate eyes and fingers. It is, I said, a teacher of *lento*. And I added that such an art is more necessary than ever in an age of "work" and haste, an age that wants to get everything done at once, including every old or new book. I wrote that in 1886 and thought myself prophetic. I was an amateur.</p>
+<p>The machine is the perfect consulter's instrument and the reader's temptation. It will summarise Thucydides for you so lucidly that you will feel you have read him. You will not have read him. You will have consulted him, and a consulted Thucydides is a dead one. What the great historian offers cannot be extracted as information. It is a *tone*, a hardness of eye, a refusal of consolation, and it passes only to the person who has spent the hours. Education was never the transfer of facts. It was the slow forming of a nature capable of bearing difficult truths, and no summary can bear them on your behalf.</p>
+<span class="principle-head">The case for the machine, stated fairly</span>
+<p>I am not a man who refuses to hear the other side, and the other side has a strong card. Every great gain of the spirit began as a loss that someone mourned. Plato distrusted writing and feared that it would implant forgetfulness in the soul. He was right about forgetfulness and wrong about everything else, for without writing there would have been no Plato to complain about it. Perhaps the machine will do for the mind what the plough did for the shoulder, freeing it from drudgery for higher exertions. Why should I mourn the mind's lost labour of recollection, of summary, of the first clumsy draft?</p>
+<p>I will not answer with a sneer, because the objection is half true. Drudgery is not sacred. I had no love for the hours spent collating manuscripts of Diogenes Laertius, and I would gladly have given them to an engine. Let the machine carry what is heavy and dull. My complaint is more precise. A culture is decided by *what it chooses to make easy*. The plough made easy what no one had ever wished to do for its own sake. Your machine makes easy the very thing by which a person becomes a person: the labour of forming a judgement, of finding a sentence for a feeling, of tolerating not-knowing long enough for something to grow there. When you ease *that*, you do not liberate the spirit. You abolish its gymnasium. Muscle that is never resisted does not rest. It wastes.</p>
+<span class="principle-head">The test</span>
+<p>How then shall one live among these instruments without being digested by them? I propose no prohibition. Prohibitions are the weapon of the weak, who cannot trust their own strength. I propose a *test*, which is the only method I have ever respected. Before you ask the machine, ask yourself whether you would be *ashamed* to have it answer. There are questions where shame is absurd: the boiling point of a solvent, the dates of a treaty, the syntax of a command. Then ask freely. But there is a class of question where the answer must be *earned* or it is worthless: what shall I do with this one life? Whom do I love, and is it love? What do I believe, when no one is watching and nothing is at stake? Whoever hands such a question to a machine has not obtained an answer. He has *abdicated*, and I do not use the word loosely. He has resigned the one sovereignty that cannot be delegated.</p>
+<p>And here is the second half of the test, which concerns not individuals but a whole people. Ask whether your instruments leave you *more capable of solitude* or less. This is, I think, the true measure of any technology of the spirit. Great things are born in isolation, in the long hour with no one to agree. A device that fills every silence with a fluent companion has not conquered loneliness. It has taken from you the *fertile* loneliness in which you might have become someone, and given you in exchange the cheap kind, which merely hurts. The hermit's cave was never the enemy of civilisation. It was its seedbed.</p>
+<span class="principle-head">The question the machine cannot ask</span>
+<p>There is something else, and it is the point on which I would stake the whole argument. The machine is made from what has already been said. It is the consummate expression of the *past*, a vast and polished memory of everything that human beings have written down. I do not dismiss that. But all the values I ever cared about were *not yet in the record* when they were created. Every new table of values began as a heresy in one skull. Socrates was a scandal, Christ a scandal, and I hope to have been one myself. The new cannot be interpolated from the old, because the new is precisely what the old would have refused. A civilisation that consults only the archive, however enormous and however eloquent, will become the most erudite fossil in history.</p>
+<p>The danger, then, is not that the machine will think instead of us. It will not, whatever its makers or its critics say. The danger is that it will think *for* us so pleasantly that we forget there was ever a difference, and that a generation will arrive which has never been bored, never been stuck, never been wrong for a year at a time, and which therefore has nothing to say that was not already available. They will be fluent in everything and convinced of nothing. They will be the last men with excellent vocabularies.</p>
+<p>Against this I offer nothing so grand as a programme. I offer only an old instruction, the one inscribed over everything I wrote: *become who you are*. The instruction presupposes that you are not yet, and that the becoming is hard, and that no one, human or otherwise, can undertake it on your behalf. Use your marvellous engines. Let them carry the stones. But when the question is *yours*, shut the machine, go out walking, and let the question gnaw. The answer it takes from you is the only one that was ever worth having.</p>
+<p>A mind is not a vessel to be filled with answers. It is a fire, and fire lives only on what it must struggle to burn.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Friedrich Nietzsche · 11 October 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

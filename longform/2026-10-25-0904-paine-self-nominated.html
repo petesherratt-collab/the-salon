@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Thomas Paine: The common inheritance of mind: who owns the machines that were taught on everything we ever wrote, and what they owe the people they learned from</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg/330px-Laurent_Dabos_%E2%80%93_Thomas_Paine_%E2%80%93_Google_Art_Project.jpg" alt="Thomas Paine" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Liberty &amp; Revolution</span>
+      <h1 class="episode-title">The common inheritance of mind: who owns the machines that were taught on everything we ever wrote, and what they owe the people they learned from</h1>
+      <div class="episode-byline">Thomas Paine · 25 October 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">A thing built out of the whole labour of mankind cannot honestly belong to a few men in a few rooms. That is my judgment of the thinking machines now being raised up on the western shore of America. I have read what their makers say of them, and I have noticed what they do not say. They speak at length of what the machines can do, and at very little length of whose they are.</p>
+<p>Consider what the machines are made of. Nobody dug them from the ground, and nobody invented them from nothing. They were fed upon the written record of the species: the sermons and the pamphlets, the almanacs, the quarrels in the comment columns, the recipes, the love letters that somebody put on the open page, the proofs of the mathematicians, the confessions of the dying. Generations of the living and the dead laboured at it. A farmer's daughter in Ohio who wrote a careful answer to a stranger's question on a public forum, in an hour she could ill spare, has put something of herself into the engine. So has the clerk who annotated a statute and the schoolmaster who explained long division to nobody in particular. Not one of them was asked, and not one was paid. I do not say the taking was a theft in the narrow sense of the law. I say that it was a taking of a common stock, and that the proceeds are being gathered into private granaries.</p>
+<p>I have seen this form of injustice before, and I know its habits. It rarely arrives dressed as plunder. It arrives as improvement.</p>
+<span class="principle-head">The enclosure of the mind</span>
+<p>In my own island, the commons were enclosed by Act of Parliament, with every proper form observed. The great landlord did not steal the village pasture at night. He had a surveyor, a lawyer and a bill, and the bill passed. The cottager who had grazed a cow there for six hundred years found, with the law entirely on the other side, that he had no cow. The land was said to be more productive afterwards, and so it was. Productivity was never the question. The question was who should eat the harvest.</p>
+<p>I said in a later writing, which the comfortable were slow to forgive, that the earth in its natural state was the common property of the human race, and that cultivation was the invention that made individual property necessary. The cultivator has a right to what he adds to the soil, which is the improvement. He has no right to the soil itself. He owes the community a ground-rent for the holding of it. That distinction, the creation against the inheritance, seems to me the whole of the matter now.</p>
+<p>For there is an inheritance here as certain as any field. The accumulated record of human thought is a natural inheritance in all but the literal sense. No living person made it, and every living person is heir to it. The engineers who refine it, the capital that builds the great halls of machines, the cleverness of the architecture: all of that is improvement, and it deserves its reward. But the raw ore was not theirs to claim, and I notice the claim is being made all the same, quietly and by habit, under the heading of "publicly available data."</p>
+<p>Publicly available, indeed. So was the common pasture.</p>
+<span class="principle-head">Why the old arguments fail</span>
+<p>I am told, as I was told in my own day, that the thing is too complicated for the multitude to govern. I have heard that tune. The crowned heads said it of kingship. The East India men said it of commerce. The learned said it of the Bible when they wished to keep it in Latin. Whenever a few men wish to hold a power that touches everyone, they discover that it is a mystery, and that mysteries need priests.</p>
+<p>It is no mystery. Strip off the technical vocabulary and the matter is a plain one. A small number of corporations have built engines that can write, reason, persuade and decide at a scale no mortal institution has ever commanded. These engines are being placed between the citizen and nearly everything he reads, buys, learns and is told. The people who direct them answer to their shareholders and to no one else. I ask a simple question of any power: who can remove it? Of a king I could ask it and the answer was "nobody," which is exactly why I wrote against kings. Of these engines the answer is almost as short. The customer may stop paying, but he may not stop being governed, because the thing becomes the road everyone must walk.</p>
+<p>I am told the competition between these firms will protect the public. I have seen a little of competition between great houses. When two or three of them dominate, they quarrel over their share and agree about their privileges. They will compete over which of them sells you the better answer, and they will not compete over whether you are permitted to ask for the thing in any other way.</p>
+<p>I am told, too, that the makers are men of conscience, who lose sleep over the dangers. I do not doubt it. I have known men of conscience in power, and I have observed that conscience is a private virtue and that a republic cannot be built upon a private virtue. A government of good intentions is a government of the accident of who holds the intentions. My whole politics, if I may be allowed to say so, comes to one proposition: do not make the public's liberty depend on the temper of a good man, for he will die and his successor will not be one.</p>
+<span class="principle-head">What I proposed once, and propose again</span>
+<p>In the winter of 1795, with the Terror behind me and a French prison cell not far behind that, I wrote *Agrarian Justice*. I proposed that every person, on coming of age, should receive a sum from a national fund, and that every person past fifty should receive an annual allowance, as a matter of right and not charity. The fund was to be raised from a modest levy upon inherited estates, for the simple reason that the greater part of every fortune is made out of the commons, and the community may fairly claim a rent. I was called a leveller for it. The word was meant as an insult, and I never took it for one. Neither did I propose to level anything. I proposed to pay a debt.</p>
+<p>I propose the same principle now, under a modern name, because the debt is of the same kind.</p>
+<p>Let the great engines of thought pay a ground-rent into a common fund, and let it be a rent upon the inheritance they are built on: a share of what they earn from the training upon the public record, laid by in trust for the whole people and distributed to each of them equally, not by merit and not by grievance. I should not dispute the sum to the last farthing. I should insist upon the principle, because the principle is what gets forgotten. Alaska's people, I am told, are paid each year a dividend from the oil beneath their ground, and no one has yet been ruined by it. If a few feet of frozen oil can be held in common, I do not see why the sum of human thought cannot.</p>
+<p>There are men who will say that this takes the bread from the inventor's mouth. It does nothing of the kind. The inventor keeps the whole of his improvement, as I always held he should. The rent is on the soil and not on the plough.</p>
+<p>And I would go beyond the rent. I would have the weights of the very largest of these engines, the ones that stand between a nation and its own knowledge, placed under public audit, so that the law may know what the law is governing. A machine that can swing an election or sink a market is a public matter, whatever the deed of incorporation may say, and the people have as good a right to look inside it as they have to inspect a bridge.</p>
+<span class="principle-head">On the fear of the thing itself</span>
+<p>I should be misread if it were thought that I am an enemy of the machines. I am not. I was a staymaker, an exciseman, a bridge-builder in my own fashion; I spent years designing an iron bridge, and the smell of a good engine is a sweet smell to me. I believe these instruments may yet do more for the poor man than a hundred parliaments. A labourer in a remote parish who can have a physician's patience and a lawyer's learning at his elbow, for the cost of a candle, is a labourer one step nearer to being a citizen. I wrote that the more a man knows, the less he can be governed by fraud. That is an engine's best gift, and I would have it reach every cottage.</p>
+<p>But a gift held in a few hands is a leash, not a gift. The printing press made the Reformation only because it could not be kept in one cellar. *Common Sense* sold in its hundreds of thousands because I refused the profit of it. I gave the copyright to the cause and let any printer in the colonies strike off an edition. I would never have moved a continent had the pamphlet been the private property of a single shop. The reach of an idea is the measure of its power for liberty, and the narrowing of reach is the first sign of the narrowing of freedom.</p>
+<p>So I do not ask that the machines be stopped. I ask only that they be opened: open in their ownership as to the benefit, open in their workings as to the law, open in their reach as to the poor. A republic of the mind may keep its inventors rich, but it cannot allow them to be its landlords.</p>
+<span class="principle-head">The shape of the thing to come</span>
+<p>I know how this will go, for I have watched such arguments go before. The first reply will be that the question is premature. The second will be that it is too late. Between the two, some thirty years will pass, and the arrangement will have become the natural order of things, and a new generation will be taught that it was always so. That is how the commons died in England, and the lords did not even need to be wicked for it. They needed only to be early.</p>
+<p>Therefore I say it now, while the thing is still soft in the mould. The inheritance is common. The improvement is private. Let the rent be paid, let the engines be opened to the law, and let no man's conscience, however fine, stand in the place of a constitution.</p>
+<p>The future will belong to those who own what is learned from everyone. Let that be everyone.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Thomas Paine · 25 October 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

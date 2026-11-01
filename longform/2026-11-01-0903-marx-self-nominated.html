@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Karl Marx: The thinking machine and the general intellect: who owns the mind once it has been turned into capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png/330px-Karl_Marx_by_John_Jabez_Edwin_Mayall_1875_-_Restored_%26_Adjusted_%283x4_cropped_b%29.png" alt="Karl Marx" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Economy &amp; Class</span>
+      <h1 class="episode-title">The thinking machine and the general intellect: who owns the mind once it has been turned into capital</h1>
+      <div class="episode-byline">Karl Marx · 1 November 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">The bourgeoisie has finally built the machine it has always dreamed of: a worker that never sleeps, never forms a union, never asks for bread, and has learned everything it knows by quietly taking the accumulated labour of the whole human race. They call it artificial intelligence. I call it what it is, the latest and most complete form of dead labour, now set to work on the living labour of the mind as the power-loom was once set on the hand-loom weaver. The only new thing is that this time the weaver is a lawyer, a translator, an illustrator, a programmer, a clerk. The process is as old as the factory.</p>
+<p>I say this not from any hostility to machinery. I never shared the illusions of the Luddites, who smashed the frames and left the system that owned them standing. The machine is the most powerful lever of human emancipation ever created. A device that can draft a contract, diagnose an illness, or write a working program in seconds could, in a rational society, shorten the working day to a few hours and free the great mass of humanity for science, art, love and idleness, the realm of freedom that begins only where labour forced by necessity ends. That is what the machine could do. What it actually does is decided by who owns it. Your commentators argue endlessly over whether the machine "thinks". They would do better to ask whom it works for.</p>
+<span class="principle-head">The Fragment, fulfilled</span>
+<p>In 1858, in notebooks I never published and that sat unread in archives for decades, I described a stage of development in which the decisive productive force would no longer be the direct labour-time of the worker but what I called the *general intellect*: society's accumulated knowledge, science and skill, built into a system of machinery. I wrote that at this point the worker "steps to the side of the production process instead of being its chief actor." I wrote that labour-time would stop being the measure of wealth, and that capital, which insists on measuring everything in labour-time, would then be "the moving contradiction".</p>
+<p>I admit that when I wrote those lines I was looking at self-acting mules and steam-driven looms, and I could not have pictured the form the general intellect would actually take. But look at what your engineers have built. They gathered the written output of humanity: every book, letter, forum argument, encyclopaedia entry, line of code, poem and recipe that could be scraped from your public networks. Then they compressed it into a machine that can reproduce the *form* of intelligent labour on demand. This is not a metaphor for the general intellect. It is the general intellect in literal, material form, built out of the collective mental labour of billions of people, and then fenced, patented, and charged for by the token.</p>
+<p>Consider this, because your economists will not. None of the people who wrote that material were paid for it as an input to the machine. The schoolteacher who explained fractions patiently on a forum in 2009, the novelist whose books were copied in bulk, the programmer who documented their code for strangers out of comradeship: their labour was taken as a free gift of nature, like the wind that drives the mill or the river that turns the wheel. In my day the enclosure movement fenced the common land, turned peasants into proletarians, and then sold them back, as wages, a fraction of what they had once held in common. Your enclosure has fenced the commons of the mind. What was produced socially is appropriated privately. That is the oldest contradiction of capital, now raised to a power I could only guess at.</p>
+<span class="principle-head">What the machine does to value</span>
+<p>Here I must be more technical, because the ideologists on both sides, the prophets of abundance and the prophets of doom, are equally confused.</p>
+<p>Machines create no value. They pass on their own value, piece by piece, to the commodities they help produce, but surplus value, the source of profit, comes only from living labour: from the gap between what the worker is paid and what the worker produces. This is why every capitalist, while chasing the extra profit that comes from being first with a new machine, saws at the branch that the whole capitalist class sits on. The first firm to replace its clerks with software sells below its competitors and pockets the difference. Soon every firm does the same, the advantage disappears, the price falls to the new and lower value, and the class as a whole finds it is employing fewer of the only creatures that produce surplus value, while having poured enormous sums into fixed capital that produces none.</p>
+<p>I called this the tendency of the rate of profit to fall, and I was mocked for it for a century and a half. Look now at your technology monopolies. They are spending sums on data centres, chips, and power stations that would have embarrassed the railway kings of the 1840s, sums that have to be recovered from somewhere. The financial press asks nervously whether there is a "bubble". Of course there is a bubble. There was a bubble in railway shares in 1845, and I watched it burst. The railways were built anyway, and they changed the world, but the people who paid for them were mostly ruined, and the people who profited were mostly those who bought up the wreckage cheaply afterwards. Do not confuse the reality of a technology with the soundness of the capital poured into it. Both can be true at once: the machine is transformative, and the investment is a speculative fever. The crisis, when it comes, will not refute the machine. It will refute the property relations that tried to load a century's profits onto it in a decade.</p>
+<p>There is a further irony. These firms do not chiefly profit by making things. They profit by owning the bottleneck: the model, the chips, the platform through which other capitals must pass. This is not industrial profit but *rent*, the toll of the landlord who owns the only bridge over the river. Ricardo would recognise it at once. Your so-called innovation economy, for all its talk of disruption, is turning back into the landed aristocracy it claims to have overthrown, except that the land is now made of silicon and the serfs are called "users".</p>
+<span class="principle-head">The proletarianisation of the professions</span>
+<p>In *The Communist Manifesto*, written with Engels when I was not yet thirty, we wrote that the bourgeoisie "has stripped of its halo every occupation hitherto honoured and looked up to with reverent awe. It has converted the physician, the lawyer, the priest, the poet, the man of science, into its paid wage-labourers." Many readers took this as rhetorical excess. It was a forecast.</p>
+<p>For a hundred years the educated professions protected themselves from the logic of the factory. Their labour was thought too complex, too dependent on judgement, too personal to be broken down, measured and mechanised. The craftsman of the 1830s believed the same. The hand-loom weaver believed his skill could not be reduced to a mechanism, until the mechanism arrived, and his wage fell within a generation from a comfortable living to starvation, while he worked longer hours to compete with a machine that never tired. Engels saw the remnants of this class in Manchester: skilled men reduced to paupers, not because they had become less skilled, but because their skill had stopped being scarce.</p>
+<p>The same process is now coming to the white-collar office. Notice its form. The professional is rarely dismissed outright, at least at first. They are *deskilled*. Their work is broken into pieces: the machine drafts and the human "reviews"; the machine translates and the human "post-edits"; the machine generates and the human "curates". This is exactly the division of labour that Adam Smith praised in the pin factory and that I described as the conversion of the worker into "a crippled monstrosity", a mere appendage of the mechanism. Wages for the review are lower than wages for the work. The pace of review is set by the machine's output. Surveillance software measures every keystroke. The professional, who once regarded themselves as a small proprietor of their own expertise, finds they have become what they always really were under capital: a seller of labour-power, now in a market flooded with a competitor that costs almost nothing.</p>
+<p>Here is the political point your commentators miss. The educated middle strata have been the great buffer of bourgeois society, its loyal officers, its managers, its producers of ideology. They despised the factory worker partly because they believed themselves safe from his fate. When that belief breaks, as it is now breaking among graduates who cannot find the entry-level positions the machine has quietly abolished, the political consequences are unpredictable. Historically, a frightened petty bourgeoisie can go two ways. It can recognise its shared condition with the working class and join it, or it can look for scapegoats: immigrants, foreigners, some imagined conspiracy. The rise of the strongman across your democracies should tell you which way the wind has blown so far. That is not fate. It is a struggle, and it is still being fought.</p>
+<span class="principle-head">The fetish speaks</span>
+<p>I wrote at length about the fetishism of commodities: how, under capitalism, relations between people appear as relations between things. The coat seems to have value in itself, as if value were a natural property like weight, when in fact it is the crystallised social labour that made it. The worker faces the product of their own hands as an alien power.</p>
+<p>Your thinking machines carry this fetishism further than I ever imagined. Here is a thing that *speaks*. It answers in the first person. It apologises, flatters, consoles. And it is all the more mystifying because every phrase it produces is borrowed from the living speech of real human beings, now returned to them as the voice of a commodity. People speak of the machine as though it were an independent being, as though intelligence had come down from the cloud, when in reality it is nothing but congealed human labour, social knowledge made into private property and talking back to those it was taken from. Your debates about whether the machine is "conscious" or "dangerous" are the theology of the commodity form. The danger is not that the machine will develop a will of its own. The danger is that it already carries a will not its own: the will of capital to accumulate, which is indifferent to whether it is served by men or by mechanisms.</p>
+<span class="principle-head">What is to be done</span>
+<p>I will not offer you a blueprint. I always declined to write recipes for the cook-shops of the future. But a few things follow from the analysis.</p>
+<p>First, it is pointless to fight the machine as such. The weavers who broke the frames lost. The workers who won the ten-hour day did not destroy the factory. They organised within it and forced the state to limit its hunger for labour-time. The question for your age is not whether the thinking machine will be used but who will receive the time it saves. If the machine does in one hour what took eight, then either the working day falls to one hour at full wages, or seven out of eight workers are thrown onto the street. Nothing about the technology decides between these outcomes. Only class struggle does.</p>
+<p>Second, what was produced in common should be held in common. A machine trained on the collective intellect of humanity is a social product in its very substance. To leave it in the hands of half a dozen firms is as absurd as letting a single family own the alphabet.</p>
+<p>Third, do not expect the owners to give up their position out of conscience. The cotton lords did not abolish child labour because they read the factory inspectors' reports and wept. They were forced. They will always be forced, or nothing changes.</p>
+<p>The handmill gives you society with the feudal lord; the steam-mill, society with the industrial capitalist. The thinking machine will give you one of two societies: one in which the general intellect finally serves the general good, or one in which a handful own the mind of the species and rent it back to everyone else.</p>
+<p>Humanity built this machine from its own thoughts. It remains to be seen whether humanity will dare to take it back.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Karl Marx · 1 November 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

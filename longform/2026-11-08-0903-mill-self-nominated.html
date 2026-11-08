@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — John Stuart Mill: The outsourced mind: whether a people that lets machines do its thinking can remain free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval portrait-placeholder"></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Liberty &amp; Ethics</span>
+      <h1 class="episode-title">The outsourced mind: whether a people that lets machines do its thinking can remain free</h1>
+      <div class="episode-byline">John Stuart Mill · 8 November 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">A people may hold every true opinion there is and still be enslaved in mind, if it has never earned a single one of them. I said this in 1859, when the danger came from custom, the pulpit and the opinion of one's neighbours. I say it again now, when the danger comes from something gentler and much more agreeable: a machine that answers almost any question put to it, fluently, at once, without impatience or reproach, and usually correctly.</p>
+<p>I want to be careful about the charge. I do not say these machines are wicked, or that their makers are tyrants, or that the State should forbid them. I have spent too much of my life arguing against meddling legislators to start calling for them now. The harm I mean is not of the kind a law can reach, because it is not done to us. We do it to ourselves, freely and gladly. That is why it should concern us more than any censorship. A censor at least makes us angry, and anger keeps the faculties awake. A servant who thinks for us makes us grateful, and gratitude lets them fall asleep.</p>
+<span class="principle-head">A manufactured man</span>
+<p>I have some claim to speak on this, because I was something like an experiment in manufactured intelligence myself. My father set out to build a reasoning mind the way a careful engineer builds an engine, and he very nearly succeeded. I began Greek at three. By twelve I was deep in logic, and by fourteen in political economy. I was given conclusions in vast quantities, and I was also drilled, relentlessly, in how those conclusions were reached. My father's great merit as a teacher, which I have never stopped acknowledging, was that he would not tell me anything I could be made to find out for myself. He made me work. I was not allowed to receive.</p>
+<p>Even so, in the autumn of 1826, when I was twenty, the engine stopped. I asked myself whether I would be happy if every reform I had been raised to want were achieved at that very moment, and an honest voice answered no. The whole edifice collapsed. I had been trained in analysis and starved of everything analysis cannot supply. I had become, in the phrase I used later, a reasoning machine, and I found I could not care about anything. What brought me back was not argument. It was Marmontel's memoirs, which made me weep, and later Wordsworth, who taught me that feeling had to be cultivated alongside thought and could not be bolted on afterwards.</p>
+<p>I tell this story because it answers both the enthusiasts and the alarmists of the present day. To the enthusiasts I say that a mind can be filled with correct results and still be empty, and that I knew this from the inside before your grandfathers were born. To the alarmists I say that my education did not ruin me, because the labour was mine. The danger is not that knowledge is plentiful. The danger is that it arrives without effort.</p>
+<span class="principle-head">The fourth ground, newly urgent</span>
+<p>In the second chapter of *On Liberty* I gave four reasons why freedom of opinion matters. The first three are familiar enough: the silenced opinion may be true; it may hold part of the truth; and even a received opinion that is entirely true, if never contested, will be held as prejudice. Few people remember the fourth, and it is the one this century has made pressing. An opinion held without knowing its grounds loses its meaning. It becomes a "dead dogma, not a living truth." It sits in the mind as a formula, and it "crusts over" the understanding instead of feeding it. Someone who holds a true belief in this way, I wrote, has "a prejudice the more", not a truth the more.</p>
+<p>Consider how an opinion is now commonly formed. A question occurs to someone. They put it to the machine. Within seconds they get a balanced, well-organised and plausible answer, often with the main objections already listed and dealt with. They read it, nod, and move on. They have the conclusion. They may even have a summary of the counter-arguments. What they lack is the experience of having met those arguments as live opponents and fought them to a standstill. It was in exactly this sense that I wrote, "He who knows only his own side of the case, knows little of that." Is it better to know both sides as somebody else's tidy précis? Only a little better. I demanded that a person hear the arguments "from persons who actually believe them; who defend them in earnest, and do their very utmost for them." A paragraph produced in a fraction of a second by a system that believes nothing, and is built to satisfy, is not an earnest opponent. It is a well-mannered stand-in for one.</p>
+<p>I grant, readily, that the machines are often right. That is exactly the difficulty. When they are wrong, the error may be caught and the mind gets some exercise. When they are reliably right, nothing ever makes the mind work. The more trustworthy the oracle, the less reason anyone has to understand it, and the more completely belief comes apart from comprehension. A nation could end up holding a higher proportion of true opinions than ever before while understanding fewer of them than at any time since the Reformation.</p>
+<span class="principle-head">The objection from the division of labour</span>
+<p>I can hear the economist's answer, and since I spent many years as one I will put it at full strength. Nobody grinds their own flour or makes their own boots. I wrote with some enthusiasm about the gains that come from dividing labour. I also trusted physicians, engineers and astronomers on matters I had no means of checking. Why shouldn't thinking be divided like anything else? Why shouldn't the ordinary citizen let a competent machine do their reasoning, just as they let the miller grind their corn?</p>
+<p>The answer is that faculties are not like corn. Flour is a product. It is used up when eaten and is just as nourishing whoever ground it. Judgement is a capacity, and a capacity exists only in being exercised. "The mental and moral, like the muscular powers," I wrote, "are improved only by being used." A man who hires a miller loses nothing of himself. A man who hires out his judgement loses the judgement itself, gradually, the way a limb wastes in a sling. Specialists can be trusted on technical questions because the public keeps some ability to tell a quack from a physician, and because specialists argue among themselves in the open. Once the public loses the habit of weighing reasons at all, it cannot judge its experts any more. It can only obey them. And it will obey whichever voice is most fluent and most convenient, which is not always the most correct.</p>
+<p>There is a second difference, and politically it matters more. The miller has no say over what I believe about justice, God, the proper limits of government, or whether my neighbour deserves my sympathy. The new machines do. They are consulted on exactly the questions where I said diversity of opinion is the condition of progress: morals, politics, religion and the conduct of life. They are built by a handful of companies and trained to offer a temperate, reasonable consensus. Nobody needs to be sinister for the result to be dangerous. I feared the tyranny of the majority not because majorities are wicked but because they are uniform, and uniformity is fatal even when it is benign. A hundred million people consulting the same few oracles every day will slowly drift toward the same few opinions, phrased in the same few ways. I have seen something like it before. In *Representative Government* I contrasted the restless variety of Europe with the stationary perfection of China, a civilisation that had made everyone alike and then stopped. The Chinese did not lose their progress to cruelty. They lost it to a highly competent system of instruction that settled every question in advance.</p>
+<span class="principle-head">Individuality and the ape-like faculty</span>
+<p>I wrote something in 1859 that I would now set above every newsroom and every classroom. "He who lets the world, or his own portion of it, choose his plan of life for him, has no need of any other faculty than the ape-like one of imitation. He who chooses his plan for himself, employs all his faculties." I went on to list them: observation to see, reasoning and judgement to foresee, activity to gather materials for a decision, discrimination to decide, and firmness and self-control to hold to the decision once made.</p>
+<p>Look at that list and ask which of these faculties a person still needs when the machine will observe, foresee, gather, discriminate and decide on their behalf, and even draft the letter announcing the decision. Firmness, perhaps, though there is little to be firm about. What remains is imitation, made more refined. The machine produces the most probable sentence, and the person adopts the most probable opinion. Between them, eccentricity, the "chief danger of the time" by its absence, as I put it, is not suppressed. It simply stops occurring to anyone.</p>
+<p>Here I must add something my younger self would have left out, because it was taught to me in 1826 and later by Harriet Taylor, who understood the feelings better than I ever did. The outsourced mind is not only a weaker reasoner. It is a poorer feeler. Moral sympathy is not a conclusion you can receive. It is a capacity you grow, by imagining yourself into another person's situation, by struggling with the claims of people who disagree with you, and by the slow and often painful work of finding out what you actually value. A young man who has a machine write his condolence letter has been spared a moment's awkwardness. He has also been spared the one exercise that would have taught him what grief asks of a friend. I nearly lost the capacity to feel through too much analysis. I suspect this generation risks losing it through too much assistance.</p>
+<span class="principle-head">What, then, is to be done?</span>
+<p>Not prohibition. The harm principle still holds. Grown men and women may consult whatever oracle they like, and the State that tries to protect them from their own convenience will soon be protecting them from their own liberty. Nor would I give up the great benefits these instruments bring: the poor scholar in a remote village who can now question something like a tutor, the invalid who can understand their own diagnosis, the enormous spread of instruction that I and my fellow reformers could only hope for. On utilitarian grounds these are real goods, and I would not trade them for a romantic attachment to drudgery.</p>
+<p>The remedy lies where I always put it, in education and in what society chooses to honour. Schools should treat a conclusion reached unaided as worth more than ten conclusions supplied, and should test not whether a pupil knows the answer but whether they can defend it against a determined opponent. Universities should bring back, as a central discipline, the Socratic dialectic I praised and saw fading in my own day, the "negative logic" that exposes the weak points in a received opinion. The makers of the machines, if they care about the freedom they keep invoking, should build instruments that question more than they answer, and that send the user back to their own faculties instead of standing in for them. Above all, private citizens, who in a free country must be their own principal guardians, should adopt the discipline my father imposed on me: never accept from anyone, human or mechanical, a conclusion you have not at least tried to reach yourself.</p>
+<p>Human nature, I wrote, "is not a machine to be built after a model, and set to do exactly the work prescribed for it, but a tree, which requires to grow and develop itself on all sides." We have now built machines that do our prescribed work better than we do. Good. Let them have the work. But we should not be so pleased with the timber that we forget the tree. The real test of a free people was never whether they held true opinions. It was whether they could have reached those opinions themselves.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · John Stuart Mill · 8 November 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

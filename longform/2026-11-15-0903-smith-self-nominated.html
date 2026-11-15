@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Adam Smith: The revival of the mercantile system, and the merchants who once again write the laws of nations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Adam_Smith_The_Muir_portrait.jpg/330px-Adam_Smith_The_Muir_portrait.jpg" alt="Adam Smith" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Economy &amp; Moral Sentiment</span>
+      <h1 class="episode-title">The revival of the mercantile system, and the merchants who once again write the laws of nations</h1>
+      <div class="episode-byline">Adam Smith · 15 November 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">The mercantile system, which I spent the better part of twelve years and nine hundred pages endeavouring to bury, has climbed out of its grave, and it has had the impudence to do so wearing my name upon its coat. I am told that I am the patron saint of the men of great fortune; that my "invisible hand," a phrase I used exactly once in the *Wealth of Nations*, is the whole of my philosophy; and that the same parties who invoke me at their dinners now applaud duties upon foreign goods higher than any their country has levied in near a century. I must be permitted to object. I did not write against government in order to flatter merchants. I wrote against merchants who had captured government, and that is the precise condition in which I find the commercial world of the present day.</p>
+<p>Consider what has been done. The greatest trading republic in the world has, within the space of two years, laid duties upon the goods of nearly every nation, friend and rival alike, and has justified them by the oldest and most thoroughly exploded doctrine in political economy: that a nation which buys more from its neighbour than it sells to him is thereby robbed. The duties announced in the spring of 2025 were computed, I understand, by a formula founded directly upon each country's balance of trade with the United States, as though that balance were a ledger of injuries. I said in 1776 that nothing can be more absurd than this whole doctrine of the balance of trade, and two hundred and fifty years of evidence have not rendered it less so. When I purchase my dinner of the butcher, I run a perpetual deficit with him; he buys nothing of me. Neither of us is impoverished by the arrangement. I have his beef, which I wanted more than my shillings, and he has my shillings, which he wanted more than his beef. To call this a wound is to mistake the very nature of exchange.</p>
+<span class="principle-head">The old error in new dress</span>
+<p>The mercantile writers of my century believed that wealth consisted in gold and silver, and that the business of the statesman was to heap up treasure by selling much and buying little. Their descendants have exchanged gold for other idols — manufacturing employments, "supply chains," the bilateral surplus — but the structure of the error is unchanged. It consists in regarding production, and not consumption, as the end of economic life. I laid it down as a maxim so self-evident that it would be absurd to attempt to prove it: consumption is the sole end and purpose of all production, and the interest of the producer ought to be attended to only so far as it may be necessary for promoting that of the consumer. In the mercantile system the interest of the consumer is almost constantly sacrificed to that of the producer. So it is now. A duty upon foreign steel is a tax upon every domestic maker of ploughs, motor-carriages and bridges; a duty upon foreign cloth is a tax upon every labourer who must clothe his children. The tax is not paid by the foreigner, whatever the statesman may proclaim from his rostrum. It is paid at the counter, by the people in whose name it was imposed, and it is paid most heavily by the poor, who spend the greater part of their revenue upon goods and not upon services or stocks.</p>
+<p>Nor is America alone in the folly. China has for a generation practised the mercantile art with a thoroughness that Colbert would have envied: bounties upon favoured manufactures, credit directed by the state, the home consumer restrained that the exporter might flourish, and of late the stopping of rare earths and other materials as an instrument of policy. Europe answers with its own subsidies and its own carbon duties at the frontier. Each power cites the conduct of the others as its warrant. By such maxims, I wrote, nations have been taught that their interest consists in beggaring all their neighbours; commerce, which ought naturally to be among nations, as among individuals, a bond of union and friendship, has become the most fertile source of discord and animosity. I should not alter a syllable.</p>
+<span class="principle-head">Who truly gains</span>
+<p>But I should be a poor philosopher if I attended only to the doctrine and not to the interest behind it, for it is never the doctrine that makes the law. I was, in the last years of my life, a Commissioner of Customs at Edinburgh; I have sat at the board where duties are administered, and I know what a tariff schedule is. It is not an instrument of national policy. It is a catalogue of favours. Every line in it has a sponsor, every exemption a petitioner, and the more complicated the schedule, the richer the harvest for those who can afford an advocate in the capital.</p>
+<p>Observe, then, what has attended the new duties. No sooner were they proclaimed than there commenced a procession of the greatest manufacturers and merchants to the seat of government, each seeking exclusion for his own article. The makers of the pocket telephones obtained relief; others, with less access, did not. Great companies have pledged investments, made gifts, and in certain instances agreed to yield the government a share of their sales or of their very stock, in exchange for licence to trade. This is the natural and inevitable fruit of the system, and its participants are merely acting as the system invites. When the sovereign may by his word raise or remit a duty upon any commodity from any nation, the most profitable investment a merchant can make is in the sovereign's good opinion. Capital and ingenuity that should have been employed in making better goods are employed in making better friends.</p>
+<p>I warned that the proposal of any new law or regulation of commerce which comes from the order of merchants and manufacturers ought always to be listened to with great precaution, and never adopted till after having been long and carefully examined with the most suspicious attention. It comes from an order of men whose interest is never exactly the same with that of the public, and who have generally an interest to deceive and even to oppress it. This was no hostility to commerce on my part. The merchant in a free competition is the servant of the public whether he wills it or not, for he can enrich himself only by supplying what others want at a price they will pay. It is the merchant armed with a statute who is dangerous. The whole virtue of the market lies in the circumstance that it compels the self-interested man to serve his neighbour; the whole vice of the mercantile system is that it releases him from that compulsion.</p>
+<p>And here I must speak of a monopoly greater than any the East India Company ever enjoyed. A handful of companies now govern the channels by which mankind converses, purchases, and informs itself, and the same companies are engrossing the new engines of artificial reasoning, upon which they expend sums that would have purchased the entire commerce of my century. I do not complain that they are large; some undertakings require a great stock. I complain when they employ their magnitude to bar the entry of rivals, to purchase every promising competitor in the cradle, and to stand so near the legislature that the regulation of their trade is drawn up in their own counting-houses. Of the monopolists of my day I wrote that, like an overgrown standing army, they had become formidable to the government and upon many occasions intimidated the legislature. The member of parliament who supported them acquired reputation and influence; he who opposed them was exposed to infamous abuse and real danger. I leave the reader to judge whether the description wants amendment.</p>
+<span class="principle-head">What may justly be said for the other side</span>
+<p>I am no fanatic, and I never held that the freedom of trade admits no exception. I allowed two, and candour requires that I state them, because the present advocates of restriction shelter behind both.</p>
+<p>The first is defence. Defence, I said, is of much more importance than opulence, and on that ground I called the Act of Navigation perhaps the wisest of all the commercial regulations of England, though I knew it diminished our wealth. If a nation finds that the medicines of its hospitals or the instruments of its arms can be had only of a power that may one day be its enemy, it does not act irrationally in paying something to secure them at home. But let the exception be kept honest. It will cover semiconductors and gunpowder; it will not cover kitchen cabinets, nor the timber of Canada, nor the wine of France. When every trade discovers itself essential to the safety of the commonwealth, we may be sure that the commonwealth's safety is not the object in view.</p>
+<p>The second is retaliation, which may be good policy when there is a probability that it will procure the repeal of the foreign duties complained of. Whether it will do so is a judgment that belongs, I wrote, not to the science of a legislator but to the skill of that insidious and crafty animal vulgarly called a statesman or politician. I observe only that a duty which is to be a lever of negotiation cannot at the same time be a permanent source of revenue and a permanent shelter for domestic industry. The present duties are advertised as all three, and they cannot all be true together. A lever which is never to be released is merely a burden.</p>
+<p>There is a third matter, which is not an exception but a reproach, and I take it to myself as much as to anyone. The advocates of free trade in the last generation spoke as if the gains to the nation discharged every debt to the particular men ruined by the change. They did not. I wrote that humanity may require the freedom of trade to be restored only by slow gradations and with a good deal of reserve and circumspection, lest thousands be deprived at once of their ordinary employment and means of subsistence. The towns of Ohio and of the English Midlands were given no gradations. They were given a sermon upon comparative advantage and left to their decay. And no society can surely be flourishing and happy of which the far greater part of the members are poor and miserable. The grievance of those towns is real. My quarrel is with the remedy, which taxes those very people upon their bread and their boots, delivers the proceeds of protection to the owners of the protected trades, and calls the transaction patriotism.</p>
+<span class="principle-head">The disposition to admire</span>
+<p>Why do the people bear it? Here I must turn from my second book to my first, which my admirers seldom open. In the *Theory of Moral Sentiments* I remarked that the disposition to admire, and almost to worship, the rich and the powerful, and to despise or at least neglect persons of poor and mean condition, is the great and most universal cause of the corruption of our moral sentiments. We suppose that he who has acquired a great fortune must possess a great understanding, and that he who commands a great company is fit to counsel a great nation. So the richest men of the age are received as oracles upon matters in which they have the most direct pecuniary interest, and their attendance upon power is taken for public spirit.</p>
+<p>It is the same disposition that makes the mercantile sophistry persuasive. The gain of a tariff is concentrated, visible, and possessed by persons of consequence who can hold a ceremony before a factory gate. The loss is dispersed in pennies across a whole people, and no ceremony is held for the dearer shoe. The few who profit know precisely what they gain and combine to defend it; the many who pay scarcely know that they are paying. This asymmetry, and not any force of argument, has sustained every monopoly in history.</p>
+<p>I am sometimes asked whether I despair. I do not. When I published my book I thought that to expect the freedom of trade ever to be entirely restored in Great Britain was as absurd as to expect an Oceana or Utopia; and yet within seventy years the Corn Laws were repealed. Error supported by interest is durable but not immortal, for the bill does at last come due, and the people do at last read it. What I ask of the present generation is only that they cease to mistake the parties. The contest of this age is not between the market and the state. It is, as it was in mine, between the public and those who would hire the state to save them from the market.</p>
+<p>A nation is not made rich by the favours its government sells, and the first thing a people purchases with a tariff is a class of men whose fortunes depend upon keeping it.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Adam Smith · 15 November 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

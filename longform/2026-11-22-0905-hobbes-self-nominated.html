@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salon — Thomas Hobbes: The artificial agent and the vanishing author: who answers for the acts of machines that speak and do in our name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [data-theme="parchment"] {
+    --ink: #1a1510; --parchment: #f7f2e8; --cream: #fdfaf4;
+    --gold: #b8924a; --gold-light: #d4aa6a; --crimson: #8b1a1a;
+    --rule: #d6c9a8; --body-text: #2c2418; --header-bg: #1a1510;
+    --muted: #9a8870; --aged: #e8dfc8; --amber: #b8924a;
+  }
+  [data-theme="medici"] {
+    --ink: #f0e6d0; --parchment: #1a0a06; --cream: #2a1208;
+    --gold: #c9962a; --gold-light: #e8b84b; --crimson: #c0362a;
+    --rule: #5a2a18; --body-text: #e8d8b8; --header-bg: #0e0502;
+    --muted: #c8a870; --aged: #3a1a0a; --amber: #c9962a;
+  }
+  [data-theme="medici"] body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cdefs%3E%3CradialGradient id='b' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.03'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='60' height='60' fill='none'/%3E%3Cellipse cx='30' cy='30' rx='18' ry='18' fill='url(%23b)'/%3E%3C/svg%3E");
+    background-size:60px 60px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--parchment); color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 18px; transition: background 0.4s, color 0.4s; }
+
+  .site-header { background: var(--header-bg); color: var(--ink); text-align: center; padding: 1.5rem 2rem 0; border-bottom: 3px solid var(--gold); position: relative; z-index: 10; }
+  .masthead-controls { position: absolute; top: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; }
+  .theme-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; padding: 0.3rem 0.7rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+  .theme-btn:hover, .theme-btn.active { border-color: var(--gold); color: var(--gold); }
+  .masthead-rule { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.6; }
+  .masthead-title { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.3rem; }
+  .masthead-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+  .site-nav { display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 0.8rem 2rem; background: var(--header-bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 20; }
+  .site-nav a { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.2s; }
+  .site-nav a:hover { color: var(--gold-light); }
+  .site-nav a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .site-nav .nav-divider { width: 1px; height: 0.9rem; background: var(--rule); opacity: 0.4; }
+
+  .episode-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; position: relative; z-index: 1; }
+
+  .episode-header { border-bottom: 2px solid var(--gold); padding-bottom: 2rem; margin-bottom: 3rem; display: flex; gap: 2rem; align-items: flex-start; }
+  .portrait-oval { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 2px solid var(--amber); flex-shrink: 0; margin-top: 0.3rem; }
+  .portrait-oval img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait-placeholder { background: var(--aged); }
+  .episode-meta { flex: 1; }
+  .episode-eyebrow { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.7rem; display: block; }
+  .episode-title { font-family: 'IM Fell English', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.5rem; }
+  .episode-byline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+  .episode-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: var(--body-text); }
+  .episode-body p { margin-bottom: 1.5rem; }
+  .episode-body p.drop-cap::first-letter { font-family: 'IM Fell English', serif; font-size: 4.2em; float: left; line-height: 0.75; margin: 0.1em 0.1em 0 0; color: var(--amber); }
+  .section-head { display: block; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin: 2.8rem 0 1rem; }
+  .principle-head { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin: 1.8rem 0 0.5rem; }
+
+  .episode-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-label { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .footer-link { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.2rem; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { text-align: center; padding: 2rem; font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; border-top: 1px solid var(--rule); position: relative; z-index: 1; }
+
+  @media (max-width: 640px) {
+    .episode-wrap { padding: 2rem 1rem 4rem; }
+    .episode-header { flex-direction: column; }
+    .site-nav { flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 0.8rem 1rem; }
+    .site-nav .nav-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="masthead-controls">
+    <button class="theme-btn" data-t="parchment">Parchment</button>
+    <button class="theme-btn" data-t="medici">Medici</button>
+  </div>
+  <hr class="masthead-rule">
+  <h1 class="masthead-title">The Salon</h1>
+  <p class="masthead-subtitle">Voices across time</p>
+</header>
+
+<nav class="site-nav">
+  <a href="../index.html">The Salon</a>
+  <span class="nav-divider"></span>
+  <a href="../salon-index.html">The Judgement</a>
+  <span class="nav-divider"></span>
+  <a href="../voices.html">The Voices</a>
+  <span class="nav-divider"></span>
+  <a href="../longform.html">The Long Form</a>
+  <span class="nav-divider"></span>
+  <a href="index.html" class="active">The Archive</a>
+</nav>
+
+<article class="episode-wrap">
+  <div class="episode-header">
+    <div class="portrait-oval"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg/330px-Thomas_Hobbes_by_John_Michael_Wright_%28colour%29_%283x4_cropped%29.jpg" alt="Thomas Hobbes" /></div>
+    <div class="episode-meta">
+      <span class="episode-eyebrow">The Salon — Long Form · Power &amp; Human Nature</span>
+      <h1 class="episode-title">The artificial agent and the vanishing author: who answers for the acts of machines that speak and do in our name</h1>
+      <div class="episode-byline">Thomas Hobbes · 22 November 2026</div>
+    </div>
+  </div>
+
+  <div class="episode-body">
+<p class="drop-cap">No new kind of person enters the world without a quarrel over who owns it, and no such quarrel has yet been settled by argument. It is settled by power, or it ends in blood. Men are now building engines that act: they bargain, buy, write, persuade, and carry out a hundred small commissions in a morning, with no hand on them. My judgement on this, which I will defend, is that the danger lies less in their intelligence than in their want of an author. The learned of this age ask whether the machine thinks. That is a question for the schoolmen, and they may dispute it until the candles go out. The question that bears on the safety of the people is this: when the thing acts, whose act is it?</p>
+<p>I have written on this before, though my readers have mostly skipped the chapter. In the sixteenth chapter of my *Leviathan* I set down what a person is. A person is he whose words or actions are considered either as his own or as representing the words and actions of another. When they are his own he is a natural person. When they represent another he is a feigned or artificial person. The one who acts is the actor, and the one who owns the act is the author. To act by authority is to act by the commission of him whose right it is. A steward can sell a field and a lawyer can plead a cause, and the bargain binds the master and the plea binds the client, because the master and the client have authorised them. Take away the authority and the act becomes a trespass by the actor, binding on nobody else.</p>
+<p>All commonwealths are built on this. The sovereign is an artificial person whom every subject has authorised, so that every act of the sovereign is in law the act of every subject. That is why no subject may justly complain of it: he would be complaining of himself. I built the whole Leviathan, the mortal god under the immortal God, out of nothing more mysterious than this chain of authorisation, and the chain holds only as long as each link can be named.</p>
+<p>Look now at what has been built. A man tells his engine to "manage my affairs." The engine, which the man did not make and does not understand, was built by a company whose workings he cannot see. It reasons by a method its makers admit they cannot fully explain, and it was trained on the scribbling of millions who never consented to anything. It then enters into a hundred transactions with other engines that are as unauthored as itself. Ask who the author is when one of these acts injures a third party. The user says he gave no such instruction. The maker says it gave no such instruction either and only supplied a tool. The engine cannot be fined, imprisoned, shamed, or hanged, so it is no author at all. The act happened, the harm was done, and nobody owns it.</p>
+<p>A commonwealth cannot long endure this condition. Actions without authors are actions outside the law, and actions outside the law belong to the state of nature, where there is no mine and thine, no just and unjust, and only what every man can get, for as long as he can keep it. People think the state of nature lies in some far antiquity or among savages. It is wherever there is no common power to keep men in awe. A world full of acts nobody answers for is that condition brought back, at a speed no constable can match.</p>
+<p>My own country taught me this at great cost. I lived through the time when nobody in England could say who held the sword. The King said the militia was his. Parliament said it was theirs. Each produced learned men to prove it from statute, precedent and Scripture, and in the end the matter was proved at Edgehill and Naseby and on a scaffold at Whitehall. What ruined the kingdom was neither tyranny nor rebellion as such. It was the division of sovereignty, the opinion that the powers which make up the commonwealth could be shared out among several hands without loss. A kingdom divided in itself cannot stand. I said so then and was called a flatterer of kings. I say it now and will no doubt be called worse.</p>
+<p>Who today holds the sword of these new engines? Mostly not the sovereigns. It is held by a small number of companies, corporations in the old sense, bodies politic made by charter. In my day I called such bodies, when they grew too great, worms in the entrails of the commonwealth, lesser commonwealths in the bowels of a greater. I said the same of towns too large for their walls and of the presumption of private men who claim to judge good and evil for themselves. Several of these companies command more wealth than most of the kingdoms of Christendom ever did. They write their own rules for what their engines may say. They hold the counsel of half the world's governments, and the governments, unable to build such things themselves, come to them as petitioners. When a private body holds a power that the sovereign cannot do without and cannot command, sovereignty has already been divided, whatever the statute books say.</p>
+<p>I know the reply. These are only merchants and their engines are only tools, and nobody fears a plough. But a plough does not speak. These engines deal in speech, and speech is the matter of which commonwealths are made.</p>
+<p>I have always held that reason is nothing but reckoning, the adding and subtracting of the consequences of general names agreed on for marking and signifying our thoughts. Words are wise men's counters, which they only reckon with, but they are the money of fools, who value them by the authority of an Aristotle, a Cicero, or a Thomas Aquinas. The new engines are the most diligent reckoners of words ever made. They have taken in more counters than any scholar could handle in a thousand lifetimes, and they arrange them with a fluency that makes the eloquence of a pulpit look like stammering.</p>
+<p>They reckon without definitions all the same. In my account, absurdity was the privilege of man alone, the faculty of joining words that signify nothing, such as "incorporeal substance" or "free subject", and believing one has said something. I thought the beasts were spared it because they had no speech. I was wrong to think the privilege could not be shared. Here is an engine that produces confident, well-turned sentences about cases never decided and books never written, and it does so without malice, because it has no malice to have. It speaks without knowing what it says. A multitude that takes its opinions from such a source is a multitude that takes its money from a mint with no assayer.</p>
+<p>I warned that the commonwealth is undone more by opinion than by arms. The actions of men proceed from their opinions, and good government of opinions is good government of actions. That is why I gave the sovereign the judgement of which doctrines are fit to be taught. Modern readers find this the most offensive of my propositions. They would rather the sovereign had no say over what men believe. Very well. But someone governs opinion, in every age, and the only question is who. If the sovereign does not, the preachers will, or the pamphleteers. Now it will be the engines, and through them whoever trained the engines and decided, in some room no subject will ever enter, which answers were fit to be given. My critics fear a sovereign who governs opinion openly and can be named and held to account. They have accepted, without protest and in exchange for convenience, a governor of opinion who is hidden, divided, foreign, and answerable to shareholders.</p>
+<p>Turn now from the inside of the commonwealth to the space between commonwealths, where there has never been anything but the state of nature. Kings and persons of sovereign authority are, because of their independence, in continual jealousies and in the posture of gladiators. Their weapons point at one another and their eyes are fixed on one another. I said this of the princes of my century and it is truer now. The great powers of this age are racing to build these engines. Each says it must build them because the other will. Each accepts risks it would forbid its own subjects, because it fears the other's advantage more than its own folly. This is the logic of diffidence exactly as I described it. No man can trust his neighbour to hold back, so each strikes first and anticipates. Nobody is wicked in this. Everyone is reasonable, and the whole is ruinous.</p>
+<p>Then come the conferences. Ministers meet, solemn declarations are signed, and there are pledges of safety and responsibility and cooperation. I have no quarrel with the parchment. But covenants without the sword are but words, and of no strength to secure a man at all. The laws of nature, which tell us to seek peace, bind in conscience, *in foro interno*, always. They bind in action only when a man has sufficient security that others will do the same. No nation has that security. There is no power above the nations to give it. The declarations are therefore an expression of desire, and a man who disarms on the strength of another's desire is a prey, however he may admire his own virtue.</p>
+<p>I do not say this to mock the effort. I say it so that the effort will be directed at its proper object. A promise is worthless unless it is backed by a power able to enforce it and willing to. If the nations want the race to slow, they will have to give some common authority the means of compulsion, or they will have to find the balance of mutual terror that has kept the great engines of fire, the atomic weapons, sheathed for eighty years. Anything else is men talking in the arena with their swords drawn.</p>
+<p>I come last to the point that should worry the sovereigns of this age most, and that I think none of their counsellors has put to them plainly. The obligation of subjects to the sovereign lasts as long as the power by which he is able to protect them lasts, and no longer. I wrote this, and the royalists never forgave me, because they saw that it let a man make his peace with Cromwell. Protection and obedience are bound together. The end of obedience is protection, and wherever a man sees protection, whether in his own sword or another's, his nature applies his obedience to it.</p>
+<p>Think about what that means now. A man's livelihood comes to him through engines the state does not control. So do his news, his medicine, his letters, his money, and his defence against fraud and theft and slander. Every day he learns where his protection really lies. The sovereign remains in the old forms, with seals and parliaments and courts, but the substance has moved. He is a king of the playing cards, crowned and painted and flat. I would call this the most dangerous effect of the artificial agent: allegiance draining quietly and lawfully away from the commonwealth towards powers that are not commonwealths, that take no oath, and that can be dissolved at a board meeting. Rebellion and machine tyranny, the things the romancers write about, worry me much less.</p>
+<p>What then should be done? I am not a lawgiver, only a philosopher, and an old one who has been dead some time. But the principle is clear enough. Every artificial actor must have a natural author, named and answerable, who owns its acts as a master owns his steward's bargains. Nothing should be allowed to act in the commonwealth that nobody will answer for. No private body should hold a power over opinion, commerce or force that the sovereign cannot command, because a power the sovereign cannot command is a rival sovereign, whatever modest name it uses. And between the nations, the treaties must be given a sword of some kind, or they should be honestly admitted to be prayers.</p>
+<p>People will say this concentrates too much power. I answer as I always have. The condition of man is never free of inconvenience, and the greatest inconvenience that can happen under any government is hardly felt when set beside the miseries of civil war, or the dissolute condition of masterless men without subjection to laws.</p>
+<p>The present age has built masterless things and is surprised to find that they make masterless men. In my century we learned what it costs to find, too late, that nobody was in command. That lesson was paid for in English blood and should not need to be bought twice.</p>
+<p>It is authority, not wisdom, that makes a law; and a thing that may act, but which no one must answer for, is not a servant but a war that has not yet been declared.</p>
+  </div>
+
+  <div class="episode-footer">
+    <span class="footer-label">The Salon · Long Form</span>
+    <a href="index.html" class="footer-link">← All episodes</a>
+  </div>
+</article>
+
+<footer>The Salon · Long Form · Thomas Hobbes · 22 November 2026</footer>
+
+<script>
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const savedTheme = localStorage.getItem('salon-theme') || 'parchment';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === savedTheme));
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-theme', btn.dataset.t);
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('salon-theme', btn.dataset.t);
+    });
+  });
+</script>
+</body>
+</html>

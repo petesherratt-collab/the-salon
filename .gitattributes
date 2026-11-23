@@ -1,0 +1,7 @@
+# Governance documents are hash-anchored (SHA-256, Bitcoin). The published
+# anchor is computed over LF bytes, so these files MUST stay LF in every
+# checkout — otherwise core.autocrlf=true rewrites them to CRLF locally and
+# runtime hash verification fails. Do not change without re-anchoring.
+governance/cads/**       text eol=lf
+governance/sentinels/**  text eol=lf
+governance/anchors.json  text eol=lf
